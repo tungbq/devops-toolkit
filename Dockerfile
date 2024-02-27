@@ -7,8 +7,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 ARG TZ=UTC
 
 # Update and install required packages
-RUN apt-get update && \
-    apt-get install -y \
+RUN apt-get update
+
+RUN apt-get install -y \
     software-properties-common \
     apt-transport-https \
     ca-certificates \
@@ -19,9 +20,6 @@ RUN apt-get update && \
     git \
     jq \
     curl \
-    docker.io \
-    postgresql-client \
-    mysql-client \ 
     # Dev tools
     build-essential \
     zlib1g-dev \

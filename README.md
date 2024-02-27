@@ -37,9 +37,17 @@ Before you begin, make sure you have [Docker](https://docs.docker.com/engine/ins
 
 4. **Run the Docker Image (Optional):**
 
-   ```bash
-   docker run --rm devops-toolkit
-   ```
+- Start container
+
+  ```bash
+  docker run -it --rm devops-toolkit
+  ```
+
+- Check python version
+
+  ```bash
+  docker run --rm devops-toolkit python3 --version
+  ```
 
 <!-- 5. **Customize the Build (Optional):** -->
 

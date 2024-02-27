@@ -15,6 +15,42 @@
 
 Before you begin, make sure you have [Docker](https://docs.docker.com/engine/install/) installed. It's also beneficial to have a basic understanding of Docker concepts.
 
+## How to Build
+
+1. **Clone the Repository:**
+
+   ```bash
+   git clone https://github.com/your-username/devops-toolkit.git
+   ```
+
+2. **Navigate to the Repository:**
+
+   ```bash
+   cd devops-toolkit
+   ```
+
+3. **Navigate to the Repository:**
+
+   ```bash
+   docker build -t devops-toolkit:latest .
+   ```
+
+4. **Run the Docker Image (Optional):**
+
+- Start container
+
+  ```bash
+  docker run -it --rm devops-toolkit
+  ```
+
+- Check python version
+
+  ```bash
+  docker run --rm devops-toolkit python3 --version
+  ```
+
+<!-- 5. **Customize the Build (Optional):** -->
+
 ## Contributing
 
 - See: [CONTRIBUTING.md](./CONTRIBUTING.md)

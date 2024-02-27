@@ -1,0 +1,1 @@
+- https://stackoverflow.com/questions/62154016/docker-on-wsl2-very-slow

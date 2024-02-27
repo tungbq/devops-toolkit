@@ -6,9 +6,10 @@ FROM ubuntu:${UBUNTU_VERSION}
 ARG DEBIAN_FRONTEND=noninteractive
 ARG TZ=UTC
 
-# Update and install required packages
+# Update
 RUN apt-get update
 
+# Install required packages
 RUN apt-get install -y \
     software-properties-common \
     apt-transport-https \

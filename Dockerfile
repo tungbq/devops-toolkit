@@ -37,12 +37,14 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-## Set Python 3.11 as the default python version
+# Set Python version as an argument
+ARG PYTHON_VERSION=3.11.3
+# Install Python with specified version
 RUN mkdir /tmp/python_env/ && \
     cd /tmp/python_env/ && \
-    wget https://www.python.org/ftp/python/3.11.3/Python-3.11.3.tgz && \
-    tar -xf Python-3.11.3.tgz && \
-    cd Python-3.11.3 && \
+    wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz && \
+    tar -xf Python-${PYTHON_VERSION}.tgz && \
+    cd Python-${PYTHON_VERSION} && \
     ./configure --enable-optimizations && \
     make -j$(nproc) && \
     make install && \

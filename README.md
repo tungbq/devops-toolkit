@@ -2,6 +2,11 @@
 
 <p align="center">Container image for an all-in-one DevOps environment with popular tools like Ansible, Terraform, kubectl, AWS CLI, Azure CLI, PostgreSQL client, MySQL client, Git, and more...</p>
 
+<p align="center">
+  <a href="https://img.shields.io/github/last-commit/tungbq/devops-toolkit/main"><img alt="last commit" src="https://img.shields.io/github/last-commit/tungbq/devops-toolkit/main" /></a>
+  <a href="https://github.com/tungbq/devops-toolkit/stargazers"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/tungbq/devops-toolkit"/></a>
+</p>
+
 ## Hit the Star! ⭐
 
 - If you find this repository helpful, kindly consider showing your appreciation by giving it a star ⭐ Thanks! 💖

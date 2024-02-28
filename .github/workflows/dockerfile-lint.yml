@@ -1,0 +1,15 @@
+name: Dockerfile Linter
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Run Dockerfile lint
+      # https://github.com/hadolint/hadolint
+      # TODO: find better alternatives?
+      run: docker run --rm -i hadolint/hadolint < Dockerfile

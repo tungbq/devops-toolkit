@@ -27,7 +27,7 @@ check_tool_version() {
 
   # Iterate through possible version flags
   for flag in "${version_flags[@]}"; do
-    installed_version=$(docker run --rm $image_name $tool_name $flag 2>&1)
+    installed_version=$(docker run --rm "$image_name" "$tool_name" "$flag" 2>&1)
     # Check if the version information is in the output
     if echo "$installed_version" | grep -q "$expected_version"; then
       break

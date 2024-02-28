@@ -51,6 +51,9 @@ Before you begin, make sure you have [Docker](https://docs.docker.com/engine/ins
 
 <!-- 5. **Customize the Build (Optional):** -->
 
+## Use the image from Docker Hub
+- To be implemented
+
 ## Contributing
 
 - See: [CONTRIBUTING.md](./CONTRIBUTING.md)

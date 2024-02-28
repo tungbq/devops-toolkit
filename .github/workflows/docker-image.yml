@@ -7,7 +7,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      TOOLKIT_TAG: devops-toolkit-review:$(date +%s)
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag devops-toolkit-review:$(date +%s)
+      run: docker build . --file Dockerfile --tag $TOOLKIT_TAG
+
+    - name: Verify tool versions
+      run: |
+        cd scripts
+        chmod +x check_version_in_toolkit.sh
+        ./check_version_in_toolkit.sh $TOOLKIT_TAG

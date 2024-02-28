@@ -32,6 +32,7 @@ RUN apt-get install -y \
     libffi-dev \
     libsqlite3-dev \
     wget \
+    unzip \
     libbz2-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -59,6 +60,15 @@ RUN curl -k https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
 # Docs: https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-and-upgrading-ansible-with-pip
 ARG ANSIBLE_VERSION=2.16.4
 RUN python3 -m pip install ansible-core==${ANSIBLE_VERSION}
+
+# Install Terraform
+ARG TERRAFORM_VERSION=1.7.4
+RUN mkdir /tmp/terraform_env/ && \
+    cd /tmp/terraform_env/ && \
+    curl -LO https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
+    unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
+    cp  terraform /usr/local/bin/ && \
+    rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 
 # Cleanup
 RUN apt-get clean && \

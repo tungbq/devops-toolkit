@@ -58,7 +58,7 @@ RUN curl -k https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
 # Install Ansible
 # Docs: https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-and-upgrading-ansible-with-pip
 ARG ANSIBLE_VERSION=2.16.4
-RUN python3 -m pip install --user ansible==${ANSIBLE_VERSION}
+RUN python3 -m pip install --user ansible-core==${ANSIBLE_VERSION}
 
 # Cleanup
 RUN apt-get clean && \

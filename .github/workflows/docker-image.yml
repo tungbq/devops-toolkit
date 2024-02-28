@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      TOOLKIT_IMAGE: devops-toolkit-review:$GITHUB_SHA
+      TOOLKIT_IMAGE: "devops-toolkit-review:$GITHUB_SHA"
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image

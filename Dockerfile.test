@@ -1,0 +1,22 @@
+# Dockerfile.test
+# Use the official Ubuntu 22.04 base image
+ARG UBUNTU_VERSION=22.04
+FROM ubuntu:${UBUNTU_VERSION}
+
+# Install necessary testing dependencies
+RUN apt-get update
+RUN apt-get install -y \
+    python3 \
+    python3-pip
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the entire project into the image
+COPY . /app
+
+# Install test dependencies
+RUN pip3 install -r requirements_test.txt  # If you have a requirements file for tests
+
+# Default command to run tests
+CMD ["pytest"]

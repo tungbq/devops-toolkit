@@ -7,6 +7,7 @@ declare -A tools=(
   [python3]="3.11.3"
   [ansible]="2.16.4"
   [terraform]="1.7.4"
+  [kubectl]="1.29.2"
   # Add more tools as needed
 )
 
@@ -15,11 +16,26 @@ check_tool_version() {
   local tool_name=$1
   local expected_version=$2
   echo "[$tool_name] Checking version..."
-  # Get the installed version
-  installed_version=$(docker run --rm $image_name $tool_name --version)
-  echo "$installed_version"
+
+  # Possible version option flags for different tools
+  local version_flags=(
+    "--version"
+    "version"
+  )
+
+  installed_version=""
+
+  # Iterate through possible version flags
+  for flag in "${version_flags[@]}"; do
+    installed_version=$(docker run --rm $image_name $tool_name $flag 2>&1)
+    # Check if the version information is in the output
+    if echo "$installed_version" | grep -q "$expected_version"; then
+      break
+    fi
+  done
+
   # Compare the installed version with the expected version
-  if [[ "$installed_version" == *"$expected_version"* ]]; then
+  if echo "$installed_version" | grep -q "$expected_version"; then
     echo "[OK] $tool_name version is correct: $installed_version"
   else
     echo "[Error] Incorrect $tool_name version. Expected $expected_version but found $installed_version"

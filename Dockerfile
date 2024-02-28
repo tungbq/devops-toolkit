@@ -61,17 +61,14 @@ RUN curl -k https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
 ARG ANSIBLE_VERSION=2.16.4
 RUN python3 -m pip install ansible-core==${ANSIBLE_VERSION}
 
-# Determine the latest Terraform version
+# Install Terraform
 ARG TERRAFORM_VERSION=1.7.4
 RUN mkdir /tmp/terraform_env/ && \
     cd /tmp/terraform_env/ && \
     curl -LO https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
-    unzip "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
-    cp terraform_${TERRAFORM_VERSION}_linux_amd64/terraform /usr/local/bin/ && \
+    unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
+    cp  terraform /usr/local/bin/ && \
     rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-
-# Display Terraform version to verify installation
-RUN terraform --version
 
 # Cleanup
 RUN apt-get clean && \

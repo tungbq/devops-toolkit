@@ -16,6 +16,7 @@ jobs:
 
     - name: Verify tool versions
       run: |
+        export DOCKER_DEFAULT_PLATFORM=linux/amd64
         cd scripts
         chmod +x check_version_in_toolkit.sh
         ./check_version_in_toolkit.sh "devops-toolkit-review:$GITHUB_SHA"

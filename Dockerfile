@@ -76,8 +76,7 @@ RUN mkdir /tmp/kubectl_env/ && \
     cd /tmp/kubectl_env/ && \
     curl -LO "https://dl.k8s.io/release/v$KUBECTL_VERSION/bin/linux/arm64/kubectl" && \
     chmod +x kubectl && \
-    mkdir -p ~/.local/bin && \
-    mv ./kubectl ~/.local/bin/kubectl
+    mv ./kubectl /usr/local/bin/kubectl
 
 # Cleanup
 RUN apt-get clean && \

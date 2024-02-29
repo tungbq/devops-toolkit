@@ -25,13 +25,13 @@ Before you begin, make sure you have [Docker](https://docs.docker.com/engine/ins
    cd devops-toolkit
    ```
 
-3. **Navigate to the Repository:**
+3. **Build the DevOps toolkit image:**
 
    ```bash
    docker build -t devops-toolkit:latest .
    ```
 
-4. **Run the Docker Image (Optional):**
+4. **Run the toolkit Image:**
 
 - Start container
 

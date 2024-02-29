@@ -36,7 +36,7 @@ jobs:
           ./check_version_in_toolkit.sh "devops-toolkit-merge:$GITHUB_SHA"
 
       - name: Push Docker Image
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        # if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           docker tag "devops-toolkit-merge:$GITHUB_SHA" "tungbq/devops-toolkit:main-${GITHUB_SHA::7}"
           # docker push "tungbq/devops-toolkit:main-${GITHUB_SHA::7}"

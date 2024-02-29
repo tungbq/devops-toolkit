@@ -78,6 +78,15 @@ RUN mkdir /tmp/kubectl_env/ && \
     chmod +x kubectl && \
     mv ./kubectl /usr/local/bin/kubectl
 
+# Install Helm
+ARG HELM_VERSION=3.14.2
+RUN mkdir /tmp/helm_env/ && \
+    cd /tmp/helm_env/ && \
+    curl -LO https://get.helm.sh/helm-v$HELM_VERSION-linux-amd64.tar.gz && \
+    unzip helm-v$HELM_VERSION-linux-amd64.tar.gz && \
+    mv linux-amd64/helm /usr/local/bin/helm && \
+    rm helm-v$HELM_VERSION-linux-amd64.tar.gz
+
 # Cleanup
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*

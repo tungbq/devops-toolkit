@@ -8,6 +8,7 @@ declare -A tools=(
   [ansible]="2.16.4"
   [terraform]="1.7.4"
   [kubectl]="1.29.2"
+  [helm]="3.14.2"
   # Add more tools as needed
 )
 

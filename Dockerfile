@@ -70,6 +70,14 @@ RUN mkdir /tmp/terraform_env/ && \
     cp  terraform /usr/local/bin/ && \
     rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 
+# Install Kubectl
+ARG KUBECTL_VERSION=1.29.2
+RUN mkdir /tmp/kubectl_env/ && \
+    cd /tmp/kubectl_env/ && \
+    curl -LO "https://dl.k8s.io/release/v$KUBECTL_VERSION/bin/linux/amd64/kubectl" && \
+    chmod +x kubectl && \
+    mv ./kubectl /usr/local/bin/kubectl
+
 # Cleanup
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*

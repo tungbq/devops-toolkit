@@ -75,8 +75,9 @@ ARG KUBECTL_VERSION=1.29.2
 RUN mkdir /tmp/kubectl_env/ && \
     cd /tmp/kubectl_env/ && \
     curl -LO "https://dl.k8s.io/release/v$KUBECTL_VERSION/bin/linux/arm64/kubectl" && \
-    install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && \
-    rm kubectl
+    chmod +x kubectl && \
+    mkdir -p ~/.local/bin && \
+    mv ./kubectl ~/.local/bin/kubectl
 
 # Cleanup
 RUN apt-get clean && \

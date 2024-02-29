@@ -2,7 +2,13 @@ name: Docker Image CI
 
 on:
   pull_request:
-    branches: [ "main" ]
+    branches: ['main']
+    paths:
+      - 'Dockerfile'
+      - 'scripts/*'
+      - '.github/workflows/*'
+  push:
+    branches: ['main']
     paths:
       - 'Dockerfile'
       - 'scripts/*'
@@ -12,12 +18,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag "devops-toolkit-review:$GITHUB_SHA"
+      - uses: actions/checkout@v3
 
-    - name: Verify tool versions
-      run: |
-        cd scripts
-        chmod +x check_version_in_toolkit.sh
-        ./check_version_in_toolkit.sh "devops-toolkit-review:$GITHUB_SHA"
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag "devops-toolkit-merge:$GITHUB_SHA"
+
+      - name: Verify tool versions
+        run: |
+          cd scripts
+          chmod +x check_version_in_toolkit.sh
+          ./check_version_in_toolkit.sh "devops-toolkit-merge:$GITHUB_SHA"
+
+      - name: Push Docker Image
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          docker tag "devops-toolkit-merge:$GITHUB_SHA" "tungbq/devops-toolkit:main-${GITHUB_SHA::7}"
+          # docker push "tungbq/devops-toolkit:main-${GITHUB_SHA::7}"

@@ -68,8 +68,9 @@ chmod +x check_version_in_toolkit.sh
 ```
 
 ## Use the official image from Docker Hub
-
-- To be implemented via release proccess
+```bash
+docker pull tungbq/devops-toolkit:latest
+```
 
 ## Use the toolkit image
 

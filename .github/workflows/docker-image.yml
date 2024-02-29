@@ -17,6 +17,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: docker
     steps:
       - uses: actions/checkout@v3
 

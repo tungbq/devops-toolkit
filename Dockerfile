@@ -65,7 +65,7 @@ RUN python3 -m pip install ansible-core==${ANSIBLE_VERSION}
 ARG TERRAFORM_VERSION=1.7.4
 RUN mkdir /tmp/terraform_env/ && \
     cd /tmp/terraform_env/ && \
-    curl -LO https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
+    wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
     cp  terraform /usr/local/bin/ && \
     rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
@@ -82,10 +82,10 @@ RUN mkdir /tmp/kubectl_env/ && \
 ARG HELM_VERSION=3.14.2
 RUN mkdir /tmp/helm_env/ && \
     cd /tmp/helm_env/ && \
-    curl -LO https://get.helm.sh/helm-v$HELM_VERSION-linux-amd64.tar.gz && \
-    unzip helm-v$HELM_VERSION-linux-amd64.tar.gz && \
+    wget https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz && \
+    tar -xvzf helm-v${HELM_VERSION}-linux-amd64.tar.gz && \
     mv linux-amd64/helm /usr/local/bin/helm && \
-    rm helm-v$HELM_VERSION-linux-amd64.tar.gz
+    rm helm-v${HELM_VERSION}-linux-amd64.tar.gz
 
 # Cleanup
 RUN apt-get clean && \

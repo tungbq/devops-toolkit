@@ -16,7 +16,7 @@ Before you begin, make sure you have [Docker](https://docs.docker.com/engine/ins
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/your-username/devops-toolkit.git
+   git clone https://github.com/tungbq/devops-toolkit.git
    ```
 
 2. **Navigate to the Repository:**

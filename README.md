@@ -61,7 +61,9 @@ chmod +x check_version_in_toolkit.sh
 .check_version_in_toolkit.sh devops-toolkit:latest
 ```
 
-## The DevOps Toolkit
+## The DevOps Toolkit Core
+
+Built on `ubuntu:22.04` base image
 
 | Name      | Version                 | Release                                                                                            |
 | :-------- | :---------------------- | :------------------------------------------------------------------------------------------------- |

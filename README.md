@@ -57,7 +57,7 @@ docker build \
   -t devops-toolkit:custom .
 ```
 
-**4. Test the toolkit image: **
+**4. Test the toolkit image:**
 
 - Run below command to verify newly created image
 

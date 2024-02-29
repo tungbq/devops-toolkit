@@ -9,6 +9,7 @@ declare -A tools=(
   [terraform]="1.7.4"
   [kubectl]="1.29.2"
   [helm]="3.14.2"
+  [aws]="2.15.24"
   # Add more tools as needed
 )
 

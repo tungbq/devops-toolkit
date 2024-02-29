@@ -1,6 +1,6 @@
 # Use the official Ubuntu 22.04 base image
 ARG UBUNTU_VERSION=22.04
-FROM --platform=linux/amd64 ubuntu:${UBUNTU_VERSION}
+FROM ubuntu:${UBUNTU_VERSION}
 
 # Set environment variables to avoid interactive installation prompts
 ARG DEBIAN_FRONTEND=noninteractive

@@ -11,7 +11,7 @@
 
 Before you begin, make sure you have [Docker](https://docs.docker.com/engine/install/) installed. It's also beneficial to have a basic understanding of Docker concepts.
 
-## How to Build
+## Build your own image
 
 **1. Clone the Repository:**
 
@@ -55,7 +55,23 @@ docker build \
   -t devops-toolkit:custom .
 ```
 
-**4. Run the toolkit image:**
+**4. Test the toolkit image: **
+
+- Run below command to verify newly created image
+
+```bash
+cd scripts
+chmod +x check_version_in_toolkit.sh
+.check_version_in_toolkit.sh devops-toolkit:latest
+```
+
+## Use the official image from Docker Hub
+
+- To be implemented via release proccess
+
+## Use the toolkit image
+
+One we have the image ready, let's play with it!
 
 - Start toolkit container
 
@@ -73,22 +89,6 @@ docker run --rm devops-toolkit:latest python3 --version
 
 ```bash
 docker run --rm devops-toolkit:latest python3 --version
-```
-
-<!-- **5. Customize the Build (Optional):** -->
-
-## Use the image from Docker Hub
-
-- To be implemented
-
-## Test the toolkit image
-
-Run below command to verify newly created image
-
-```bash
-cd scripts
-chmod +x check_version_in_toolkit.sh
-.check_version_in_toolkit.sh devops-toolkit:latest
 ```
 
 ## The DevOps Toolkit Core

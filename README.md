@@ -27,19 +27,49 @@ cd devops-toolkit
 
 **3. Build the DevOps toolkit image:**
 
+- Build with the default versions
+
 ```bash
 docker build -t devops-toolkit:latest .
 ```
 
-**4. Run the toolkit Image:**
+- Build with single custom version
 
-- Start container
+```bash
+docker build \
+  --build-arg TERRAFORM_VERSION=1.7.0 \
+  -t devops-toolkit:custom .
+```
+
+- Build with multiple custom versions
+
+```bash
+docker build \
+  --build-arg UBUNTU_VERSION=22.04 \
+  --build-arg PYTHON_VERSION=3.11.3 \
+  --build-arg ANSIBLE_VERSION=2.16.3 \
+  --build-arg TERRAFORM_VERSION=1.7.0 \
+  --build-arg KUBECTL_VERSION=1.29.2 \
+  --build-arg HELM_VERSION=3.14.2 \
+  --build-arg AWSCLI_VERSION=2.15.24 \
+  -t devops-toolkit:custom .
+```
+
+**4. Run the toolkit image:**
+
+- Start toolkit container
 
 ```bash
 docker run -it --rm devops-toolkit:latest
 ```
 
-- Check python version
+- Run python command to check version
+
+```bash
+docker run --rm devops-toolkit:latest python3 --version
+```
+
+- Run ansible command to check version
 
 ```bash
 docker run --rm devops-toolkit:latest python3 --version
@@ -51,7 +81,7 @@ docker run --rm devops-toolkit:latest python3 --version
 
 - To be implemented
 
-## Test the image
+## Test the toolkit image
 
 Run below command to verify newly created image
 
@@ -73,6 +103,8 @@ Built on `ubuntu:22.04` base image
 | Kubectl   | KUBECTL_VERSION=1.29.2  | [Check](https://dl.k8s.io/release/stable.txt)                                                      |
 | Helm      | HELM_VERSION=3.14.2     | [Check](https://github.com/helm/helm/releases)                                                     |
 | Awscli    | AWSCLI_VERSION=2.15.24  | [Check](https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst)                            |
+
+And more tools to be implemented...
 
 ## Contributing
 

@@ -36,13 +36,13 @@ Before you begin, make sure you have [Docker](https://docs.docker.com/engine/ins
 - Start container
 
   ```bash
-  docker run -it --rm devops-toolkit
+  docker run -it --rm devops-toolkit:latest
   ```
 
 - Check python version
 
   ```bash
-  docker run --rm devops-toolkit python3 --version
+  docker run --rm devops-toolkit:latest python3 --version
   ```
 
 <!-- . **Customize the Build (Optional):** -->
@@ -51,11 +51,10 @@ Before you begin, make sure you have [Docker](https://docs.docker.com/engine/ins
 - To be implemented
 
 ## Test the image
-- Run
 ```bash
 cd scripts
 chmod +x check_version_in_toolkit.sh
-.check_version_in_toolkit.sh devops-toolkit
+.check_version_in_toolkit.sh devops-toolkit:latest
 ```
 
 ## Contributing

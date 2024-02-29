@@ -45,10 +45,18 @@ Before you begin, make sure you have [Docker](https://docs.docker.com/engine/ins
   docker run --rm devops-toolkit python3 --version
   ```
 
-<!-- 5. **Customize the Build (Optional):** -->
+<!-- . **Customize the Build (Optional):** -->
 
 ## Use the image from Docker Hub
 - To be implemented
+
+## Test the image
+- Run
+```bash
+cd scripts
+chmod +x check_version_in_toolkit.sh
+.check_version_in_toolkit.sh devops-toolkit
+```
 
 ## Contributing
 

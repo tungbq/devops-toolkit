@@ -87,6 +87,15 @@ RUN mkdir /tmp/helm_env/ && \
     mv linux-amd64/helm /usr/local/bin/helm && \
     rm helm-v${HELM_VERSION}-linux-amd64.tar.gz
 
+# Install AwsCLI
+ARG AWSCLI_VERSION=2.15.24
+RUN mkdir /tmp/awscli_env/ && \
+    cd /tmp/awscli_env/ && \
+    wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip" && \
+    unzip awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip && \
+    ./aws/install && \
+    rm awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip
+
 # Cleanup
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*

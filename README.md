@@ -33,14 +33,22 @@ cd devops-toolkit
 docker build -t devops-toolkit:latest .
 ```
 
-- Build with custom versions
+- Build with single custom version
+
+```bash
+docker build \
+  --build-arg TERRAFORM_VERSION=1.7.0 \
+  -t devops-toolkit:custom .
+```
+
+- Build with multiple custom versions
 
 ```bash
 docker build \
   --build-arg UBUNTU_VERSION=22.04 \
   --build-arg PYTHON_VERSION=3.11.3 \
   --build-arg ANSIBLE_VERSION=2.16.3 \
-  --build-arg TERRAFORM_VERSION=1.7.3 \
+  --build-arg TERRAFORM_VERSION=1.7.0 \
   --build-arg KUBECTL_VERSION=1.29.2 \
   --build-arg HELM_VERSION=3.14.2 \
   --build-arg AWSCLI_VERSION=2.15.24 \

@@ -13,6 +13,8 @@ on:
       - 'Dockerfile'
       - 'scripts/*'
       - '.github/workflows/*'
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -38,5 +40,7 @@ jobs:
       - name: Push Docker Image
         # if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
-          docker tag "devops-toolkit-merge:$GITHUB_SHA" "tungbq/devops-toolkit:main-${GITHUB_SHA::7}"
-          # docker push "tungbq/devops-toolkit:main-${GITHUB_SHA::7}"
+          SHA7=${GITHUB_SHA::7}
+          docker tag "devops-toolkit-merge:$GITHUB_SHA" "tungbq/devops-toolkit:main-$SHA7"
+          docker images
+          # docker push "tungbq/devops-toolkit:main-$SHA7"

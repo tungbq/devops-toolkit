@@ -13,7 +13,7 @@ Before you begin, make sure you have [Docker](https://docs.docker.com/engine/ins
 
 ## Build your own image
 
-NOTE: If you'd refer using the official prebuilt docker image from DockerHub, you can skip this section!
+_NOTE:_ If you'd refer using the official prebuilt docker image from DockerHub, you can skip this section!
 
 **1. Clone the Repository:**
 

@@ -74,7 +74,7 @@ RUN apt-get install -y \
 ARG KUBECTL_VERSION=1.29.2
 RUN mkdir /tmp/kubectl_env/ && \
     cd /tmp/kubectl_env/ && \
-    curl -LO "https://dl.k8s.io/release/v$KUBECTL_VERSION/bin/linux/arm64/kubectl" && \
+    curl -LO "https://dl.k8s.io/release/v$KUBECTL_VERSION/bin/linux/amd64/kubectl" && \
     chmod +x kubectl && \
     mv ./kubectl /usr/local/bin/kubectl
 

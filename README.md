@@ -13,39 +13,33 @@ Before you begin, make sure you have [Docker](https://docs.docker.com/engine/ins
 
 ## How to Build
 
-1. **Clone the Repository:**
+**1. Clone the Repository:**
+ ```bash
+ git clone https://github.com/tungbq/devops-toolkit.git
+ ```
 
-   ```bash
-   git clone https://github.com/tungbq/devops-toolkit.git
-   ```
+**2. Navigate to the Repository:**
+ ```bash
+ cd devops-toolkit
+ ```
 
-2. **Navigate to the Repository:**
+**3. Build the DevOps toolkit image:**
 
-   ```bash
-   cd devops-toolkit
-   ```
+ ```bash
+ docker build -t devops-toolkit:latest .
+ ```
 
-3. **Build the DevOps toolkit image:**
-
-   ```bash
-   docker build -t devops-toolkit:latest .
-   ```
-
-4. **Run the toolkit Image:**
-
+**4. Run the toolkit Image:**
 - Start container
-
-  ```bash
-  docker run -it --rm devops-toolkit:latest
-  ```
-
+```bash
+docker run -it --rm devops-toolkit:latest
+```
 - Check python version
+```bash
+docker run --rm devops-toolkit:latest python3 --version
+```
 
-  ```bash
-  docker run --rm devops-toolkit:latest python3 --version
-  ```
-
-<!-- . **Customize the Build (Optional):** -->
+<!-- **5. Customize the Build (Optional):** -->
 
 ## Use the image from Docker Hub
 - To be implemented

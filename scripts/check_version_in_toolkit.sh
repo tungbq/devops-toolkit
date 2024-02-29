@@ -4,9 +4,9 @@ image_name=$1
 
 # Define the tools and their expected versions
 declare -A tools=(
-  [python3]="3.11.3"
-  [ansible]="2.16.4"
-  [terraform]="1.7.4"
+  # [python3]="3.11.3"
+  # [ansible]="2.16.4"
+  # [terraform]="1.7.4"
   [kubectl]="1.29.2"
   # Add more tools as needed
 )

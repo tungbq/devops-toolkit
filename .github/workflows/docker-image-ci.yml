@@ -1,6 +1,12 @@
-name: Docker Image Main
+name: Docker Image CI
 
 on:
+  pull_request:
+    branches: ['main']
+    paths:
+      - 'Dockerfile'
+      - 'scripts/*'
+      - '.github/workflows/*'
   push:
     branches: ['main']
     paths:
@@ -23,8 +29,6 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          SHA7=${GITHUB_SHA::7}
-          echo $SHA7
           docker build . --file Dockerfile --tag "devops-toolkit-merge:$GITHUB_SHA"
 
       - name: Verify tool versions
@@ -34,6 +38,7 @@ jobs:
           ./check_version_in_toolkit.sh "devops-toolkit-merge:$GITHUB_SHA"
 
       - name: Push Docker Image
+        # if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           SHA7=${GITHUB_SHA::7}
           docker tag "devops-toolkit-merge:$GITHUB_SHA" "tungbq/devops-toolkit:main-$SHA7"

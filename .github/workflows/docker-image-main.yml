@@ -2,7 +2,7 @@ name: Docker Image Main
 
 on:
   push:
-    branches: ['main']
+    branches: main
     paths:
       - 'Dockerfile'
       - 'scripts/*'

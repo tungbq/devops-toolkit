@@ -24,11 +24,3 @@ jobs:
           cd scripts
           chmod +x check_version_in_toolkit.sh
           ./check_version_in_toolkit.sh "devops-toolkit-merge:$GITHUB_SHA"
-
-      - name: Push Docker Image
-        # if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          SHA7=${GITHUB_SHA::7}
-          docker tag "devops-toolkit-merge:$GITHUB_SHA" "tungbq/devops-toolkit:main-$SHA7"
-          docker images
-          # docker push "tungbq/devops-toolkit:main-$SHA7"

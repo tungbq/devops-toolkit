@@ -9,7 +9,7 @@ on:
       - '.github/workflows/*'
 
 jobs:
-  build:
+  buildandpush:
     runs-on: ubuntu-latest
     # Docs: https://docs.github.com/en/actions/deployment/about-deployments/deploying-with-github-actions
     environment: dockerhub
@@ -25,8 +25,6 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          SHA7=${GITHUB_SHA::7}
-          echo $SHA7
           docker build . --file Dockerfile --tag "devops-toolkit-merge:$GITHUB_SHA"
 
       - name: Verify tool versions
@@ -39,5 +37,9 @@ jobs:
         run: |
           SHA7=${GITHUB_SHA::7}
           docker tag "devops-toolkit-merge:$GITHUB_SHA" "tungbq/devops-toolkit:main-$SHA7"
+          docker tag "devops-toolkit-merge:$GITHUB_SHA" "tungbq/devops-toolkit:latest"
           docker images
-          # docker push "tungbq/devops-toolkit:main-$SHA7"
+          echo "Push image with SHA"
+          docker push "tungbq/devops-toolkit:main-$SHA7"
+          echo "Push latest image"
+          docker push "tungbq/devops-toolkit:latest"

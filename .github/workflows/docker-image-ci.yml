@@ -7,12 +7,6 @@ on:
       - 'Dockerfile'
       - 'scripts/*'
       - '.github/workflows/*'
-  push:
-    branches: ['main']
-    paths:
-      - 'Dockerfile'
-      - 'scripts/*'
-      - '.github/workflows/*'
 
 jobs:
   build:

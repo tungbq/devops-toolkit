@@ -13,7 +13,6 @@ on:
       - 'Dockerfile'
       - 'scripts/*'
       - '.github/workflows/*'
-permissions: read-all
 
 jobs:
   build:

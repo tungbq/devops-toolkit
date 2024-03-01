@@ -1,0 +1,43 @@
+name: Docker Image Main
+
+on:
+  push:
+    branches: main
+    paths:
+      - 'Dockerfile'
+      - 'scripts/*'
+      - '.github/workflows/*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # Docs: https://docs.github.com/en/actions/deployment/about-deployments/deploying-with-github-actions
+    environment: dockerhub
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build the Docker image
+        run: |
+          SHA7=${GITHUB_SHA::7}
+          echo $SHA7
+          docker build . --file Dockerfile --tag "devops-toolkit-merge:$GITHUB_SHA"
+
+      - name: Verify tool versions
+        run: |
+          cd scripts
+          chmod +x check_version_in_toolkit.sh
+          ./check_version_in_toolkit.sh "devops-toolkit-merge:$GITHUB_SHA"
+
+      - name: Push Docker Image
+        run: |
+          SHA7=${GITHUB_SHA::7}
+          docker tag "devops-toolkit-merge:$GITHUB_SHA" "tungbq/devops-toolkit:main-$SHA7"
+          docker images
+          # docker push "tungbq/devops-toolkit:main-$SHA7"

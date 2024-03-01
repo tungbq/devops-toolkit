@@ -17,6 +17,8 @@ jobs:
 
       - name: Build the Docker image
         run: |
+          SHA7=${GITHUB_SHA::7}
+          echo $SHA7
           docker build . --file Dockerfile --tag "devops-toolkit-merge:$GITHUB_SHA"
 
       - name: Verify tool versions

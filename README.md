@@ -4,6 +4,8 @@
 
 <p align="center">
   <a href="https://img.shields.io/github/last-commit/tungbq/devops-toolkit/main"><img alt="last commit" src="https://img.shields.io/github/last-commit/tungbq/devops-toolkit/main" /></a>
+  <a href="[https://github.com/tungbq/devops-toolkit/stargazers](https://github.com/tungbq/devops-toolkit/actions/workflows/docker-image-main.yml/badge.svg)">
+     <img alt="Docker main" src="https://github.com/tungbq/devops-toolkit/actions/workflows/docker-image-main.yml/badge.svg"/></a>
   <a href="https://github.com/tungbq/devops-toolkit/stargazers"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/tungbq/devops-toolkit"/></a>
 </p>
 

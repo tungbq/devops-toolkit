@@ -1,12 +1,14 @@
 name: Docker Image Main
 
 on:
-  push:
-    branches: main
-    paths:
-      - 'Dockerfile'
-      - 'scripts/*'
-      - '.github/workflows/*'
+  workflow_dispatch:
+  ## TODO: Implement the auto push later, manual release latest image for now
+  # push:
+  #   branches: main
+  #   paths:
+  #     - 'Dockerfile'
+  #     - 'scripts/*'
+  #     - '.github/workflows/*'
 
 jobs:
   buildandpush:

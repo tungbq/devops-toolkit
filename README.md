@@ -93,7 +93,7 @@ docker run --rm devops-toolkit:latest python3 --version
 - Run ansible command to check version
 
 ```bash
-docker run --rm devops-toolkit:latest python3 --version
+docker run --rm devops-toolkit:latest ansible --version
 ```
 
 ## The DevOps Toolkit Core

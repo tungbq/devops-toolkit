@@ -97,7 +97,7 @@ RUN mkdir /tmp/awscli_env/ && \
     rm awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip
 
 # Install AzureCLI
-ARG AZ_VER=2.57.0
+ARG AZURECLI_VERSION=2.57.0
 RUN mkdir -p /etc/apt/keyrings && \
     curl -sLS https://packages.microsoft.com/keys/microsoft.asc | \
     gpg --dearmor | \

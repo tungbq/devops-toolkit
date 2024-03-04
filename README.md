@@ -70,6 +70,7 @@ chmod +x check_version_in_toolkit.sh
 ```
 
 ## Use the official image from Docker Hub
+
 ```bash
 docker pull tungbq/devops-toolkit:latest
 ```
@@ -107,7 +108,8 @@ Built on `ubuntu:22.04` base image
 | Terraform | TERRAFORM_VERSION=1.7.4 | [Check](https://releases.hashicorp.com/terraform/)                                                 |
 | Kubectl   | KUBECTL_VERSION=1.29.2  | [Check](https://dl.k8s.io/release/stable.txt)                                                      |
 | Helm      | HELM_VERSION=3.14.2     | [Check](https://github.com/helm/helm/releases)                                                     |
-| Awscli    | AWSCLI_VERSION=2.15.24  | [Check](https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst)                            |
+| AwsCLI    | AWSCLI_VERSION=2.15.24  | [Check](https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst)                            |
+| AzureCLI  | AZURECLI_VERSION=2.57.0 | [Check](https://learn.microsoft.com/en-us/cli/azure/release-notes-azure-cli)                       |
 
 And more tools to be implemented...
 

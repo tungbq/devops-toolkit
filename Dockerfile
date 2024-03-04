@@ -96,6 +96,20 @@ RUN mkdir /tmp/awscli_env/ && \
     ./aws/install && \
     rm awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip
 
+# Install AzureCLI
+ARG AZ_VER=2.57.0
+RUN mkdir -p /etc/apt/keyrings && \
+    curl -sLS https://packages.microsoft.com/keys/microsoft.asc | \
+    gpg --dearmor | \
+    tee /etc/apt/keyrings/microsoft.gpg > /dev/null && \
+    chmod go+r /etc/apt/keyrings/microsoft.gpg && \
+    AZ_DIST=$(lsb_release -cs) && \
+    echo "deb [arch=`dpkg --print-architecture` signed-by=/etc/apt/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/azure-cli/ $AZ_DIST main" | \
+    tee /etc/apt/sources.list.d/azure-cli.list && \
+    apt-get update && \
+    # Install a specific version
+    apt-get install azure-cli=$AZ_VER-1~$AZ_DIST
+
 # Cleanup
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*

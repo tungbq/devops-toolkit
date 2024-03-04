@@ -10,6 +10,7 @@ declare -A tools=(
   [kubectl]="1.29.2"
   [helm]="3.14.2"
   [aws]="2.15.24"
+  [az]="2.57.0"
   # Add more tools as needed
 )
 

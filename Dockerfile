@@ -108,7 +108,7 @@ RUN mkdir -p /etc/apt/keyrings && \
     tee /etc/apt/sources.list.d/azure-cli.list && \
     apt-get update && \
     # Install a specific version
-    apt-get install azure-cli=$AZ_VER-1~$AZ_DIST
+    apt-get install azure-cli=$AZURECLI_VERSION-1~$AZ_DIST
 
 # Cleanup
 RUN apt-get clean && \

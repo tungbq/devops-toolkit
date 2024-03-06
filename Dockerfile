@@ -38,7 +38,7 @@ RUN apt-get install -y \
     rm -rf /var/lib/apt/lists/*
 
 # Set Python version as an argument
-ARG PYTHON_VERSION=3.11.3
+ARG PYTHON_VERSION=3.11.8
 # Install Python with specified version
 RUN mkdir /tmp/python_env/ && \
     cd /tmp/python_env/ && \
@@ -88,7 +88,7 @@ RUN mkdir /tmp/helm_env/ && \
     rm helm-v${HELM_VERSION}-linux-amd64.tar.gz
 
 # Install AwsCLI
-ARG AWSCLI_VERSION=2.15.24
+ARG AWSCLI_VERSION=2.15.25
 RUN mkdir /tmp/awscli_env/ && \
     cd /tmp/awscli_env/ && \
     wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip" && \
@@ -97,7 +97,7 @@ RUN mkdir /tmp/awscli_env/ && \
     rm awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip
 
 # Install AzureCLI
-ARG AZURECLI_VERSION=2.57.0
+ARG AZURECLI_VERSION=2.58.0
 RUN mkdir -p /etc/apt/keyrings && \
     curl -sLS https://packages.microsoft.com/keys/microsoft.asc | \
     gpg --dearmor | \

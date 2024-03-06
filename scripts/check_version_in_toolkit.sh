@@ -4,13 +4,13 @@ image_name=$1
 
 # Define the tools and their expected versions
 declare -A tools=(
-  [python3]="3.11.3"
+  [python3]="3.11.8"
   [ansible]="2.16.4"
   [terraform]="1.7.4"
   [kubectl]="1.29.2"
   [helm]="3.14.2"
-  [aws]="2.15.24"
-  [az]="2.57.0"
+  [aws]="2.15.25"
+  [az]="2.58.0"
   # Add more tools as needed
 )
 

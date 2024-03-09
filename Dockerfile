@@ -38,7 +38,7 @@ RUN apt-get install -y \
     rm -rf /var/lib/apt/lists/*
 
 # Set Python version as an argument
-ARG PYTHON_VERSION=3.11.8
+ARG PYTHON_VERSION=3.12.2
 # Install Python with specified version
 RUN mkdir /tmp/python_env/ && \
     cd /tmp/python_env/ && \
@@ -88,7 +88,7 @@ RUN mkdir /tmp/helm_env/ && \
     rm helm-v${HELM_VERSION}-linux-amd64.tar.gz
 
 # Install AwsCLI
-ARG AWSCLI_VERSION=2.15.25
+ARG AWSCLI_VERSION=2.15.27
 RUN mkdir /tmp/awscli_env/ && \
     cd /tmp/awscli_env/ && \
     wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip" && \

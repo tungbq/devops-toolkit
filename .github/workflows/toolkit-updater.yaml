@@ -35,7 +35,7 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: 'core: Update tool versions'
+          commit-message: 'core: update tool versions'
           committer: 'github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>'
           author: '${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>'
           signoff: false
@@ -43,7 +43,7 @@ jobs:
           branch-suffix: timestamp
           delete-branch: true
           base: 'main'
-          title: 'core: Update tool versions'
+          title: 'core: update tool versions'
           body: |
             core: update tool versions
             - Updated latest tool versions with *today's* date

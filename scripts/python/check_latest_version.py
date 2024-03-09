@@ -13,8 +13,7 @@ class VersionParser:
             response.raise_for_status()
             return response.text
         except requests.exceptions.RequestException as e:
-            print(f"Error fetching HTML from {url}: {e}")
-            return None
+            raise Exception(f"Error fetching HTML from {url}: {e}")
 
     def do_http_request(self, url):
         try:
@@ -22,8 +21,7 @@ class VersionParser:
             response.raise_for_status()
             return response.json()
         except requests.exceptions.RequestException as e:
-            print(f"Error fetching data from {url}: {e}")
-            return None
+            raise Exception(f"Error fetching data from {url}: {e}")
 
     def check_version(self, name, url, pattern):
         latest_version = None
@@ -34,8 +32,8 @@ class VersionParser:
             latest_version = match.group(1)
             print(f"Latest version of {name}: {latest_version}")
         else:
-            print(f"Version number not found for {name}.")
-
+            raise Exception(f"Version number not found for {name}.")
+        
         return latest_version
 
     def check_python_version(self):
@@ -64,37 +62,41 @@ def main():
     versions = {}
     version_parser = VersionParser()
 
-    # Python
-    python_version = version_parser.check_python_version()
-    versions["python3"] = python_version
+    try:
+        # Python
+        python_version = version_parser.check_python_version()
+        versions["python3"] = python_version
 
-    # Ansible
-    ansible_version = version_parser.check_github_release_version("Ansible", "ansible/ansible")
-    versions["ansible"] = ansible_version
+        # Ansible
+        ansible_version = version_parser.check_github_release_version("Ansible", "ansible/ansible")
+        versions["ansible"] = ansible_version
 
-    # Terraform
-    terraform_version = version_parser.check_github_release_version("Terraform", "hashicorp/terraform")
-    versions["terraform"] = terraform_version
+        # Terraform
+        terraform_version = version_parser.check_github_release_version("Terraform", "hashicorp/terraform")
+        versions["terraform"] = terraform_version
 
-    # Kubectl
-    kubectl_version = version_parser.check_kubectl_version()
-    versions["kubectl"] = kubectl_version
+        # Kubectl
+        kubectl_version = version_parser.check_kubectl_version()
+        versions["kubectl"] = kubectl_version
 
-    # Helm
-    helm_version = version_parser.check_github_release_version("Helm", "helm/helm")
-    versions["helm"] = helm_version
+        # Helm
+        helm_version = version_parser.check_github_release_version("Helm", "helm/helm")
+        versions["helm"] = helm_version
 
-    # Awscli
-    awscli_version = version_parser.check_awscli_version()
-    versions["awscli"] = awscli_version
+        # Awscli
+        awscli_version = version_parser.check_awscli_version()
+        versions["awscli"] = awscli_version
 
-    # AZ CLi
-    azcli_version = version_parser.check_github_release_version("Azure CLI", "Azure/azure-cli", "azure-cli-")
-    versions["azurecli"] = azcli_version
+        # AZ CLi
+        azcli_version = version_parser.check_github_release_version("Azure CLI", "Azure/azure-cli", "azure-cli-")
+        versions["azurecli"] = azcli_version
 
-    # Summary
-    print("Summary:")
-    print(versions)
+        # Summary
+        print("Summary:")
+        print(versions)
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 if __name__ == "__main__":
     main()

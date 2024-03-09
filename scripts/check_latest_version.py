@@ -1,5 +1,6 @@
 import requests
 import re
+import json
 
 class VersionParser:
     def __init__(self):
@@ -93,6 +94,12 @@ def main():
         # Summary
         print("Summary:")
         print(versions)
+
+        ## TODO: implement auto workflow
+        # # Write version data to 'toolkit_info.json'
+        # with open('toolkit_info.json', 'w') as json_file:
+        #     json.dump(versions, json_file, indent=2)
+        # print("Version data written to 'toolkit_info.json'")
 
     except Exception as e:
         print(f"An error occurred: {e}")

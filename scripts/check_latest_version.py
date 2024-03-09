@@ -1,6 +1,7 @@
 import requests
 import re
 import json
+import argparse
 
 class VersionParser:
     def __init__(self):
@@ -58,7 +59,7 @@ class VersionParser:
         print(f"Latest version of {name}: {latest_version}")
         return latest_version
 
-def main():
+def main(output_file):
     versions = {}
     version_parser = VersionParser()
 
@@ -96,13 +97,16 @@ def main():
         print(versions)
 
         ## TODO: implement auto workflow
-        # # Write version data to 'toolkit_info.json'
-        # with open('toolkit_info.json', 'w') as json_file:
-        #     json.dump(versions, json_file, indent=2)
-        # print("Version data written to 'toolkit_info.json'")
-
+        # Write version data to the specified output file
+        with open(output_file, 'w') as json_file:
+            json.dump(versions, json_file, indent=2)
+        print(f"Version data written to '{output_file}'")
     except Exception as e:
         print(f"An error occurred: {e}")
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Parse toolkit versions and write to a JSON file.")
+    parser.add_argument("output_file", help="Path to the output JSON file")
+
+    args = parser.parse_args()
+    main(args.output_file)

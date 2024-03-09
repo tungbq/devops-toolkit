@@ -24,13 +24,13 @@ echo "azurecli_version=$azurecli_version"
 
 # Define the tools and their expected versions
 declare -A tools=(
-  [python3]=python_version
-  [ansible]=ansible_version
-  [terraform]=terraform_version
-  [kubectl]=kubectl_version
-  [helm]=helm_version
-  [aws]=awscli_version
-  [az]=azurecli_version
+  [python3]="$python_version"
+  [ansible]="$ansible_version"
+  [terraform]="$terraform_version"
+  [kubectl]="$kubectl_ve"rsion
+  [helm]="$helm_version"
+  [aws]="$awscli_version"
+  [az]="$azurecli_version"
   # Add more tools as needed
 )
 

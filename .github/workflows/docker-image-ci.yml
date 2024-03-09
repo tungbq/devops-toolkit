@@ -25,4 +25,4 @@ jobs:
         run: |
           cd scripts
           chmod +x check_version_in_toolkit.sh
-          ./check_version_in_toolkit.sh "devops-toolkit-review:$GITHUB_SHA"
+          ./check_version_in_toolkit.sh "devops-toolkit-review:$GITHUB_SHA" "../toolkit_info.json"

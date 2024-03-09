@@ -1,12 +1,9 @@
-name: Update Versions
+name: Update Toolkit
 
 on:
   schedule:
     - cron: '0 0 * * 1' # Run every Monday at midnight
   workflow_dispatch:
-  # Just for test, todo: remove and only run schedule
-  pull_request:
-    branches: ['main']
 
 jobs:
   update-versions:
@@ -24,7 +21,8 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -r script_requirements.txt  # Dependencies for python script under 'scripts'
+          # Dependencies for python script under 'scripts'
+          python -m pip install -r script_requirements.txt
 
       - name: Get Latest Version
         run: python scripts/check_latest_version.py "./toolkit_info.json"

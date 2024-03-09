@@ -51,8 +51,7 @@ class VersionParser:
         return self.check_version("awscli", "https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst", version_pattern)
 
     def check_github_release_version(self, name, repo, tag_prefix="v"):
-        print(f"Checking {name} version from repo {repo}")
-        print(f"Tag prefix: {tag_prefix}")
+        print(f"Checking {name} version from repo {repo} using tag prefix: {tag_prefix}")
         latest_version = None
         req = self.do_http_request(f"https://api.github.com/repos/{repo}/releases/latest")
         latest_tag_name = req["tag_name"]

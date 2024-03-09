@@ -32,13 +32,6 @@ jobs:
       - name: Update Version
         run: python scripts/update_latest_version.py "./toolkit_info.json" "./Dockerfile" "./README.md"
 
-      # - name: Commit and Push Changes
-      #   run: |
-      #     git config --global user.name "GitHub Actions"
-      #     git add .
-      #     git diff --quiet && git diff --staged --quiet
-      #     # git commit -m "core: update tool versions"
-
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v6

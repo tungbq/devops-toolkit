@@ -49,6 +49,7 @@ jobs:
           author: '${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>'
           signoff: false
           delete-branch: true
+          base: 'main'
           title: 'core: Update tool versions'
           body: |
             core: update tool versions

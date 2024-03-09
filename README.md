@@ -66,7 +66,7 @@ docker build \
 ```bash
 cd scripts
 chmod +x check_version_in_toolkit.sh
-.check_version_in_toolkit.sh devops-toolkit:latest
+./check_version_in_toolkit.sh devops-toolkit:latest ./toolkit_info.json
 ```
 
 ## Use the official image from Docker Hub

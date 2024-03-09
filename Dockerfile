@@ -51,9 +51,9 @@ RUN mkdir /tmp/python_env/ && \
     cd / && \
     rm -rf /tmp/python_env/
 
-# Install pip for Python 3.11
+# Install pip for Python 3.12
 RUN curl -k https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
-    python3.11 get-pip.py && \
+    python3.12 get-pip.py && \
     rm get-pip.py
 
 # Install Ansible

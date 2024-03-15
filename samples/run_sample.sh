@@ -7,7 +7,7 @@ NC='\033[0m'       # No color (reset)
 # Function to log messages with INFO prefix in green color
 console_log() {
   message=$1
-  echo -e "${GREEN}[INFO]${NC} $message"
+  echo -e "${GREEN}[INFO] $message ${NC}"
 }
 
 ###########

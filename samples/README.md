@@ -39,3 +39,19 @@ terraform apply
 terraform destroy
 popd
 ```
+
+## Kubectl
+
+- TODO
+
+## Helm
+
+- TODO
+
+## AwsCLI
+
+- TODO
+
+## AzureCLI
+
+- TODO

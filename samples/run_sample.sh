@@ -31,3 +31,17 @@ terraform init
 terraform apply -auto-approve
 terraform destroy -auto-approve
 popd || exit
+
+###########
+# Kubectl
+###########
+console_log "Running Kubectl sample: check version"
+kubectl version
+
+###########
+# Helm
+###########
+console_log "Running Helm sample: add and search"
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm search repo bitnami | grep jenkins
+

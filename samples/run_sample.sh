@@ -1,8 +1,13 @@
 #!/bin/bash
 
-# Function to log messages with INFO prefix
+# Define color variables
+GREEN='\033[0;32m' # Green color
+NC='\033[0m'       # No color (reset)
+
+# Function to log messages with INFO prefix in green color
 console_log() {
-  echo "[INFO] $1"
+  message=$1
+  echo -e "${GREEN}[INFO]${NC} $message"
 }
 
 ###########

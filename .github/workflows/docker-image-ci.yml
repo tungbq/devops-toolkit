@@ -28,7 +28,7 @@ jobs:
           chmod +x check_version_in_toolkit.sh
           ./check_version_in_toolkit.sh "devops-toolkit-review:$GITHUB_SHA" "../toolkit_info.json"
 
-      - name: Running Sample Tool Code Inside the Toolkit
+      - name: Running Sample Tool Code
         run: |
           echo "Run sample tool code inside toolkit"
           devops-toolkit-review:$GITHUB_SHA samples/run_sample.sh

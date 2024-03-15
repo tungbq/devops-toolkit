@@ -115,7 +115,7 @@ RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Adding tooling samples
-COPY samples/ /root
+COPY samples/ /root/samples/
 RUN ls -la /root
 
 # Reset environment variables

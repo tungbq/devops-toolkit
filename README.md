@@ -98,6 +98,12 @@ docker run --rm devops-toolkit:latest python3 --version
 docker run --rm devops-toolkit:latest ansible --version
 ```
 
+## Run tooling with samples code in toolkit
+
+```bash
+docker run --rm devops-toolkit:latest samples/run_sample.sh
+```
+
 ## The DevOps Toolkit Core
 
 Built on `ubuntu:22.04` base image

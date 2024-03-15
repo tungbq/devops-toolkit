@@ -9,6 +9,9 @@ def calculate_rectangle_area(length, width):
     Returns:
     - float: The calculated area of the rectangle.
     """
+    print("Length:", length)
+    print("Width:", width)
+
     area = length * width
     return area
 

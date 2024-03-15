@@ -114,6 +114,10 @@ RUN mkdir -p /etc/apt/keyrings && \
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# Adding tooling samples
+COPY samples/ /root
+RUN ls -la /root
+
 # Reset environment variables
 ENV DEBIAN_FRONTEND teletype
 ENV TZ=""

@@ -120,7 +120,7 @@ WORKDIR /root
 
 # Adding tooling samples
 COPY samples/ /root/samples/
-RUN ls -la /root
+RUN chmod +x /root/samples/run_sample.sh
 
 # Reset environment variables
 ENV DEBIAN_FRONTEND teletype

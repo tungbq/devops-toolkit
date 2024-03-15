@@ -100,6 +100,8 @@ docker run --rm devops-toolkit:latest ansible --version
 
 ## Running Sample Tool Code Inside the Toolkit
 
+Check out the full samples and instruction at [samples](./samples/)
+
 ```bash
 docker run --rm devops-toolkit:latest samples/run_sample.sh
 ```

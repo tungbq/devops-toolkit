@@ -38,7 +38,7 @@ jobs:
       - name: Running Sample Tool Code
         run: |
           echo "Run sample tool code inside toolkit"
-          devops-toolkit-merge:$GITHUB_SHA samples/run_sample.sh
+          docker run --rm devops-toolkit-merge:$GITHUB_SHA samples/run_sample.sh
 
       - name: Push Docker Image
         run: |

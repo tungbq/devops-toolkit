@@ -31,4 +31,4 @@ jobs:
       - name: Running Sample Tool Code
         run: |
           echo "Run sample tool code inside toolkit"
-          devops-toolkit-review:$GITHUB_SHA samples/run_sample.sh
+          docker run --rm devops-toolkit-review:$GITHUB_SHA samples/run_sample.sh

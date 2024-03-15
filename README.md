@@ -16,7 +16,7 @@ Before you begin, make sure you have [Docker](https://docs.docker.com/engine/ins
 ## Build your own image
 
 _NOTE:_ If you'd refer using the official prebuilt docker image from DockerHub, you can skip this section!
-Jump to [Use the toolkit image](https://github.com/tungbq/devops-toolkit?tab=readme-ov-file#use-the-official-image-from-docker-hub) for instead.
+Jump to [Use Docker Hub image](https://github.com/tungbq/devops-toolkit?tab=readme-ov-file#use-the-official-image-from-docker-hub) for instead.
 
 **1. Clone the Repository:**
 

@@ -7,6 +7,7 @@ on:
       - 'Dockerfile'
       - 'scripts/*'
       - '.github/workflows/*'
+      - 'samples/'
 
 jobs:
   build:
@@ -26,3 +27,8 @@ jobs:
           cd scripts
           chmod +x check_version_in_toolkit.sh
           ./check_version_in_toolkit.sh "devops-toolkit-review:$GITHUB_SHA" "../toolkit_info.json"
+
+      - name: Running Sample Tool Code
+        run: |
+          echo "Run sample tool code inside toolkit"
+          docker run --rm devops-toolkit-review:$GITHUB_SHA samples/run_sample.sh

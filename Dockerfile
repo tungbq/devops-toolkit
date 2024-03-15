@@ -114,12 +114,17 @@ RUN mkdir -p /etc/apt/keyrings && \
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Reset environment variables
-ENV DEBIAN_FRONTEND teletype
-ENV TZ=""
 
 # Set the working directory
 WORKDIR /root
+
+# Adding tooling samples
+COPY samples/ /root/samples/
+RUN chmod +x /root/samples/run_sample.sh
+
+# Reset environment variables
+ENV DEBIAN_FRONTEND teletype
+ENV TZ=""
 
 # Define the default command to run when the container starts
 CMD ["/bin/bash"]

@@ -35,6 +35,11 @@ jobs:
           chmod +x check_version_in_toolkit.sh
           ./check_version_in_toolkit.sh "devops-toolkit-merge:$GITHUB_SHA" "../toolkit_info.json"
 
+      - name: Running Sample Tool Code
+        run: |
+          echo "Run sample tool code inside toolkit"
+          docker run --rm devops-toolkit-merge:$GITHUB_SHA samples/run_sample.sh
+
       - name: Push Docker Image
         run: |
           SHA7=${GITHUB_SHA::7}

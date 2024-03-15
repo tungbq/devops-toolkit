@@ -15,7 +15,7 @@ Before you begin, make sure you have [Docker](https://docs.docker.com/engine/ins
 
 ## Build your own image
 
-_NOTE:_ If you'd refer using the official prebuilt docker image from DockerHub, you can skip this section!
+**NOTE:** If you'd refer using the official prebuilt docker image from DockerHub, you can skip this section!
 Jump to [Use Docker Hub image](https://github.com/tungbq/devops-toolkit?tab=readme-ov-file#use-the-official-image-from-docker-hub) for instead.
 
 **1. Clone the Repository:**
@@ -96,6 +96,14 @@ docker run --rm devops-toolkit:latest python3 --version
 
 ```bash
 docker run --rm devops-toolkit:latest ansible --version
+```
+
+## Running Sample Tool Code Inside the Toolkit
+
+Check out the full samples and instruction at [samples](./samples/)
+
+```bash
+docker run --rm devops-toolkit:latest samples/run_sample.sh
 ```
 
 ## The DevOps Toolkit Core

@@ -68,7 +68,7 @@ RUN mkdir /tmp/terraform_env/ && \
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
     cp  terraform /usr/local/bin/ && \
-    rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+    rm -rf /tmp/terraform_env/
 
 # Install Kubectl
 ARG KUBECTL_VERSION=1.29.3
@@ -76,7 +76,8 @@ RUN mkdir /tmp/kubectl_env/ && \
     cd /tmp/kubectl_env/ && \
     curl -LO "https://dl.k8s.io/release/v$KUBECTL_VERSION/bin/linux/amd64/kubectl" && \
     chmod +x kubectl && \
-    mv ./kubectl /usr/local/bin/kubectl
+    mv ./kubectl /usr/local/bin/kubectl && \
+    rm -rf /tmp/kubectl_env/
 
 # Install Helm
 ARG HELM_VERSION=3.14.3
@@ -85,7 +86,7 @@ RUN mkdir /tmp/helm_env/ && \
     wget https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz && \
     tar -xvzf helm-v${HELM_VERSION}-linux-amd64.tar.gz && \
     mv linux-amd64/helm /usr/local/bin/helm && \
-    rm helm-v${HELM_VERSION}-linux-amd64.tar.gz
+    rm -rf /tmp/helm_env/
 
 # Install AwsCLI
 ARG AWSCLI_VERSION=2.15.30
@@ -94,7 +95,7 @@ RUN mkdir /tmp/awscli_env/ && \
     wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip" && \
     unzip awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip && \
     ./aws/install && \
-    rm awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip
+    rm -rf /tmp/awscli_env/
 
 # Install AzureCLI
 ARG AZURECLI_VERSION=2.58.0

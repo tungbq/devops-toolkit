@@ -50,7 +50,7 @@ jobs:
             exit 1
           fi
 
-          echo "labels=${result}" >> $GITHUB_OUTPUT
+          echo "labels=${parsed_labels}" >> $GITHUB_OUTPUT
           echo $GITHUB_OUTPUT
       - name: Add labels to the PR/issue
         if: steps.extract_labels.outputs.labels != ''

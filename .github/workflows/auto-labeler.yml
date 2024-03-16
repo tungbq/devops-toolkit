@@ -52,7 +52,7 @@ jobs:
 
           echo "labels=${result}" >> $GITHUB_OUTPUT
           echo $GITHUB_OUTPUT
-      - name: Add labels to the issue
+      - name: Add labels to the PR/issue
         if: steps.extract_labels.outputs.labels != ''
         run: gh issue edit ${{ github.event.issue.number }} --add-label "${{ steps.extract_labels.outputs.labels }}"
         env:

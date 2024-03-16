@@ -22,8 +22,8 @@ docker run --rm --network host -it devops-toolkit:latest
 # You now in the container terminal
 
 # Clone code
-mkdir ansible_workspace
-cd ansible_workspace
+mkdir python_workspace
+cd python_workspace
 git clone https://github.com/ansible/ansible-examples.git
 
 # Now run your cloned script
@@ -36,7 +36,7 @@ ansible-playbook <YOUR_PLAYBOOK_CMD>
 Clone the code to the host then mount to container
 
 ```bash
-docker run --rm -v "$(pwd)":/root/ansible-examples --network host -it devops-toolkit:latest
+docker run --rm -v "$(pwd)":/root/python_workspace --network host -it devops-toolkit:latest
 # Run the python code as usual
 ```
 

@@ -21,8 +21,8 @@ docker run --rm --network host -it devops-toolkit:latest
 # You now in the container terminal
 
 # Clone code
-mkdir python_workspace
-cd python_workspace
+mkdir ansible_workspace
+cd ansible_workspace
 git clone https://github.com/geekcomputers/Python.git
 
 # Now run your cloned script
@@ -36,7 +36,7 @@ Clone the code to the host then mount to container
 
 ```bash
 # Clone code on the host
-docker run --rm -v "$(pwd)":/root/python_workspace --network host -it devops-toolkit:latest
+docker run --rm -v "$(pwd)":/root/ansible_workspace --network host -it devops-toolkit:latest
 # Run the python code as usual
 ```
 

@@ -1,0 +1,50 @@
+name: Label issues
+on:
+  issues:
+    types:
+      - reopened
+      - opened
+jobs:
+  label_issues:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Extract labels from issue title
+        id: extract_labels
+        run: |
+          # Supported labels definition
+          supported_labels=("ci" "docs" "core" "bug")
+
+          # Get title
+          title="${{ github.event.issue.title }}"
+
+          # Function to parse title and return supported labels
+          echo "Analyzing pull request title: '${title}'"
+
+          # Parse title and return supported labels
+          parsed_labels=""
+          for label in "${supported_labels[@]}"; do
+            if [[ $title == *"${label}"* ]]; then
+              parsed_labels="${parsed_labels}${label};"
+              echo "Added label ${label}"
+            fi
+          done
+
+          # Remove trailing semicolon if present
+          parsed_labels="${parsed_labels%;}"
+          echo "$parsed_labels"
+
+          # Main script
+          if [ -z "$title" ]; then
+            echo "Please provide a title."
+            exit 1
+          fi
+
+          echo "labels=${result}" >> $GITHUB_OUTPUT
+          echo $GITHUB_OUTPUT
+      - name: Add labels to the issue
+        if: steps.extract_labels.outputs.labels != ''
+        run: gh issue edit ${{ github.event.issue.number }} --add-label "${{ steps.extract_labels.outputs.labels }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

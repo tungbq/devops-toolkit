@@ -99,7 +99,8 @@ RUN mkdir /tmp/awscli_env/ && \
 
 # Install AzureCLI
 ARG AZURECLI_VERSION=2.58.0
-RUN mkdir -p /etc/apt/keyrings && \
+RUN set -o pipefail && \
+    mkdir -p /etc/apt/keyrings && \
     curl -sLS https://packages.microsoft.com/keys/microsoft.asc | \
     gpg --dearmor | \
     tee /etc/apt/keyrings/microsoft.gpg > /dev/null && \
@@ -109,7 +110,7 @@ RUN mkdir -p /etc/apt/keyrings && \
     tee /etc/apt/sources.list.d/azure-cli.list && \
     apt-get update && \
     # Install a specific version
-    apt-get install azure-cli=$AZURECLI_VERSION-1~$AZ_DIST
+    apt-get install -y azure-cli=$AZURECLI_VERSION-1~$AZ_DIST --no-install-recommends
 
 # Cleanup
 RUN apt-get clean && \

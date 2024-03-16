@@ -48,6 +48,8 @@ RUN mkdir /tmp/python_env/ && \
     ./configure --enable-optimizations && \
     make -j$(nproc) && \
     make install && \
+    # Do cleanup
+    make clean && \
     cd / && \
     rm -rf /tmp/python_env/
 
@@ -99,8 +101,7 @@ RUN mkdir /tmp/awscli_env/ && \
 
 # Install AzureCLI
 ARG AZURECLI_VERSION=2.58.0
-RUN set -o pipefail && \
-    mkdir -p /etc/apt/keyrings && \
+RUN mkdir -p /etc/apt/keyrings && \
     curl -sLS https://packages.microsoft.com/keys/microsoft.asc | \
     gpg --dearmor | \
     tee /etc/apt/keyrings/microsoft.gpg > /dev/null && \
@@ -110,7 +111,7 @@ RUN set -o pipefail && \
     tee /etc/apt/sources.list.d/azure-cli.list && \
     apt-get update && \
     # Install a specific version
-    apt-get install -y azure-cli=$AZURECLI_VERSION-1~$AZ_DIST --no-install-recommends
+    apt-get install --no-install-recommends -y azure-cli=$AZURECLI_VERSION-1~$AZ_DIST
 
 # Cleanup
 RUN apt-get clean && \

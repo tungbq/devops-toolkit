@@ -71,7 +71,9 @@ chmod +x check_version_in_toolkit.sh
 ```
 
 ## Use the official image from Docker Hub
+
 DockerHub image [tungbq/devops-toolkit](https://hub.docker.com/r/tungbq/devops-toolkit)
+
 ```bash
 docker pull tungbq/devops-toolkit:latest
 ```
@@ -101,14 +103,22 @@ docker run --rm devops-toolkit:latest ansible --version
 ## Running Sample Tool Code Inside the Toolkit
 
 Check out the full samples and instruction at [samples](./samples/)
+
 - Run with default docker network
+
 ```bash
 docker run --rm devops-toolkit:latest samples/run_sample.sh
 ```
+
 - Run with host network
+
 ```bash
 docker run --network host --rm devops-toolkit:latest samples/run_sample.sh
 ```
+
+## User guide
+
+- [DevOps toolkit user guide](./docs/usage/)
 
 ## The DevOps Toolkit Core
 

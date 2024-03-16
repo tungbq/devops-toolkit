@@ -48,7 +48,12 @@ jobs:
           parsed_labels=""
           for label in "${supported_labels[@]}"; do
             if [[ $title == *"${label}"* ]]; then
-              parsed_labels="${parsed_labels}${label};"
+              if [[ $parsed_labels == "" ]]; then
+                # Cover init case
+                parsed_labels="${label}"
+              else
+              parsed_labels="${parsed_labels},${label}"
+              fi
               echo "Added label ${label}"
             fi
           done

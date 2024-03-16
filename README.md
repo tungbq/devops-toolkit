@@ -114,10 +114,10 @@ Built on `ubuntu:22.04` base image
 | :-------- | :---------------------- | :------------------------------------------------------------------------------------------------- |
 | Python    | PYTHON_VERSION=3.12.2   | [Check](https://www.python.org/downloads/source/)                                                  |
 | Ansible   | ANSIBLE_VERSION=2.16.4  | [Check](https://docs.ansible.com/ansible/latest/reference_appendices/release_and_maintenance.html) |
-| Terraform | TERRAFORM_VERSION=1.7.4 | [Check](https://releases.hashicorp.com/terraform/)                                                 |
-| Kubectl   | KUBECTL_VERSION=1.29.2  | [Check](https://dl.k8s.io/release/stable.txt)                                                      |
-| Helm      | HELM_VERSION=3.14.2     | [Check](https://github.com/helm/helm/releases)                                                     |
-| AwsCLI    | AWSCLI_VERSION=2.15.27  | [Check](https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst)                            |
+| Terraform | TERRAFORM_VERSION=1.7.5 | [Check](https://releases.hashicorp.com/terraform/)                                                 |
+| Kubectl   | KUBECTL_VERSION=1.29.3  | [Check](https://dl.k8s.io/release/stable.txt)                                                      |
+| Helm      | HELM_VERSION=3.14.3     | [Check](https://github.com/helm/helm/releases)                                                     |
+| AwsCLI    | AWSCLI_VERSION=2.15.30  | [Check](https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst)                            |
 | AzureCLI  | AZURECLI_VERSION=2.58.0 | [Check](https://learn.microsoft.com/en-us/cli/azure/release-notes-azure-cli)                       |
 
 And more tools to be implemented...

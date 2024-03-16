@@ -4,10 +4,13 @@ on:
     types:
       - reopened
       - opened
+      - edited
+
   pull_request:
     types:
       - reopened
       - opened
+      - edited
 
 jobs:
   auto_labeler:

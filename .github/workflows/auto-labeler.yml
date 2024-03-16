@@ -1,23 +1,32 @@
-name: Label issues
+name: Auto Labeler
 on:
   issues:
     types:
       - reopened
       - opened
+  pull_request:
+    types:
+      - reopened
+      - opened
+
 jobs:
-  label_issues:
+  auto_labeler:
     runs-on: ubuntu-latest
     permissions:
       issues: write
     steps:
-      - name: Extract labels from issue title
+      - name: Extract labels from title
         id: extract_labels
         run: |
           # Supported labels definition
           supported_labels=("ci" "docs" "core" "bug")
 
           # Get title
-          title="${{ github.event.issue.title }}"
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            title="${{ github.event.pull_request.title }}"
+          else
+            title="${{ github.event.issue.title }}"
+          fi
 
           # Function to parse title and return supported labels
           echo "Analyzing pull request title: '${title}'"

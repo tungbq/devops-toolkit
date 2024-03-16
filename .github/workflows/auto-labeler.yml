@@ -24,8 +24,10 @@ jobs:
           # Get title
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
             title="${{ github.event.pull_request.title }}"
+            number="${{ github.event.pull_request.number }}"
           else
             title="${{ github.event.issue.title }}"
+            number="${{ github.event.issue.number }}"
           fi
 
           # Function to parse title and return supported labels
@@ -51,9 +53,14 @@ jobs:
           fi
 
           echo "labels=${parsed_labels}" >> $GITHUB_OUTPUT
+          echo "number=${number}" >> $GITHUB_OUTPUT
           echo $GITHUB_OUTPUT
+
       - name: Add labels to the PR/issue
         if: steps.extract_labels.outputs.labels != ''
-        run: gh issue edit ${{ github.event.issue.number }} --add-label "${{ steps.extract_labels.outputs.labels }}"
+        run: gh issue edit "$NUMBER" --add-label "$LABELS"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ steps.extract_labels.outputs.number }}
+          LABELS: ${{ steps.extract_labels.outputs.labels }}

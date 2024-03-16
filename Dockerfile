@@ -10,7 +10,7 @@ ARG TZ=UTC
 RUN apt-get update
 
 # Install required packages
-RUN apt-get install -y \
+RUN apt-get install -y --no-install-recommends \
     software-properties-common \
     apt-transport-https \
     ca-certificates \

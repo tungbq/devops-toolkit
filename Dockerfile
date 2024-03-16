@@ -10,7 +10,7 @@ ARG TZ=UTC
 RUN apt-get update
 
 # Install required packages
-RUN apt-get install -y \
+RUN apt-get install -y --no-install-recommends \
     software-properties-common \
     apt-transport-https \
     ca-certificates \
@@ -48,6 +48,8 @@ RUN mkdir /tmp/python_env/ && \
     ./configure --enable-optimizations && \
     make -j$(nproc) && \
     make install && \
+    # Do cleanup
+    make clean && \
     cd / && \
     rm -rf /tmp/python_env/
 
@@ -68,7 +70,7 @@ RUN mkdir /tmp/terraform_env/ && \
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
     cp  terraform /usr/local/bin/ && \
-    rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+    rm -rf /tmp/terraform_env/
 
 # Install Kubectl
 ARG KUBECTL_VERSION=1.29.3
@@ -76,7 +78,8 @@ RUN mkdir /tmp/kubectl_env/ && \
     cd /tmp/kubectl_env/ && \
     curl -LO "https://dl.k8s.io/release/v$KUBECTL_VERSION/bin/linux/amd64/kubectl" && \
     chmod +x kubectl && \
-    mv ./kubectl /usr/local/bin/kubectl
+    mv ./kubectl /usr/local/bin/kubectl && \
+    rm -rf /tmp/kubectl_env/
 
 # Install Helm
 ARG HELM_VERSION=3.14.3
@@ -85,7 +88,7 @@ RUN mkdir /tmp/helm_env/ && \
     wget https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz && \
     tar -xvzf helm-v${HELM_VERSION}-linux-amd64.tar.gz && \
     mv linux-amd64/helm /usr/local/bin/helm && \
-    rm helm-v${HELM_VERSION}-linux-amd64.tar.gz
+    rm -rf /tmp/helm_env/
 
 # Install AwsCLI
 ARG AWSCLI_VERSION=2.15.30
@@ -94,7 +97,7 @@ RUN mkdir /tmp/awscli_env/ && \
     wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip" && \
     unzip awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip && \
     ./aws/install && \
-    rm awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip
+    rm -rf /tmp/awscli_env/
 
 # Install AzureCLI
 ARG AZURECLI_VERSION=2.58.0
@@ -108,7 +111,7 @@ RUN mkdir -p /etc/apt/keyrings && \
     tee /etc/apt/sources.list.d/azure-cli.list && \
     apt-get update && \
     # Install a specific version
-    apt-get install azure-cli=$AZURECLI_VERSION-1~$AZ_DIST
+    apt-get install --no-install-recommends -y azure-cli=$AZURECLI_VERSION-1~$AZ_DIST
 
 # Cleanup
 RUN apt-get clean && \

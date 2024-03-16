@@ -6,7 +6,7 @@ on:
     paths:
       - 'Dockerfile'
       - 'scripts/*'
-      - '.github/workflows/*'
+      - '.github/workflows/docker-image-ci.yml'
       - 'samples/'
 
 # Abort the previous running CI workflow in the same pull request

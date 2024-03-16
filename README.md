@@ -71,7 +71,7 @@ chmod +x check_version_in_toolkit.sh
 ```
 
 ## Use the official image from Docker Hub
-
+DockerHub image [tungbq/devops-toolkit](https://hub.docker.com/r/tungbq/devops-toolkit)
 ```bash
 docker pull tungbq/devops-toolkit:latest
 ```

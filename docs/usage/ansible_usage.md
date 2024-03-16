@@ -22,6 +22,11 @@ docker run --rm --network host -it devops-toolkit:latest
 # You now in the container terminal
 
 # Now run your cloned script
+# Clone code
+mkdir ansible_workspace
+cd ansible_workspace
+git clone https://github.com/ansible/ansible-examples.git
+
 cd ansible-examples
 ansible-playbook <YOUR_PLAYBOOK_CMD>
 ```

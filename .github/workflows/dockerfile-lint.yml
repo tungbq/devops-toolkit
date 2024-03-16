@@ -5,8 +5,8 @@ on:
     branches: [ "main" ]
 
 # Abort the previous running CI workflow in the same pull request
-concurrency: 
-  group: ${{ github.head_ref }}
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:

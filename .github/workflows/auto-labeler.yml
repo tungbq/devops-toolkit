@@ -32,7 +32,7 @@ jobs:
             title="${{ github.event.pull_request.title }}"
             number="${{ github.event.pull_request.number }}"
             type="pr"
-          elif [[ "${{ github.event_name }}" == "issue" ]]; then
+          elif [[ "${{ github.event_name }}" == "issues" ]]; then
             title="${{ github.event.issue.title }}"
             number="${{ github.event.issue.number }}"
             type="issue"

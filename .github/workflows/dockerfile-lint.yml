@@ -4,6 +4,11 @@ on:
   pull_request:
     branches: [ "main" ]
 
+# Abort the previous running CI workflow in the same pull request
+concurrency: 
+  group: ${{ github.head_ref }}
+  cancel-in-progress: true
+
 jobs:
   dockerfile-lint:
     runs-on: ubuntu-latest

@@ -11,74 +11,25 @@
 
 ## Key features
 
-- Pre-installed multiple tools in the toolkit: git, python, ansible, terraform, kubectl, helm, awscli, azurecli, ...
-- Full CI (continuous integration) and deployment to Docker Hub with GitHub Actions
-- Image is available on Docker Hub
-- Detailed documentation provided for each tool
-- Weekly core tools checking and updating
+- **Pre-installed Tools**: Includes a variety of essential tools such as git, python, ansible, terraform, kubectl, helm, awscli, azurecli, etc.
+- **Continuous Integration**: Utilizes full CI/CD for deployment to Docker Hub using GitHub Actions.
+- **Documentation**: Provides detailed documentation for each tool included.
+- **Regular Updates**: Weekly checks and updates for core tools ensure the toolkit's reliability and security.
+- **Sample code**: Included sample code of various tool in the toolkit
 
 ## Prerequisites
 
 Before you begin, make sure you have [Docker](https://docs.docker.com/engine/install/) installed. It's also beneficial to have a basic understanding of Docker concepts.
 
-## Build your own image
-
-**NOTE:** If you'd refer using the official prebuilt docker image from DockerHub, you can skip this section!
-Jump to [Use Docker Hub image](https://github.com/tungbq/devops-toolkit?tab=readme-ov-file#use-the-official-image-from-docker-hub) for instead.
-
-**1. Clone the Repository:**
+## Quick start
 
 ```bash
-git clone https://github.com/tungbq/devops-toolkit.git
+docker run --network host -it --rm tungbq/devops-toolkit:latest
 ```
 
-**2. Navigate to the Repository:**
+## Getting started
 
-```bash
-cd devops-toolkit
-```
-
-**3. Build the DevOps toolkit image:**
-
-- Build with the default versions
-
-```bash
-docker build -t devops-toolkit:latest .
-```
-
-- Build with single custom version
-
-```bash
-docker build \
-  --build-arg TERRAFORM_VERSION=1.7.0 \
-  -t devops-toolkit:custom .
-```
-
-- Build with multiple custom versions
-
-```bash
-docker build \
-  --build-arg UBUNTU_VERSION=22.04 \
-  --build-arg PYTHON_VERSION=3.11.3 \
-  --build-arg ANSIBLE_VERSION=2.16.3 \
-  --build-arg TERRAFORM_VERSION=1.7.0 \
-  --build-arg KUBECTL_VERSION=1.29.2 \
-  --build-arg HELM_VERSION=3.14.2 \
-  --build-arg AWSCLI_VERSION=2.15.24 \
-  -t devops-toolkit:custom .
-```
-
-**4. Test the toolkit image:**
-
-- Run below command to verify newly created image
-
-```bash
-cd scripts
-chmod +x check_version_in_toolkit.sh
-./check_version_in_toolkit.sh devops-toolkit:latest ./toolkit_info.json
-```
-
-## Use the official image from Docker Hub
+### Use the official image from Docker Hub
 
 DockerHub image [tungbq/devops-toolkit](https://hub.docker.com/r/tungbq/devops-toolkit)
 
@@ -86,48 +37,49 @@ DockerHub image [tungbq/devops-toolkit](https://hub.docker.com/r/tungbq/devops-t
 docker pull tungbq/devops-toolkit:latest
 ```
 
-## Use the toolkit image
+### Build your own image
 
-One we have the image ready, let's play with it!
+If you prefer to build your own image from the source code, refer to the [**build_toolkit_image**](./docs/build/build_toolkit_image.md) instructions.
+
+### Start the toolkit image
+
+Once you have the image ready, you can start using the toolkit with the following commands
 
 - Start toolkit container
 
 ```bash
-docker run -it --rm devops-toolkit:latest
+docker run --network host -it --rm tungbq/devops-toolkit:latest
 ```
 
-- Run python command to check version
+- Now we are in the docker container terminal, let's explore it
 
 ```bash
-docker run --rm devops-toolkit:latest python3 --version
+root@docker-desktop:~# python3 --version
+Python 3.12.2
+root@docker-desktop:~# ansible --version
+ansible [core 2.16.4]
+  config file = None
+  configured module search path = ['/root/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/local/lib/python3.12/site-packages/ansible
+  ansible collection location = /root/.ansible/collections:/usr/share/ansible/collections
+  executable location = /usr/local/bin/ansible
+  python version = 3.12.2 (main, Mar 16 2024, 06:36:33) [GCC 11.4.0] (/usr/local/bin/python3)
+  jinja version = 3.1.3
+  libyaml = True
+root@docker-desktop:~#
 ```
 
-- Run ansible command to check version
-
-```bash
-docker run --rm devops-toolkit:latest ansible --version
-```
-
-## Running Sample Tool Code Inside the Toolkit
+### Running Sample Code Inside the Toolkit
 
 Check out the full samples and instruction at [samples](./samples/)
 
-- Run with default docker network
-
 ```bash
-docker run --rm devops-toolkit:latest samples/run_sample.sh
-```
-
-- Run with host network
-
-```bash
-docker run --network host --rm devops-toolkit:latest samples/run_sample.sh
+docker run --network host --rm tungbq/devops-toolkit:latest samples/run_sample.sh
 ```
 
 ## User guide 📖
 
-- [DevOps toolkit user guide](./docs/usage/)
-- [Troubleshooting](./docs/troubleshooting/)
+- [**DevOps toolkit user guide**](./docs/usage/)
 
 ## The DevOps Toolkit Core
 

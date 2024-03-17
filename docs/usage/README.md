@@ -14,6 +14,10 @@ This guide us how to use the `devops-toolkit` with serveral usecases
 
 - Check [**terraform_usage**](./terraform_usage.md)
 
+## Kubectl
+
+- Check [**kubectl_usage**](./kubectl_usage.md)
+
 ## Troubleshooting
 
 - For any issues, check [this document](../troubleshooting/TROUBLESHOOTING.md)

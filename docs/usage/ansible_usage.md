@@ -1,6 +1,15 @@
 # Use ansible in the devops-toolkit
 
-To use the existing container isntead of creating one, use `docker exec` command instead of `docker run`
+## Ansible document
+
+Some document to help you start with ansible
+
+- <https://github.com/tungbq/devops-basic/tree/main/topics/ansible>
+- <https://www.ansible.com/>
+
+## Note
+
+To use the existing container instead of creating one, use `docker exec` command instead of `docker run`
 
 ```bash
 docker exec -it my_devops_toolkit /bin/bash

@@ -16,6 +16,7 @@
 - **Documentation**: Provides detailed documentation for each tool included.
 - **Regular Updates**: Weekly checks and updates for core tools ensure the toolkit's reliability and security.
 - **Sample code**: Includes sample code demonstrating the usage of various tools available in the toolkit.
+- **Support for Build Variants**: Enables users to customize the toolkit by building it with their preferred versions of each tool.
 
 ## Prerequisites
 
@@ -47,7 +48,8 @@ docker pull tungbq/devops-toolkit:latest
 
 ### Build your own image
 
-If you prefer to build your own image from the source code, refer to the [**build_toolkit_image**](./docs/build/build_toolkit_image.md) instructions.
+- If you prefer to build your own image from the source code, refer to the [**build_toolkit_image**](./docs/build/build_toolkit_image.md) instructions.
+- We can customize the toolkit by building it with our preferred versions of each tool.
 
 ### Start and explore the toolkit container
 

@@ -78,7 +78,7 @@ Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
 
 ## User guide 📖
 
-Check the below document for the detailed usage of each tool in the tool kit
+Explore the comprehensive guide below to gain insight into the detailed utilization of every tool within the toolkit
 
 - [**DevOps toolkit user guide**](./docs/usage/README.md)
 
@@ -103,6 +103,7 @@ And more tools to be implemented...
 - See: [CONTRIBUTING.md](./CONTRIBUTING.md)
 - Looking for the issue to work on? Check the list of our open issues [**good first issue**](https://github.com/tungbq/devops-toolkit/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 - Feel free to open a new issue if you want to request more content about DevOps Dockerfile
+- Submit a [new issue](https://github.com/tungbq/devops-toolkit/issues/new) (:bug:) if you encounter the bug/error when using this toolkit
 
 ## Hit the Star! ⭐
 

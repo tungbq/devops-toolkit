@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/tungbq/devops-toolkit"><img src="./assets/images/devops-toolkit.jpg" alt="devops-toolkit" height="200"></a>
+  <a href="https://github.com/tungbq/devops-toolkit"><img src="./assets/images/devops-toolkit.jpg" alt="devops-toolkit" height="400"></a>
 </p>
 
 <h1 align="center">DevOps Toolkit</h1>

@@ -1,6 +1,15 @@
 # Use python in the devops-toolkit
 
-To use the existing container isntead of creating one, use `docker exec` command instead of `docker run`
+## Python document
+
+Some document to help you start with python
+
+- <https://www.python.org/doc/>
+- <https://github.com/tungbq/devops-basic/tree/main/topics/python>
+
+## Note
+
+To use the existing container instead of creating one, use `docker exec` command instead of `docker run`
 
 ```bash
 # Given that we have 'my_devops_toolkit' start before

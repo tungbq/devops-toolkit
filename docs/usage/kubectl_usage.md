@@ -13,22 +13,42 @@ To use the existing container instead of creating one, use `docker exec` command
 docker exec -it my_devops_toolkit /bin/bash
 ```
 
-## Use case 1: Use kubeconfig inside container
+## Use case 1: Use kubeconfig from the host
+
+Mount the `.kube/config` file from the host to container
 
 ```bash
-docker run --rm --network host -it devops-toolkit:latest
-# You now in the container terminal
+docker run --rm --network host -it -v ~/.kube/config:/root/.kube/config devops-toolkit:latest
+###############################################
+# Now we are in the docker container terminal #
+###############################################
+kubectl get nodes
 
-# TODO
+# Deploy application
+kubectl apply -f https://k8s.io/examples/application/deployment.yaml
+# View the pod
+kubectl get pods -w
+# View the deployment
+kubectl get deployment
+
 ```
 
-## Use case 2: Use kubeconfig from the host
+Sample Result
 
 ```bash
-# Given that we have code somewhere in you machine
-docker run --rm -v "$(pwd)":/root/kubectl_workspace --network host -it devops-toolkit:latest
-# Run the kubectl code as usual
-# TODO
+➜  ~ docker run --rm --network host -it -v ~/.kube/config:/root/.kube/config devops-toolkit:latest
+root@docker-desktop:~# kubectl get nodes
+NAME                 STATUS   ROLES           AGE   VERSION
+kind-control-plane   Ready    control-plane   21m   v1.29.2
+root@docker-desktop:~# kubectl apply -f https://k8s.io/examples/application/deployment.yaml
+deployment.apps/nginx-deployment unchanged
+root@docker-desktop:~# kubectl get pods -w
+NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-86dcfdf4c6-c2cfp   1/1     Running   0          99s
+nginx-deployment-86dcfdf4c6-w4vp7   1/1     Running   0          99s
+root@docker-desktop:~# kubectl get deployment
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   2/2     2            2           115s
 ```
 
 ## Troubleshooting

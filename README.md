@@ -27,9 +27,17 @@ Before you begin, make sure you have [Docker](https://docs.docker.com/engine/ins
 docker run --network host -it --rm tungbq/devops-toolkit:latest
 ```
 
+## Demo
+
+Check out the full sample and instruction at [samples](./samples/)
+
+```bash
+docker run --network host --rm tungbq/devops-toolkit:latest samples/run_sample.sh
+```
+
 ## Getting started
 
-### Use the official image from Docker Hub
+### Pull the official image from Docker Hub
 
 DockerHub image [tungbq/devops-toolkit](https://hub.docker.com/r/tungbq/devops-toolkit)
 
@@ -41,11 +49,11 @@ docker pull tungbq/devops-toolkit:latest
 
 If you prefer to build your own image from the source code, refer to the [**build_toolkit_image**](./docs/build/build_toolkit_image.md) instructions.
 
-### Start the toolkit image
+### Start and explore the toolkit container
 
 Once you have the image ready, you can start using the toolkit with the following commands
 
-- Start toolkit container
+- Start devops-toolkit container
 
 ```bash
 docker run --network host -it --rm tungbq/devops-toolkit:latest
@@ -56,30 +64,23 @@ docker run --network host -it --rm tungbq/devops-toolkit:latest
 ```bash
 root@docker-desktop:~# python3 --version
 Python 3.12.2
-root@docker-desktop:~# ansible --version
-ansible [core 2.16.4]
-  config file = None
-  configured module search path = ['/root/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
-  ansible python module location = /usr/local/lib/python3.12/site-packages/ansible
-  ansible collection location = /root/.ansible/collections:/usr/share/ansible/collections
-  executable location = /usr/local/bin/ansible
-  python version = 3.12.2 (main, Mar 16 2024, 06:36:33) [GCC 11.4.0] (/usr/local/bin/python3)
-  jinja version = 3.1.3
-  libyaml = True
-root@docker-desktop:~#
-```
 
-### Running Sample Code Inside the Toolkit
+root@docker-desktop:~# terraform --version
+Terraform v1.7.5
+on linux_amd64
 
-Check out the full samples and instruction at [samples](./samples/)
+root@docker-desktop:~# kubectl version
+Client Version: v1.29.3
+Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
 
-```bash
-docker run --network host --rm tungbq/devops-toolkit:latest samples/run_sample.sh
+# ... more command as your needed
 ```
 
 ## User guide 📖
 
-- [**DevOps toolkit user guide**](./docs/usage/)
+Check the below document for the detailed usage of each tool in the tool kit
+
+- [**DevOps toolkit user guide**](./docs/usage/README.md)
 
 ## The DevOps Toolkit Core
 

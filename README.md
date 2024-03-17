@@ -1,6 +1,6 @@
 <h1 align="center">DevOps Toolkit</h1>
 
-<p align="center">Container image for an all-in-one DevOps environment with popular tools like Ansible, Terraform, kubectl, AWS CLI, Azure CLI, Git, and more...</p>
+<p align="center">Container image for an all-in-one DevOps environment with popular tools like Ansible, Terraform, kubectl, AWS CLI, Azure CLI, Git, Python and more...</p>
 
 <p align="center">
   <a href="https://img.shields.io/github/last-commit/tungbq/devops-toolkit/main"><img alt="last commit" src="https://img.shields.io/github/last-commit/tungbq/devops-toolkit/main" /></a>
@@ -9,68 +9,35 @@
   <a href="https://github.com/tungbq/devops-toolkit/stargazers"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/tungbq/devops-toolkit"/></a>
 </p>
 
+## Key features
+
+- **Pre-installed Tools**: Includes a variety of essential tools such as git, python, ansible, terraform, kubectl, helm, awscli, azurecli, etc.
+- **Continuous Integration**: Utilizes full CI/CD for deployment to Docker Hub using GitHub Actions.
+- **Documentation**: Provides detailed documentation for each tool included.
+- **Regular Updates**: Weekly checks and updates for core tools ensure the toolkit's reliability and security.
+- **Sample code**: Includes sample code demonstrating the usage of various tools available in the toolkit.
+
 ## Prerequisites
 
-Before you begin, make sure you have [Docker](https://docs.docker.com/engine/install/) installed. It's also beneficial to have a basic understanding of Docker concepts.
+Before you begin, ensure that you have [Docker](https://docs.docker.com/engine/install/) installed. It's also helpful to have a basic understanding of Docker concepts.
 
-## Build your own image
-
-**NOTE:** If you'd refer using the official prebuilt docker image from DockerHub, you can skip this section!
-Jump to [Use Docker Hub image](https://github.com/tungbq/devops-toolkit?tab=readme-ov-file#use-the-official-image-from-docker-hub) for instead.
-
-**1. Clone the Repository:**
+## Quick start 🔥
 
 ```bash
-git clone https://github.com/tungbq/devops-toolkit.git
+docker run --network host -it --rm tungbq/devops-toolkit:latest
 ```
 
-**2. Navigate to the Repository:**
+## Demo 📺
+
+Check out the full sample and instruction at [samples](./samples/)
 
 ```bash
-cd devops-toolkit
+docker run --network host --rm tungbq/devops-toolkit:latest samples/run_sample.sh
 ```
 
-**3. Build the DevOps toolkit image:**
+## Getting started 📖
 
-- Build with the default versions
-
-```bash
-docker build -t devops-toolkit:latest .
-```
-
-- Build with single custom version
-
-```bash
-docker build \
-  --build-arg TERRAFORM_VERSION=1.7.0 \
-  -t devops-toolkit:custom .
-```
-
-- Build with multiple custom versions
-
-```bash
-docker build \
-  --build-arg UBUNTU_VERSION=22.04 \
-  --build-arg PYTHON_VERSION=3.11.3 \
-  --build-arg ANSIBLE_VERSION=2.16.3 \
-  --build-arg TERRAFORM_VERSION=1.7.0 \
-  --build-arg KUBECTL_VERSION=1.29.2 \
-  --build-arg HELM_VERSION=3.14.2 \
-  --build-arg AWSCLI_VERSION=2.15.24 \
-  -t devops-toolkit:custom .
-```
-
-**4. Test the toolkit image:**
-
-- Run below command to verify newly created image
-
-```bash
-cd scripts
-chmod +x check_version_in_toolkit.sh
-./check_version_in_toolkit.sh devops-toolkit:latest ./toolkit_info.json
-```
-
-## Use the official image from Docker Hub
+### Pull the official image from Docker Hub
 
 DockerHub image [tungbq/devops-toolkit](https://hub.docker.com/r/tungbq/devops-toolkit)
 
@@ -78,50 +45,44 @@ DockerHub image [tungbq/devops-toolkit](https://hub.docker.com/r/tungbq/devops-t
 docker pull tungbq/devops-toolkit:latest
 ```
 
-## Use the toolkit image
+### Build your own image
 
-One we have the image ready, let's play with it!
+If you prefer to build your own image from the source code, refer to the [**build_toolkit_image**](./docs/build/build_toolkit_image.md) instructions.
 
-- Start toolkit container
+### Start and explore the toolkit container
+
+Once you have the image ready, you can start using the toolkit with the following commands
+
+- Start devops-toolkit container
 
 ```bash
-docker run -it --rm devops-toolkit:latest
+docker run --network host -it --rm tungbq/devops-toolkit:latest
 ```
 
-- Run python command to check version
+- Now we are in the docker container terminal, let's explore it
 
 ```bash
-docker run --rm devops-toolkit:latest python3 --version
-```
+root@docker-desktop:~# python3 --version
+Python 3.12.2
 
-- Run ansible command to check version
+root@docker-desktop:~# terraform --version
+Terraform v1.7.5
+on linux_amd64
 
-```bash
-docker run --rm devops-toolkit:latest ansible --version
-```
+root@docker-desktop:~# kubectl version
+Client Version: v1.29.3
+Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
 
-## Running Sample Tool Code Inside the Toolkit
-
-Check out the full samples and instruction at [samples](./samples/)
-
-- Run with default docker network
-
-```bash
-docker run --rm devops-toolkit:latest samples/run_sample.sh
-```
-
-- Run with host network
-
-```bash
-docker run --network host --rm devops-toolkit:latest samples/run_sample.sh
+# ... more command as your needed
 ```
 
 ## User guide 📖
 
-- [DevOps toolkit user guide](./docs/usage/)
-- [Troubleshooting](./docs/troubleshooting/)
+Explore the comprehensive guide below to gain insight into the detailed utilization of every tool within the toolkit
 
-## The DevOps Toolkit Core
+- [**DevOps toolkit user guide**](./docs/usage/README.md)
+
+## The DevOps Toolkit Core 🧰
 
 Built on `ubuntu:22.04` base image
 
@@ -142,6 +103,7 @@ And more tools to be implemented...
 - See: [CONTRIBUTING.md](./CONTRIBUTING.md)
 - Looking for the issue to work on? Check the list of our open issues [**good first issue**](https://github.com/tungbq/devops-toolkit/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 - Feel free to open a new issue if you want to request more content about DevOps Dockerfile
+- Submit a [new issue](https://github.com/tungbq/devops-toolkit/issues/new) (:bug:) if you encounter the bug/error when using this toolkit
 
 ## Hit the Star! ⭐
 

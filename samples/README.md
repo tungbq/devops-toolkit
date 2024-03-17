@@ -41,13 +41,17 @@ popd
 ```
 
 ## Kubectl
-
-- TODO
+```bash
+console_log "Running Kubectl sample: check version"
+kubectl version
+```bash
 
 ## Helm
-
-- TODO
-
+```bash
+console_log "Running Helm sample: add and search"
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm search repo bitnami | grep jenkins
+```
 ## AwsCLI
 
 - TODO

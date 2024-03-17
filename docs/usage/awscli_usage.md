@@ -8,7 +8,7 @@ An AWS account
 
 Some document to help you start with awscli
 
-- <https://awscli.sh/docs/>
+- <https://docs.aws.amazon.com/cli/>
 - <https://github.com/tungbq/devops-basic/tree/main/topics/aws>
 
 ## Note
@@ -40,8 +40,6 @@ AWS Access Key ID [None]: xxxxxxxx
 AWS Secret Access Key [None]: xxxxxxxx
 Default region name [None]: xxxxxxxx
 Default output format [None]: xxxxxxxx
-
-
 ```
 
 ## Use case 2: Using AWS config from the host

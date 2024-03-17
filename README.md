@@ -18,7 +18,7 @@
 - **Sample code**: Includes sample code demonstrating the usage of various tools available in the toolkit.
 - **Support for Build Variants**: Enables users to customize the toolkit by building it with their preferred versions of each tool.
 
-## Prerequisites
+## Prerequisites 🔓
 
 Before you begin, ensure that you have [Docker](https://docs.docker.com/engine/install/) installed. It's also helpful to have a basic understanding of Docker concepts.
 

@@ -22,6 +22,10 @@ This guide us how to use the `devops-toolkit` with serveral usecases
 
 - Check [**helm_usage**](./helm_usage.md)
 
+## AWSCli
+
+- Check [**awscli_usage**](./awscli_usage.md)
+
 ## Troubleshooting
 
 - For any issues, check [this document](../troubleshooting/TROUBLESHOOTING.md)

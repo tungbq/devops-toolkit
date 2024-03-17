@@ -24,8 +24,8 @@ docker run --rm --network host -it -v ~/.kube/config:/root/.kube/config devops-t
 ###############################################
 # Now we are in the docker container terminal #
 ###############################################
+# Command to check k8s node
 kubectl get nodes
-
 # Deploy application
 kubectl apply -f https://k8s.io/examples/application/deployment.yaml
 # View the pod

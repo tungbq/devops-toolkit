@@ -15,7 +15,7 @@
 - **Continuous Integration**: Utilizes full CI/CD for deployment to Docker Hub using GitHub Actions.
 - **Documentation**: Provides detailed documentation for each tool included.
 - **Regular Updates**: Weekly checks and updates for core tools ensure the toolkit's reliability and security.
-- **Sample code**: Included sample code of various tool in the toolkit
+- **Sample code**: Includes sample code demonstrating the usage of various tools available in the toolkit.
 
 ## Prerequisites
 

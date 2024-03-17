@@ -15,7 +15,7 @@ docker run --rm --network host -it devops-toolkit:latest
 python3 samples/python/rectangle_area_calculator.py
 ```
 
-## Use case 2: Clone external code to container
+## Use case 2: Clone external code inside container
 
 ```bash
 docker run --rm --network host -it devops-toolkit:latest
@@ -25,8 +25,7 @@ mkdir python_workspace
 cd python_workspace
 
 # Clone code
-mkdir ansible_workspace
-cd ansible_workspace
+mkdir python_workspace; cd python_workspace
 git clone https://github.com/geekcomputers/Python.git
 
 # Now run your cloned script
@@ -39,6 +38,7 @@ python3 Day_of_week.py
 Clone the code to the host then mount to container
 
 ```bash
+# Given that we have code somewhere in you machine
 docker run --rm -v "$(pwd)":/root/python_workspace --network host -it devops-toolkit:latest
 # Run the python code as usual
 ```

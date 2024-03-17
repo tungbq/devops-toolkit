@@ -1,4 +1,4 @@
-# Use ansible in the devops-toolkit
+# Use terraform in the devops-toolkit
 
 To use the existing container isntead of creating one, use `docker exec` command instead of `docker run`
 
@@ -6,13 +6,20 @@ To use the existing container isntead of creating one, use `docker exec` command
 docker exec -it my_devops_toolkit /bin/bash
 ```
 
-## Use case 1: Run Ansible sample code provided in the container
+## Use case 1: Run terraform sample code provided in the container
 
 ```bash
 docker run --rm --network host -it devops-toolkit:latest
-
 # You now in the container terminal
-ansible-playbook samples/ansible/check_os.yml
+#  Navigate to Terraform sample
+pushd samples/terraform/basic
+# Init the terraform
+terraform init
+# Apply change, select 'yes' to confirm
+terraform apply
+# Once done, destroy the infra, select 'yes' to confirm
+terraform destroy
+popd
 ```
 
 ## Use case 2: Clone external code inside container
@@ -23,11 +30,11 @@ docker run --rm --network host -it devops-toolkit:latest
 
 # Now run your cloned script
 # Clone code
-mkdir ansible_workspace; cd ansible_workspace
-git clone https://github.com/ansible/ansible-examples.git
+mkdir terraform_workspace; cd terraform_workspace
+git clone <YOUR-REPO> terraform-examples
 
-cd ansible-examples
-ansible-playbook <YOUR_PLAYBOOK_CMD>
+cd terraform-examples
+# Run terraform here: init-plan-apply,...
 ```
 
 ## Use case 3: Mount external code to container
@@ -36,8 +43,8 @@ Clone the code to the host then mount to container
 
 ```bash
 # Given that we have code somewhere in you machine
-docker run --rm -v "$(pwd)":/root/ansible_workspace --network host -it devops-toolkit:latest
-# Run the ansible code as usual
+docker run --rm -v "$(pwd)":/root/terraform_workspace --network host -it devops-toolkit:latest
+# Run the terraform code as usual
 ```
 
 ## Troubleshooting

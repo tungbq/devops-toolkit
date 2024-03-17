@@ -21,13 +21,13 @@
 
 Before you begin, make sure you have [Docker](https://docs.docker.com/engine/install/) installed. It's also beneficial to have a basic understanding of Docker concepts.
 
-## Quick start
+## Quick start 🔥
 
 ```bash
 docker run --network host -it --rm tungbq/devops-toolkit:latest
 ```
 
-## Demo
+## Demo 📺
 
 Check out the full sample and instruction at [samples](./samples/)
 
@@ -35,7 +35,7 @@ Check out the full sample and instruction at [samples](./samples/)
 docker run --network host --rm tungbq/devops-toolkit:latest samples/run_sample.sh
 ```
 
-## Getting started
+## Getting started 📖
 
 ### Pull the official image from Docker Hub
 
@@ -82,7 +82,7 @@ Check the below document for the detailed usage of each tool in the tool kit
 
 - [**DevOps toolkit user guide**](./docs/usage/README.md)
 
-## The DevOps Toolkit Core
+## The DevOps Toolkit Core 🧰
 
 Built on `ubuntu:22.04` base image
 

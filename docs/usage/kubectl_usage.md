@@ -7,6 +7,8 @@ Some document to help you start with kubernetes (k8s)
 - <https://kubernetes.io/docs/home/>
 - <https://github.com/tungbq/devops-basic/tree/main/topics/k8s>
 
+## Note
+
 To use the existing container instead of creating one, use `docker exec` command instead of `docker run`
 
 ```bash

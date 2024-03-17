@@ -9,6 +9,14 @@
   <a href="https://github.com/tungbq/devops-toolkit/stargazers"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/tungbq/devops-toolkit"/></a>
 </p>
 
+## Key features
+
+- Pre-installed multiple tools in the toolkit: git, python, ansible, terraform, kubectl, helm, awscli, azurecli, ...
+- Full CI (continuous integration) and deployment to Docker Hub with GitHub Actions
+- Image is available on Docker Hub
+- Detailed documentation provided for each tool
+- Weekly core tools checking and updating
+
 ## Prerequisites
 
 Before you begin, make sure you have [Docker](https://docs.docker.com/engine/install/) installed. It's also beneficial to have a basic understanding of Docker concepts.

@@ -116,7 +116,7 @@ docker run --rm devops-toolkit:latest samples/run_sample.sh
 docker run --network host --rm devops-toolkit:latest samples/run_sample.sh
 ```
 
-## User guide
+## User guide 📖
 
 - [DevOps toolkit user guide](./docs/usage/)
 - [Troubleshooting](./docs/troubleshooting/)

@@ -19,7 +19,7 @@
 
 ## Prerequisites
 
-Before you begin, make sure you have [Docker](https://docs.docker.com/engine/install/) installed. It's also beneficial to have a basic understanding of Docker concepts.
+Before you begin, ensure that you have [Docker](https://docs.docker.com/engine/install/) installed. It's also helpful to have a basic understanding of Docker concepts.
 
 ## Quick start 🔥
 

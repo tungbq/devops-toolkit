@@ -18,6 +18,10 @@ This guide us how to use the `devops-toolkit` with serveral usecases
 
 - Check [**kubectl_usage**](./kubectl_usage.md)
 
+## Helm
+
+- Check [**helm_usage**](./helm_usage.md)
+
 ## Troubleshooting
 
 - For any issues, check [this document](../troubleshooting/TROUBLESHOOTING.md)

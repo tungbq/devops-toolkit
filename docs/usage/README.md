@@ -22,9 +22,13 @@ This guide us how to use the `devops-toolkit` with serveral usecases
 
 - Check [**helm_usage**](./helm_usage.md)
 
-## AWSCli
+## AwsCLI
 
 - Check [**awscli_usage**](./awscli_usage.md)
+
+## AzureCLI
+
+- Check [**azurecli_usage**](./azurecli_usage.md)
 
 ## Troubleshooting
 

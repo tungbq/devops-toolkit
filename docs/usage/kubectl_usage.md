@@ -30,7 +30,7 @@ kubectl apply -f https://k8s.io/examples/application/deployment.yaml
 kubectl get pods -w
 # View the deployment
 kubectl get deployment
-
+# More command as per your need...
 ```
 
 Sample Result

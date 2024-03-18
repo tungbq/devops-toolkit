@@ -36,7 +36,7 @@ docker build \
 ```bash
 docker build \
   --build-arg UBUNTU_VERSION=22.04 \
-  --build-arg PYTHON_VERSION=3.11.3 \
+  --build-arg PYTHON_VERSION=3.10 \
   --build-arg ANSIBLE_VERSION=2.16.3 \
   --build-arg TERRAFORM_VERSION=1.7.0 \
   --build-arg KUBECTL_VERSION=1.29.2 \

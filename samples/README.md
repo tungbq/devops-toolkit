@@ -48,7 +48,7 @@ popd
 kubectl version
 ```
 
-# Helm
+## Helm
 ```bash
 # Add Helm Chart repository
 helm repo add bitnami https://charts.bitnami.com/bitnami

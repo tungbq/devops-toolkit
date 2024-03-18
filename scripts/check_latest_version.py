@@ -38,8 +38,8 @@ class VersionParser:
         return latest_version
 
     def check_python_version(self):
-        # Harcoding the python version to install the python via apt (save time + image size). See issue#104
-        # We will need to manually update the pytho nversion but, 3.11 is good  so far (on Ubuntu:22.04 base image)
+        # Specifying the Python version for installation via apt (saves time and reduces image size). Refer to issue #104.
+        # While manual updates for the Python version are needed, 3.11 has been reliable so far (on Ubuntu:22.04 base image).
         python_version = "3.11"
         return python_version
 

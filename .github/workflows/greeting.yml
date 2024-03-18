@@ -1,0 +1,23 @@
+name: Greetings
+
+on: 
+  pull_request_target:
+    types:
+      - opened
+  issues:
+    types:
+      - opened
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    if: ${{ github.actor != 'all-contributors[bot]' && github.event.pull_request.user.login != 'tungbq' }}
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/first-interaction@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          issue-message: "Hi, thanks for your contribution!🎉 Great first issue! \n If you find this repository helpful, kindly consider showing your appreciation by giving it a star ⭐ Thanks! 💖"
+          pr-message: "Hi, thanks for your contribution!🎉 Great first PR! \n If you find this repository helpful, kindly consider showing your appreciation by giving it a star ⭐ Thanks! 💖"

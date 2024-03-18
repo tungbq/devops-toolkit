@@ -41,7 +41,7 @@ popd
 ```
 
 
-# Kubectl
+## Kubectl
 
 ```bash
 # Check Kubectl version

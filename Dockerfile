@@ -11,30 +11,15 @@ RUN apt-get update
 
 # Install required packages
 RUN apt-get install -y --no-install-recommends \
-    # software-properties-common \
-    # apt-transport-https \
     ca-certificates \
     curl \
     gnupg \
     lsb-release \
-    # tzdata \
     git \
     jq \
     curl \
     wget \
     unzip
-    # Dev tools
-    # build-essential \
-    # zlib1g-dev \
-    # libncurses5-dev \
-    # libgdbm-dev \
-    # libnss3-dev \
-    # libssl-dev \
-    # libreadline-dev \
-    # libffi-dev \
-    # libsqlite3-dev \
-
-    # libbz2-dev && \
 
 # Set Python version as an argument
 ARG PYTHON_VERSION=3.11

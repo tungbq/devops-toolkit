@@ -40,13 +40,21 @@ terraform destroy
 popd
 ```
 
+
 ## Kubectl
 
-- TODO
+```bash
+# Check Kubectl version
+kubectl version
+```
 
 ## Helm
-
-- TODO
+```bash
+# Add Helm Chart repository
+helm repo add bitnami https://charts.bitnami.com/bitnami
+# Search Helm Chart Repository for Jenkins
+helm search repo bitnami | grep jenkins
+```
 
 ## AwsCLI
 

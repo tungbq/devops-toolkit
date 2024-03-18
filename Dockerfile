@@ -11,51 +11,40 @@ RUN apt-get update
 
 # Install required packages
 RUN apt-get install -y --no-install-recommends \
-    software-properties-common \
-    apt-transport-https \
+    # software-properties-common \
+    # apt-transport-https \
     ca-certificates \
     curl \
     gnupg \
     lsb-release \
-    tzdata \
+    # tzdata \
     git \
     jq \
     curl \
-    # Dev tools
-    build-essential \
-    zlib1g-dev \
-    libncurses5-dev \
-    libgdbm-dev \
-    libnss3-dev \
-    libssl-dev \
-    libreadline-dev \
-    libffi-dev \
-    libsqlite3-dev \
     wget \
-    unzip \
-    libbz2-dev && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    unzip
+    # Dev tools
+    # build-essential \
+    # zlib1g-dev \
+    # libncurses5-dev \
+    # libgdbm-dev \
+    # libnss3-dev \
+    # libssl-dev \
+    # libreadline-dev \
+    # libffi-dev \
+    # libsqlite3-dev \
+
+    # libbz2-dev && \
 
 # Set Python version as an argument
-ARG PYTHON_VERSION=3.12.2
+ARG PYTHON_VERSION=3.11
 # Install Python with specified version
-RUN mkdir /tmp/python_env/ && \
-    cd /tmp/python_env/ && \
-    wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz && \
-    tar -xf Python-${PYTHON_VERSION}.tgz && \
-    cd Python-${PYTHON_VERSION} && \
-    ./configure --enable-optimizations && \
-    make -j$(nproc) && \
-    make install && \
-    # Do cleanup
-    make clean && \
-    cd / && \
-    rm -rf /tmp/python_env/
+RUN apt install -y python${PYTHON_VERSION} && \
+    ln -sf /usr/bin/python3.11 /usr/bin/python3
 
 # Install pip for Python 3.12
 RUN curl -k https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
-    python3.12 get-pip.py && \
+    python3 get-pip.py && \
     rm get-pip.py
 
 # Install Ansible
@@ -116,7 +105,6 @@ RUN mkdir -p /etc/apt/keyrings && \
 # Cleanup
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-
 
 # Set the working directory
 WORKDIR /root

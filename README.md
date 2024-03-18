@@ -96,7 +96,7 @@ Built on `ubuntu:22.04` base image
 
 | Name      | Version                 | Release                                                                      | Usage                                              |
 | :-------- | :---------------------- | :--------------------------------------------------------------------------- | :------------------------------------------------- |
-| Python    | PYTHON_VERSION=3.12.2   | [Check](https://www.python.org/downloads/source/)                            | [python_usage](./docs/usage/python_usage.md)       |
+| Python    | PYTHON_VERSION=3.11     | [Check](https://www.python.org/downloads/source/)                            | [python_usage](./docs/usage/python_usage.md)       |
 | Ansible   | ANSIBLE_VERSION=2.16.4  | [Check](https://api.github.com/repos/ansible/ansible/releases/latest)        | [ansible_usage](./docs/usage/ansible_usage.md)     |
 | Terraform | TERRAFORM_VERSION=1.7.5 | [Check](https://releases.hashicorp.com/terraform/)                           | [terraform_usage](./docs/usage/terraform_usage.md) |
 | Kubectl   | KUBECTL_VERSION=1.29.3  | [Check](https://dl.k8s.io/release/stable.txt)                                | [kubectl_usage](./docs/usage/kubectl_usage.md)     |

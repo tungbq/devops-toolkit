@@ -1,5 +1,5 @@
 {
-  "python3": "3.12.2",
+  "python3": "3.11",
   "ansible": "2.16.4",
   "terraform": "1.7.5",
   "kubectl": "1.29.3",

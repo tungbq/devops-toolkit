@@ -38,8 +38,10 @@ class VersionParser:
         return latest_version
 
     def check_python_version(self):
-        pattern = r'Python (\d+\.\d+\.\d+)'
-        return self.check_version("Python", "https://www.python.org/downloads/", pattern)
+        # Harcoding the python version to install the python via apt (save time + image size). See issue#104
+        # We will need to manually update the pytho nversion but, 3.11 is good  so far (on Ubuntu:22.04 base image)
+        python_version = "3.11"
+        return python_version
 
     def check_kubectl_version(self):
         pattern = r'v(\d+\.\d+\.\d+)'

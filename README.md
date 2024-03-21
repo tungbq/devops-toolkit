@@ -36,7 +36,7 @@ docker run --network host -it --rm tungbq/devops-toolkit:latest
 
 ## Demo 📺
 
-Check out the full sample and instruction at [samples](./samples/)
+Check out the full sample and instruction at [**samples**](./samples/)
 
 ```bash
 docker run --network host --rm tungbq/devops-toolkit:latest samples/run_sample.sh
@@ -46,14 +46,14 @@ docker run --network host --rm tungbq/devops-toolkit:latest samples/run_sample.s
 
 ### Pull the official image from Docker Hub
 
-DockerHub image [tungbq/devops-toolkit](https://hub.docker.com/r/tungbq/devops-toolkit)
+DockerHub image: [**tungbq/devops-toolkit**](https://hub.docker.com/r/tungbq/devops-toolkit)
 
 ```bash
 docker pull tungbq/devops-toolkit:latest
 ```
 
 ### Build your own image
-
+Skip this step if you use the image from DockerHub
 - If you prefer to build your own image from the source code, refer to the [**build_toolkit_image**](./docs/build/build_toolkit_image.md) instructions.
 - We can customize the toolkit by building it with our preferred versions of each tool.
 

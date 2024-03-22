@@ -46,7 +46,7 @@ docker run --network host --rm tungbq/devops-toolkit:latest samples/run_sample.s
 
 ### Pull the official image from Docker Hub
 
-DockerHub image: [**tungbq/devops-toolkit**](https://hub.docker.com/r/tungbq/devops-toolkit)
+DockerHub image: [**tungbq/devops-toolkit:latest**](https://hub.docker.com/r/tungbq/devops-toolkit)
 
 ```bash
 docker pull tungbq/devops-toolkit:latest

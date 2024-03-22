@@ -2,11 +2,10 @@ name: Docker Hub Description
 
 on:
   workflow_dispatch:
-  ## TODO: Implement the auto push later, manual release latest image for now
-  # push:
-  #   branches: main
-  #   paths:
-  #     - 'README.md'
+  push:
+    branches: main
+    paths:
+      - 'README.md'
 jobs:
   dockerhub-description:
     runs-on: ubuntu-latest

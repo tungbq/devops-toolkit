@@ -1,0 +1,21 @@
+name: Docker Hub Description
+
+on:
+  workflow_dispatch:
+  ## TODO: Implement the auto push later, manual release latest image for now
+  # push:
+  #   branches: main
+  #   paths:
+  #     - 'README.md'
+jobs:
+  dockerhub-description:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+      - name: Docker Hub Description
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          repository: tungbq/devops-toolkit

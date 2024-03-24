@@ -4,6 +4,6 @@
   "terraform": "1.7.5",
   "kubectl": "1.29.3",
   "helm": "3.14.3",
-  "awscli": "2.15.30",
+  "awscli": "2.15.32",
   "azurecli": "2.58.0"
 }

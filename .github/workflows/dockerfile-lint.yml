@@ -1,4 +1,4 @@
-name: Dockerfile Linter
+name: Dockerfile Lint
 
 on:
   pull_request:

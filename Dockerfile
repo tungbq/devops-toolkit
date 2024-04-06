@@ -34,7 +34,7 @@ RUN curl -k https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
 
 # Install Ansible
 # Docs: https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-and-upgrading-ansible-with-pip
-ARG ANSIBLE_VERSION=2.16.4
+ARG ANSIBLE_VERSION=2.16.5
 RUN python3 -m pip install ansible-core==${ANSIBLE_VERSION}
 
 # Install Terraform
@@ -65,7 +65,7 @@ RUN mkdir /tmp/helm_env/ && \
     rm -rf /tmp/helm_env/
 
 # Install AwsCLI
-ARG AWSCLI_VERSION=2.15.32
+ARG AWSCLI_VERSION=2.15.36
 RUN mkdir /tmp/awscli_env/ && \
     cd /tmp/awscli_env/ && \
     wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip" && \
@@ -74,7 +74,7 @@ RUN mkdir /tmp/awscli_env/ && \
     rm -rf /tmp/awscli_env/
 
 # Install AzureCLI
-ARG AZURECLI_VERSION=2.58.0
+ARG AZURECLI_VERSION=2.59.0
 RUN mkdir -p /etc/apt/keyrings && \
     curl -sLS https://packages.microsoft.com/keys/microsoft.asc | \
     gpg --dearmor | \

@@ -1,4 +1,4 @@
-name: Docker Image Main
+name: Release - Docker Image Main
 
 on:
   workflow_dispatch:
@@ -50,3 +50,10 @@ jobs:
           docker push "tungbq/devops-toolkit:main-$SHA7"
           echo "Push latest image"
           docker push "tungbq/devops-toolkit:latest"
+
+      - name: Docker Hub Description
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: tungbq/devops-toolkit

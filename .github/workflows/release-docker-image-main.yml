@@ -57,3 +57,4 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           repository: tungbq/devops-toolkit
+          enable-url-completion: true

@@ -25,7 +25,7 @@ jobs:
         id: extract_labels
         run: |
           # Supported labels definition
-          supported_labels=("ci" "doc" "core" "bug")
+          supported_labels=("ci" "doc" "core" "bug" "enhancement" "sample" "usage")
 
           # Get title
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then

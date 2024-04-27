@@ -25,7 +25,7 @@ jobs:
         id: extract_labels
         run: |
           # Supported labels definition
-          supported_labels=("good first issue" "ansible" "area/usage" "area: terraform" "automated-pr" "aws" "bug" "ci" "contribution-welcome" "core" "dependencies" "devops" "doc" "docker" "documentation" "duplicate" "enhancement" "epic" "github_actions" "help wanted" "in-refinement" "invalid" "kubectl" "lint" "planning" "podman" "python" "question" "release" "sample" "shell" "spike" "testing" "upgrade" "wontfix")
+          supported_labels=("ci" "doc" "core" "bug" "enhancement" "sample" "usage")
 
           # Get title
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then

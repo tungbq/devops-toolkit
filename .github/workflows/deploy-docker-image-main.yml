@@ -1,0 +1,60 @@
+name: Deploy - Docker Image Latest (main)
+
+on:
+  workflow_dispatch:
+  ## TODO: Implement the auto push later, manual release latest image for now
+  # push:
+  #   branches: main
+  #   paths:
+  #     - 'Dockerfile'
+  #     - 'scripts/*'
+  #     - '.github/workflows/*'
+
+jobs:
+  buildandpush:
+    runs-on: ubuntu-latest
+    # Docs: https://docs.github.com/en/actions/deployment/about-deployments/deploying-with-github-actions
+    environment: dockerhub
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build the Docker image
+        run: |
+          docker build . --file Dockerfile --tag "devops-toolkit-merge:$GITHUB_SHA"
+
+      - name: Verify tool versions
+        run: |
+          cd scripts
+          chmod +x check_version_in_toolkit.sh
+          ./check_version_in_toolkit.sh "devops-toolkit-merge:$GITHUB_SHA" "../toolkit_info.json"
+
+      - name: Running Sample Tool Code
+        run: |
+          echo "Run sample tool code inside toolkit"
+          docker run --rm devops-toolkit-merge:$GITHUB_SHA samples/run_sample.sh
+
+      - name: Push Docker Image
+        run: |
+          SHA7=${GITHUB_SHA::7}
+          docker tag "devops-toolkit-merge:$GITHUB_SHA" "tungbq/devops-toolkit:main-$SHA7"
+          docker tag "devops-toolkit-merge:$GITHUB_SHA" "tungbq/devops-toolkit:latest"
+          docker images
+          echo "Push image with SHA"
+          docker push "tungbq/devops-toolkit:main-$SHA7"
+          echo "Push latest image"
+          docker push "tungbq/devops-toolkit:latest"
+
+      - name: Docker Hub Description
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: tungbq/devops-toolkit
+          enable-url-completion: true

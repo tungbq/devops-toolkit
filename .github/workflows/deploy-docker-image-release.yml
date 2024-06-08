@@ -1,14 +1,9 @@
-name: Release - Docker Image Main
+name: Deploy - Docker Image Release
 
 on:
-  workflow_dispatch:
-  ## TODO: Implement the auto push later, manual release latest image for now
-  # push:
-  #   branches: main
-  #   paths:
-  #     - 'Dockerfile'
-  #     - 'scripts/*'
-  #     - '.github/workflows/*'
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   buildandpush:
@@ -19,6 +14,10 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v4
 
+      - name: Extract tag name
+        id: extract_tag
+        run: echo "::set-output name=TAG_NAME::${GITHUB_REF#refs/tags/v}"
+
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -27,27 +26,26 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          docker build . --file Dockerfile --tag "devops-toolkit-merge:$GITHUB_SHA"
+          docker build . --file Dockerfile --tag "devops-toolkit-release:${{ steps.extract_tag.outputs.TAG_NAME }}"
 
       - name: Verify tool versions
         run: |
           cd scripts
           chmod +x check_version_in_toolkit.sh
-          ./check_version_in_toolkit.sh "devops-toolkit-merge:$GITHUB_SHA" "../toolkit_info.json"
+          ./check_version_in_toolkit.sh "devops-toolkit-release:${{ steps.extract_tag.outputs.TAG_NAME }}" "../toolkit_info.json"
 
       - name: Running Sample Tool Code
         run: |
           echo "Run sample tool code inside toolkit"
-          docker run --rm devops-toolkit-merge:$GITHUB_SHA samples/run_sample.sh
+          docker run --rm devops-toolkit-release:${{ steps.extract_tag.outputs.TAG_NAME }} samples/run_sample.sh
 
       - name: Push Docker Image
         run: |
-          SHA7=${GITHUB_SHA::7}
-          docker tag "devops-toolkit-merge:$GITHUB_SHA" "tungbq/devops-toolkit:main-$SHA7"
-          docker tag "devops-toolkit-merge:$GITHUB_SHA" "tungbq/devops-toolkit:latest"
+          docker tag "devops-toolkit-release:${{ steps.extract_tag.outputs.TAG_NAME }}" "tungbq/devops-toolkit:${{ steps.extract_tag.outputs.TAG_NAME }}"
+          docker tag "devops-toolkit-release:${{ steps.extract_tag.outputs.TAG_NAME }}" "tungbq/devops-toolkit:latest"
           docker images
-          echo "Push image with SHA"
-          docker push "tungbq/devops-toolkit:main-$SHA7"
+          echo "Push image with TAG_NAME"
+          docker push "tungbq/devops-toolkit:${{ steps.extract_tag.outputs.TAG_NAME }}"
           echo "Push latest image"
           docker push "tungbq/devops-toolkit:latest"
 

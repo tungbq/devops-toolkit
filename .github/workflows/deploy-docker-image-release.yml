@@ -41,11 +41,10 @@ jobs:
 
       - name: Push Docker Image
         run: |
-          SHA7=${GITHUB_SHA::7}
           docker tag "devops-toolkit-release:${{ steps.extract_tag.outputs.TAG_NAME }}" "tungbq/devops-toolkit:${{ steps.extract_tag.outputs.TAG_NAME }}"
           docker tag "devops-toolkit-release:${{ steps.extract_tag.outputs.TAG_NAME }}" "tungbq/devops-toolkit:latest"
           docker images
-          echo "Push image with SHA"
+          echo "Push image with TAG_NAME"
           docker push "tungbq/devops-toolkit:${{ steps.extract_tag.outputs.TAG_NAME }}"
           echo "Push latest image"
           docker push "tungbq/devops-toolkit:latest"

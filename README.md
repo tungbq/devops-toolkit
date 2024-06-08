@@ -28,15 +28,51 @@
 
 Before you begin, ensure that you have [Docker](https://docs.docker.com/engine/install/) installed. It's also helpful to have a basic understanding of Docker concepts.
 
+## Versioning 🔖
+
+Below is the versioning strategy for the repository and DockerHub:
+
+- Tagging format:
+  - Repository: `vX.Y.Z`, for example: `v1.2.3`
+  - DockerHub: `X.Y.Z`, for example: `1.2.3`. (Usage: `docker pull tungbq/devops-toolkit:1.2.3`)
+- Tagging description:
+  - Specific tag (e.g., v0.1.0, v0.2.3): Contains the latest tooling version and repository features at the time this repository is tagged.
+  - In addition to that, we offer the latest tag on DockerHub (latest): Contains the latest tooling version and repository features inside the toolkit, which will be built and updated on a weekly basis.
+
+_NOTE_: In the following section, we use the latest tag in the documentation, but you can specify your desired tag based on your needs.
+
+## Versioning 🔖
+
+Below is the versioning strategy for the repository and DockerHub:
+# Use latest tag
+
+
+# Use specific tag
+docker run --network host -it --rm tungbq/devops-toolkit:0.1.0
+- Tagging format:
+  - Repository: `vX.Y.Z`, for example: `v1.2.3`
+  - DockerHub: `X.Y.Z`, for example: `1.2.3`. (Usage: `docker pull tungbq/devops-toolkit:1.2.3`)
+- Tagging description:
+  - Specific tag (e.g., v0.1.0, v0.2.3): Contains the latest tooling version and repository features at the time this repository is tagged.
+  - In addition to that, we offer the latest tag on DockerHub (latest): Contains the latest tooling version and repository features inside the toolkit, which will be built and updated on a weekly basis.
+
+_NOTE_: In the following section, we use the latest tag in the documentation, but you can specify your desired tag based on your needs.
+
 ## Quick start 🔥
 
 ```bash
+# Use latest tag
 docker run --network host -it --rm tungbq/devops-toolkit:latest
+
+# Use specific tag
+docker run --network host -it --rm tungbq/devops-toolkit:0.1.0
 ```
 
 ## Demo 📺
 
+
 Check out the full sample and instruction at [**samples**](./samples/)
+
 
 ```bash
 docker run --network host --rm tungbq/devops-toolkit:latest samples/run_sample.sh
@@ -53,7 +89,9 @@ docker pull tungbq/devops-toolkit:latest
 ```
 
 ### Build your own image
+
 Skip this step if you use the image from DockerHub
+
 - If you prefer to build your own image from the source code, refer to the [**build_toolkit_image**](./docs/build/build_toolkit_image.md) instructions.
 - We can customize the toolkit by building it with our preferred versions of each tool.
 
@@ -101,7 +139,7 @@ Built on `ubuntu:22.04` base image
 | Terraform | TERRAFORM_VERSION=1.8.5 | [Check](https://releases.hashicorp.com/terraform/)                           | [terraform_usage](./docs/usage/terraform_usage.md) |
 | Kubectl   | KUBECTL_VERSION=1.30.1  | [Check](https://dl.k8s.io/release/stable.txt)                                | [kubectl_usage](./docs/usage/kubectl_usage.md)     |
 | Helm      | HELM_VERSION=3.15.1     | [Check](https://github.com/helm/helm/releases)                               | [helm_usage](./docs/usage/helm_usage.md)           |
-| AwsCLI    | AWSCLI_VERSION=2.16.4  | [Check](https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst)      | [awscli_usage](./docs/usage/awscli_usage.md)       |
+| AwsCLI    | AWSCLI_VERSION=2.16.4   | [Check](https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst)      | [awscli_usage](./docs/usage/awscli_usage.md)       |
 | AzureCLI  | AZURECLI_VERSION=2.61.0 | [Check](https://learn.microsoft.com/en-us/cli/azure/release-notes-azure-cli) | [azurecli_usage](./docs/usage/azurecli_usage.md)   |
 
 And more tools to be implemented...

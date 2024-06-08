@@ -22,7 +22,7 @@ def parse_git_diff(file_path):
     output = []
     for key in added_dict:
         if key in removed_dict:
-            output.append(f"- **{key}**: from {removed_dict[key]} to {added_dict[key]}")
+            output.append(f"- **{key}**: from `{removed_dict[key]}` to `{added_dict[key]}`")
 
     formatted_output = "\n".join(output)
     return formatted_output

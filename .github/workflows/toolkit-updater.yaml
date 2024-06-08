@@ -30,13 +30,13 @@ jobs:
       - name: Update Version
         run: python scripts/update_latest_version.py "./toolkit_info.json" "./Dockerfile" "./README.md"
 
-      - name: Get changes
+      - name: Prepare PR changelog
         run: |
-          echo "core: update tool versions" > changelog.txt
-          echo "" >> changelog.txt
+          echo "core: update tool versions" > pr-changelog.txt
+          echo "" >> pr-changelog.txt
 
-          python scripts/parse_diff.py "./toolkit_info.json" >> changelog.txt
-          cat changelog.txt
+          python scripts/parse_diff.py "./toolkit_info.json" >> pr-changelog.txt
+          cat pr-changelog.txt
 
       - name: Create Pull Request
         id: cpr
@@ -52,5 +52,5 @@ jobs:
           delete-branch: true
           base: 'main'
           title: 'core: update tool versions'
-          body-path: changelog.txt
+          body-path: pr-changelog.txt
           labels: 'upgrade, automated-pr, core'

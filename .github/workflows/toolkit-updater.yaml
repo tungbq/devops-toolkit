@@ -34,14 +34,8 @@ jobs:
         run: |
           echo "core: update tool versions" > changelog.txt
           echo "" >> changelog.txt
-          echo "```" >> changelog.txt
 
-          # Run git diff and capture the output
-          git_diff_output=$(git diff toolkit_info.json)
-
-          # Filter the lines to include only those starting with + or -, but not +++ or ---
-          echo "$git_diff_output" | grep -E '^\+|^\-' | grep -Ev '^\+\+\+|^\-\-\-' >> changelog.txt
-          echo "```" >> changelog.txt
+          python scripts/parse_diff.py "./toolkit_info.json" >> changelog.txt
           cat changelog.txt
 
       - name: Create Pull Request

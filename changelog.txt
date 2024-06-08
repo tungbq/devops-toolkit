@@ -1,0 +1,9 @@
+
+-  "terraform": "1.8.4",
++  "terraform": "1.8.5",
+-  "awscli": "2.15.62",
+-  "azurecli": "2.61.2"
+-}
++  "awscli": "2.16.4",
++  "azurecli": "2.61.0"
++}

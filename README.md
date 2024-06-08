@@ -41,23 +41,6 @@ Below is the versioning strategy for the repository and DockerHub:
 
 _NOTE_: In the following section, we use the latest tag in the documentation, but you can specify your desired tag based on your needs.
 
-## Versioning 🔖
-
-Below is the versioning strategy for the repository and DockerHub:
-# Use latest tag
-
-
-# Use specific tag
-docker run --network host -it --rm tungbq/devops-toolkit:0.1.0
-- Tagging format:
-  - Repository: `vX.Y.Z`, for example: `v1.2.3`
-  - DockerHub: `X.Y.Z`, for example: `1.2.3`. (Usage: `docker pull tungbq/devops-toolkit:1.2.3`)
-- Tagging description:
-  - Specific tag (e.g., v0.1.0, v0.2.3): Contains the latest tooling version and repository features at the time this repository is tagged.
-  - In addition to that, we offer the latest tag on DockerHub (latest): Contains the latest tooling version and repository features inside the toolkit, which will be built and updated on a weekly basis.
-
-_NOTE_: In the following section, we use the latest tag in the documentation, but you can specify your desired tag based on your needs.
-
 ## Quick start 🔥
 
 ```bash
@@ -70,9 +53,7 @@ docker run --network host -it --rm tungbq/devops-toolkit:0.1.0
 
 ## Demo 📺
 
-
 Check out the full sample and instruction at [**samples**](./samples/)
-
 
 ```bash
 docker run --network host --rm tungbq/devops-toolkit:latest samples/run_sample.sh

@@ -33,7 +33,7 @@ jobs:
       - name: Get changes
         run: |
           echo "core: update tool versions" > changelog.txt
-          echo "" > changelog.txt
+          echo "" >> changelog.txt
 
           # Run git diff and capture the output
           git_diff_output=$(git diff toolkit_info.json)

@@ -1,0 +1,59 @@
+name: Release - Docker Image Main
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  buildandpush:
+    runs-on: ubuntu-latest
+    # Docs: https://docs.github.com/en/actions/deployment/about-deployments/deploying-with-github-actions
+    environment: dockerhub
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Extract tag name
+        id: extract_tag
+        run: echo "::set-output name=TAG_NAME::${GITHUB_REF#refs/tags/v}"
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build the Docker image
+        run: |
+          docker build . --file Dockerfile --tag "devops-toolkit-release:${{ steps.extract_tag.outputs.TAG_NAME }}"
+
+      - name: Verify tool versions
+        run: |
+          cd scripts
+          chmod +x check_version_in_toolkit.sh
+          ./check_version_in_toolkit.sh "devops-toolkit-release:${{ steps.extract_tag.outputs.TAG_NAME }}" "../toolkit_info.json"
+
+      - name: Running Sample Tool Code
+        run: |
+          echo "Run sample tool code inside toolkit"
+          docker run --rm devops-toolkit-release:${{ steps.extract_tag.outputs.TAG_NAME }} samples/run_sample.sh
+
+      - name: Push Docker Image
+        run: |
+          SHA7=${GITHUB_SHA::7}
+          docker tag "devops-toolkit-release:${{ steps.extract_tag.outputs.TAG_NAME }}" "tungbq/devops-toolkit:${{ steps.extract_tag.outputs.TAG_NAME }}"
+          docker tag "devops-toolkit-release:${{ steps.extract_tag.outputs.TAG_NAME }}" "tungbq/devops-toolkit:latest"
+          docker images
+          echo "Push image with SHA"
+          docker push "tungbq/devops-toolkit:${{ steps.extract_tag.outputs.TAG_NAME }}"
+          echo "Push latest image"
+          docker push "tungbq/devops-toolkit:latest"
+
+      - name: Docker Hub Description
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: tungbq/devops-toolkit
+          enable-url-completion: true

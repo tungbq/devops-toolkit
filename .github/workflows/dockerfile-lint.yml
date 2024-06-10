@@ -3,6 +3,7 @@ name: Dockerfile Lint
 on:
   pull_request:
     branches: [ "main" ]
+    paths: ["Dockerfile"]
 
 # Abort the previous running CI workflow in the same pull request
 concurrency:

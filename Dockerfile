@@ -19,7 +19,8 @@ RUN apt-get install -y --no-install-recommends \
     jq \
     curl \
     wget \
-    unzip
+    unzip \
+    openssh-client
 
 # Set Python version as an argument
 ARG PYTHON_VERSION=3.11

@@ -22,7 +22,7 @@ docker exec -it my_devops_toolkit /bin/bash
 ## Use case 1: Configure credentials and list S3 bucket with awscli
 
 ```bash
-docker run --rm --network host -it devops-toolkit:latest
+docker run --rm --network host -it tungbq/devops-toolkit:latest
 ###############################################
 # Now we are in the docker container terminal #
 ###############################################
@@ -47,7 +47,7 @@ Default output format [None]: xxxxxxxx
 Mount the `.aws` when running toolkit container
 
 ```bash
-docker run --rm --network host -it -v ~/.aws:/root/.aws devops-toolkit:latest
+docker run --rm --network host -it -v ~/.aws:/root/.aws tungbq/devops-toolkit:latest
 # List bucket
 aws s3 ls
 ```

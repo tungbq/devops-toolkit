@@ -24,7 +24,7 @@ docker exec -it my_devops_toolkit /bin/bash
 Mount the `.kube/config` file from the host to container (or other kubeconfig files you had)
 
 ```bash
-docker run --rm --network host -it -v ~/.kube/config:/root/.kube/config devops-toolkit:latest
+docker run --rm --network host -it -v ~/.kube/config:/root/.kube/config tungbq/devops-toolkit:latest
 ###############################################
 # Now we are in the docker container terminal #
 ###############################################

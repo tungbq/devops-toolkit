@@ -21,7 +21,7 @@ docker exec -it my_devops_toolkit /bin/bash
 ## Use case 1: Az login and run command
 
 ```bash
-docker run --rm -it devops-toolkit:latest
+docker run --rm -it tungbq/devops-toolkit:latest
 ## To sign in, use a web browser to open the page https://microsoft.com/devicelogin and enter the code <SHOWN_IN_SCREEN> to authenticate
 az login
 # List all resource groups
@@ -33,7 +33,7 @@ az group list
 Mount the `.azure` folder from host when running toolkit container
 
 ```bash
-docker run --rm -it -v ~/.azure:/root/.azure devops-toolkit:latest
+docker run --rm -it -v ~/.azure:/root/.azure tungbq/devops-toolkit:latest
 ###############################################
 # Now we are in the docker container terminal #
 ###############################################
@@ -44,7 +44,7 @@ az group list
 Sample Result
 
 ```bash
-➜  ~ docker run --rm -it -v ~/.azure:/root/.azure devops-toolkit:latest
+➜  ~ docker run --rm -it -v ~/.azure:/root/.azure tungbq/devops-toolkit:latest
 root@f097467db632:~# az group list
 [
   {

@@ -20,7 +20,7 @@ docker exec -it my_devops_toolkit /bin/bash
 Mount the `.kube/config` file from the host to container
 
 ```bash
-docker run --rm --network host -it -v ~/.kube/config:/root/.kube/config devops-toolkit:latest
+docker run --rm --network host -it -v ~/.kube/config:/root/.kube/config tungbq/devops-toolkit:latest
 ###############################################
 # Now we are in the docker container terminal #
 ###############################################
@@ -38,7 +38,7 @@ kubectl get deployment
 Sample Result
 
 ```bash
-➜  ~ docker run --rm --network host -it -v ~/.kube/config:/root/.kube/config devops-toolkit:latest
+➜  ~ docker run --rm --network host -it -v ~/.kube/config:/root/.kube/config tungbq/devops-toolkit:latest
 root@docker-desktop:~# kubectl get nodes
 NAME                 STATUS   ROLES           AGE   VERSION
 kind-control-plane   Ready    control-plane   21m   v1.29.2

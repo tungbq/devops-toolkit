@@ -5,7 +5,7 @@
 Start and dive into the container
 
 ```bash
-docker run -it --rm devops-toolkit:latest
+docker run -it --rm tungbq/devops-toolkit:latest
 ```
 
 Congrats! You now in the container and able to run the tooling sample inside toolkit, the console will look like:

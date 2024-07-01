@@ -49,6 +49,16 @@ docker run --rm -v "$(pwd)":/root/ansible_workspace --network host -it devops-to
 # Run the ansible code as usual
 ```
 
+## Use case 4: Mount external code to container and use .ssh keys from the host
+
+Clone the code to the host then mount code and `.ssh` folder to container
+
+```bash
+# Given that we have code somewhere in you machine
+docker run --rm -v ~/.ssh:/root/.ssh -v "$(pwd)":/root/ansible_workspace --network host -it devops-toolkit:latest
+# Run the ansible code as usual
+```
+
 ## Troubleshooting
 
 - For any issues, check [this reference](../troubleshooting/TROUBLESHOOTING.md)

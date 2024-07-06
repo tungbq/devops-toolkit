@@ -52,7 +52,7 @@ Clone the code to the host then mount to container
 
 ```bash
 # Given that we have code somewhere in you machine
-docker run --rm -v "$(pwd)":/root/terraform_workspace --network host -it tungbq/devops-toolkit:latest
+docker run --rm -v "$(pwd)":/root/terraform_workspace -v ~/.devops-toolkit-config:/config --network host -it tungbq/devops-toolkit:latest
 # Run the terraform code as usual
 ```
 

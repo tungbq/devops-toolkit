@@ -46,21 +46,26 @@ _NOTE_: In the following section, we use the latest tag in the documentation, bu
 
 - Use latest tag
 
-```bash
-# NOTE: You can replace '~/devops-toolkit-config' path with the desired config folder oin your VM
-docker run --network host -it --rm -v ~/devops-toolkit-config:/config tungbq/devops-toolkit:latest
-```
+  ```bash
+  mkdir ~/.devops-toolkit-config
+  docker run --network host -it --rm -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:latest
+  ```
+
+  _NOTE_:
+
+  - Note: You can replace `~/.devops-toolkit-config` with any desired folder path on your VM.
+  - Remove the `-v ~/.devops-toolkit-config:/config` option if you do not wish to store configurations on the host (not recommended for configuration reuse).
 
 - Use specific tag
 
-```bash
-docker run --network host -it --rm -v ~/devops-toolkit-config:/config tungbq/devops-toolkit:0.1.0
-```
+  ```bash
+  docker run --network host -it --rm -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:0.1.0
+  ```
 
 ## Demo 📺
 
 ```bash
-docker run --network host --rm -v ~/devops-toolkit-config:/config tungbq/devops-toolkit:latest samples/run_sample.sh
+docker run --network host --rm -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:latest samples/run_sample.sh
 ```
 
 Check out the full sample and instruction at [**samples**](./samples/)
@@ -88,35 +93,45 @@ Once you have the image ready, you can start using the toolkit with the followin
 
 - Start devops-toolkit container
 
-```bash
-docker run --network host -it --rm -v ~/devops-toolkit-config:/config tungbq/devops-toolkit:latest
-```
+  ```bash
+  docker run --network host -it --rm -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:latest
+  ```
 
 - Now we are in the docker container terminal, let's explore it
 
-```bash
-root@docker-desktop:~# python3 --version
-Python 3.12.2
+  ```bash
+  root@docker-desktop:~# python3 --version
+  Python 3.12.2
 
-root@docker-desktop:~# terraform --version
-Terraform v1.7.5
-on linux_amd64
+  root@docker-desktop:~# terraform --version
+  Terraform v1.7.5
+  on linux_amd64
 
-root@docker-desktop:~# kubectl version
-Client Version: v1.29.3
-Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
+  root@docker-desktop:~# kubectl version
+  Client Version: v1.29.3
+  Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
 
-root@docker-desktop:~# aws configure
-root@docker-desktop:~# az login --use-device-code
+  root@docker-desktop:~# aws configure
+  root@docker-desktop:~# az login --use-device-code
 
-# ... more command as your needed
-```
+  # ... more command as your needed
+  ```
 
-## User guide 📖
+## User Guide 📖
 
-Explore the comprehensive guide below to gain insight into the detailed utilization of every tool within the toolkit
+Explore the comprehensive guide below to gain insight into the detailed utilization of every tool within the toolkit.
 
-- [**DevOps toolkit user guide**](./docs/usage/README.md)
+- Preparation of Configuration Folder on the Host
+  (It's recommended to mount a config folder from the host into the container for reuse. Skip this step if you do not intend to reuse configurations.)
+
+  ```bash
+  mkdir ~/.devops-toolkit-config
+  # NOTE: It's recommended to use `~/.devops-toolkit-config` but any folder name on the host can be used.
+  # For example: /tmp/.demo-config01. Update your `docker run ...` command accordingly.
+  ```
+
+- For detailed instructions on using specific tools, refer to: [**DevOps toolkit specific tool user guide**](./docs/usage/README.md)
+- For instructions on common run modes, visit [**DevOps toolkit common run mode**](./docs/usage/run_mode.md)
 
 ## The DevOps Toolkit Core 🧰
 

@@ -92,19 +92,6 @@ RUN mkdir -p /etc/apt/keyrings && \
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# # Create the configuration directories inside the container
-# RUN mkdir -p /root/.aws /root/.azure /root/.kube /root/.terraform.d/plugins /root/.config/helm /root/.ansible
-# RUN mkdir -p /config/.aws /config/.azure /config/.kube /config/.terraform.d/plugins /config/.config/helm /config/.ansible
-
-# # Set up symlinks (this assumes that the configuration folder is mounted to /config)
-# RUN ln -s /config/.aws /root/.aws && \
-#     ln -s /config/.azure /root/.azure && \
-#     ln -s /config/.kube /root/.kube && \
-#     ln -s /config/.terraform.d/plugins /root/.terraform.d/plugins && \
-#     ln -s /config/.helm /root/.config/helm && \
-#     ln -s /config/.ansible /root/.ansible && \
-#     ln -s /config/.gitconfig /root/.gitconfig
-
 # Set the working directory
 WORKDIR /root
 

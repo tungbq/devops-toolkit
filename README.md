@@ -23,6 +23,7 @@
 - **Regular Updates**: Weekly checks and updates for core tools ensure the toolkit's reliability and security.
 - **Sample code**: Includes sample code demonstrating the usage of various tools available in the toolkit.
 - **Support for Build Variants**: Enables users to customize the toolkit by building it with their preferred versions of each tool.
+- **Support Configuration Reusable**: Mounts a config folder on the host to the container.This allows reusing configurations in the container, like AWS and Azure login sessions, ...
 
 ## Prerequisites 🔓
 
@@ -36,8 +37,8 @@ Below is the versioning strategy for the repository and DockerHub:
   - Repository: `vX.Y.Z`, for example: `v1.2.3`
   - DockerHub: `X.Y.Z`, for example: `1.2.3`. (Usage: `docker pull tungbq/devops-toolkit:1.2.3`)
 - Tagging description:
-  - Specific tag (e.g., v0.1.0, v0.2.3): Contains the latest tooling version and repository features at the time this repository is tagged.
-  - In addition to that, we offer the latest tag on DockerHub (latest): Contains the latest tooling version and repository features inside the toolkit, which will be built and updated on a weekly basis.
+  - Specific tag (e.g., `0.1.0`, `0.2.3`): Contains the latest tooling version and repository features at the time this repository is tagged.
+  - In addition to that, we offer the latest tag on DockerHub (`latest`): Contains the latest tooling version and repository features inside the toolkit, which will be built and updated on a weekly basis.
 
 _NOTE_: In the following section, we use the latest tag in the documentation, but you can specify your desired tag based on your needs.
 
@@ -46,19 +47,20 @@ _NOTE_: In the following section, we use the latest tag in the documentation, bu
 - Use latest tag
 
 ```bash
-docker run --network host -it --rm tungbq/devops-toolkit:latest
+# NOTE: You can replace '~/devops-toolkit-config' path with the desired config folder oin your VM
+docker run --network host -it --rm -v ~/devops-toolkit-config:/config tungbq/devops-toolkit:latest
 ```
 
 - Use specific tag
 
 ```bash
-docker run --network host -it --rm tungbq/devops-toolkit:0.1.0
+docker run --network host -it --rm -v ~/devops-toolkit-config:/config tungbq/devops-toolkit:0.1.0
 ```
 
 ## Demo 📺
 
 ```bash
-docker run --network host --rm tungbq/devops-toolkit:latest samples/run_sample.sh
+docker run --network host --rm -v ~/devops-toolkit-config:/config tungbq/devops-toolkit:latest samples/run_sample.sh
 ```
 
 Check out the full sample and instruction at [**samples**](./samples/)
@@ -87,7 +89,7 @@ Once you have the image ready, you can start using the toolkit with the followin
 - Start devops-toolkit container
 
 ```bash
-docker run --network host -it --rm tungbq/devops-toolkit:latest
+docker run --network host -it --rm -v ~/devops-toolkit-config:/config tungbq/devops-toolkit:latest
 ```
 
 - Now we are in the docker container terminal, let's explore it
@@ -103,6 +105,9 @@ on linux_amd64
 root@docker-desktop:~# kubectl version
 Client Version: v1.29.3
 Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
+
+root@docker-desktop:~# aws configure
+root@docker-desktop:~# az login --use-device-code
 
 # ... more command as your needed
 ```

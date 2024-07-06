@@ -19,10 +19,14 @@ To use the existing container instead of creating one, use `docker exec` command
 docker exec -it my_devops_toolkit /bin/bash
 ```
 
+## Common Run Modes
+
+For instructions on common run modes, visit [**DevOps Toolkit Common Run Mode**](../usage/run_mode.md).
+
 ## Use case 1: Configure credentials and list S3 bucket with awscli
 
 ```bash
-docker run --rm --network host -it tungbq/devops-toolkit:latest
+docker run --rm --network host -it -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:latest
 ###############################################
 # Now we are in the docker container terminal #
 ###############################################
@@ -40,16 +44,6 @@ AWS Access Key ID [None]: xxxxxxxx
 AWS Secret Access Key [None]: xxxxxxxx
 Default region name [None]: xxxxxxxx
 Default output format [None]: xxxxxxxx
-```
-
-## Use case 2: Using AWS config from the host
-
-Mount the `.aws` when running toolkit container
-
-```bash
-docker run --rm --network host -it -v ~/.aws:/root/.aws tungbq/devops-toolkit:latest
-# List bucket
-aws s3 ls
 ```
 
 ## Troubleshooting

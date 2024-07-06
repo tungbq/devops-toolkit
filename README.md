@@ -23,6 +23,7 @@
 - **Regular Updates**: Weekly checks and updates for core tools ensure the toolkit's reliability and security.
 - **Sample code**: Includes sample code demonstrating the usage of various tools available in the toolkit.
 - **Support for Build Variants**: Enables users to customize the toolkit by building it with their preferred versions of each tool.
+- **Support Configuration Reusable**: Mounts a config folder on the host to the container.This allows reusing configurations in the container, like AWS and Azure login sessions, ...
 
 ## Prerequisites 🔓
 
@@ -36,28 +37,38 @@ Below is the versioning strategy for the repository and DockerHub:
   - Repository: `vX.Y.Z`, for example: `v1.2.3`
   - DockerHub: `X.Y.Z`, for example: `1.2.3`. (Usage: `docker pull tungbq/devops-toolkit:1.2.3`)
 - Tagging description:
-  - Specific tag (e.g., v0.1.0, v0.2.3): Contains the latest tooling version and repository features at the time this repository is tagged.
-  - In addition to that, we offer the latest tag on DockerHub (latest): Contains the latest tooling version and repository features inside the toolkit, which will be built and updated on a weekly basis.
+  - Specific tag (e.g., `0.1.0`, `0.2.3`): Contains the latest tooling version and repository features at the time this repository is tagged.
+  - In addition to that, we offer the latest tag on DockerHub (`latest`): Contains the latest tooling version and repository features inside the toolkit, which will be built and updated on a weekly basis.
 
 _NOTE_: In the following section, we use the latest tag in the documentation, but you can specify your desired tag based on your needs.
 
 ## Quick start 🔥
 
-```bash
-# Use latest tag
-docker run --network host -it --rm tungbq/devops-toolkit:latest
+- Use latest tag
 
-# Use specific tag
-docker run --network host -it --rm tungbq/devops-toolkit:0.1.0
-```
+  ```bash
+  mkdir ~/.devops-toolkit-config
+  docker run --network host -it --rm -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:latest
+  ```
+
+- Use specific tag
+
+  ```bash
+  docker run --network host -it --rm -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:0.1.0
+  ```
+
+  _NOTE_:
+
+  - Note: You can replace `~/.devops-toolkit-config` with any desired folder path on your VM.
+  - Remove the `-v ~/.devops-toolkit-config:/config` option if you do not wish to store configurations on the host (not recommended for configuration reuse).
 
 ## Demo 📺
 
-Check out the full sample and instruction at [**samples**](./samples/)
-
 ```bash
-docker run --network host --rm tungbq/devops-toolkit:latest samples/run_sample.sh
+docker run --network host --rm -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:latest samples/run_sample.sh
 ```
+
+Check out the full sample and instruction at [**samples**](./samples/)
 
 ## Getting started 📖
 
@@ -82,32 +93,44 @@ Once you have the image ready, you can start using the toolkit with the followin
 
 - Start devops-toolkit container
 
-```bash
-docker run --network host -it --rm tungbq/devops-toolkit:latest
-```
+  ```bash
+  docker run --network host -it --rm -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:latest
+  ```
 
 - Now we are in the docker container terminal, let's explore it
 
-```bash
-root@docker-desktop:~# python3 --version
-Python 3.12.2
+  ```bash
+  root@docker-desktop:~# python3 --version
+  Python 3.12.2
 
-root@docker-desktop:~# terraform --version
-Terraform v1.7.5
-on linux_amd64
+  root@docker-desktop:~# terraform --version
+  Terraform v1.7.5
+  on linux_amd64
 
-root@docker-desktop:~# kubectl version
-Client Version: v1.29.3
-Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
+  root@docker-desktop:~# kubectl version
+  Client Version: v1.29.3
+  Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
 
-# ... more command as your needed
-```
+  root@docker-desktop:~# aws configure
+  root@docker-desktop:~# az login --use-device-code
 
-## User guide 📖
+  # ... more command as your needed
+  ```
 
-Explore the comprehensive guide below to gain insight into the detailed utilization of every tool within the toolkit
+## User Guide 📖
 
-- [**DevOps toolkit user guide**](./docs/usage/README.md)
+Explore the comprehensive guide below to gain insight into the detailed utilization of every tool within the toolkit.
+
+- Prepare configuration folder on the Host (Skip this step if you do not intend to reuse configurations.)
+
+  ```bash
+  mkdir ~/.devops-toolkit-config
+  ```
+
+  _NOTE:_ We are using `~/.devops-toolkit-config` to store toolkit configurations, but you can choose any folder name on the host.
+
+- For detailed instructions on using specific tools, refer to: [**DevOps toolkit specific tool user guide**](./docs/usage/README.md)
+- For instructions on common run modes, visit [**DevOps toolkit common run mode**](./docs/usage/run_mode.md)
 
 ## The DevOps Toolkit Core 🧰
 

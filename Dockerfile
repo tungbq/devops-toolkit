@@ -103,5 +103,14 @@ RUN chmod +x /root/samples/run_sample.sh
 ENV DEBIAN_FRONTEND teletype
 ENV TZ=""
 
+# Copy the entrypoint script into the container
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
+# Make the entrypoint script executable
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Set the entrypoint to the entrypoint script
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
 # Define the default command to run when the container starts
 CMD ["/bin/bash"]

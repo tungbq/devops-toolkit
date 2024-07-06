@@ -19,12 +19,14 @@ To use the existing container instead of creating one, use `docker exec` command
 docker exec -it my_devops_toolkit /bin/bash
 ```
 
+## Common Run Modes
+
+For instructions on common run modes, visit [**DevOps Toolkit Common Run Mode**](../usage/run_mode.md).
+
 ## Use case 1: Deploy an application with Helm
 
-Mount the `.kube/config` file from the host to container (or other kubeconfig files you had)
-
 ```bash
-docker run --rm --network host -it -v ~/.kube/config:/root/.kube/config tungbq/devops-toolkit:latest
+docker run --rm --network host -it -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:latest
 ###############################################
 # Now we are in the docker container terminal #
 ###############################################

@@ -15,10 +15,14 @@ To use the existing container instead of creating one, use `docker exec` command
 docker exec -it my_devops_toolkit /bin/bash
 ```
 
+## Common Run Modes
+
+For instructions on common run modes, visit [**DevOps Toolkit Common Run Mode**](../usage/run_mode.md).
+
 ## Use case 1: Run Ansible sample code provided in the container
 
 ```bash
-docker run --rm --network host -it tungbq/devops-toolkit:latest
+docker run --rm --network host -v ~/.devops-toolkit-config:/config -it tungbq/devops-toolkit:latest
 
 # You now in the container terminal
 ansible-playbook samples/ansible/check_os.yml
@@ -27,7 +31,7 @@ ansible-playbook samples/ansible/check_os.yml
 ## Use case 2: Clone external code inside container
 
 ```bash
-docker run --rm --network host -it tungbq/devops-toolkit:latest
+docker run --rm --network host -v ~/.devops-toolkit-config:/config -it tungbq/devops-toolkit:latest
 # You now in the container terminal
 
 # Now run your cloned script
@@ -45,7 +49,7 @@ Clone the code to the host then mount to container
 
 ```bash
 # Given that we have code somewhere in you machine
-docker run --rm -v "$(pwd)":/root/ansible_workspace --network host -it tungbq/devops-toolkit:latest
+docker run --rm -v "$(pwd)":/root/ansible_workspace --network host -v ~/.devops-toolkit-config:/config -it tungbq/devops-toolkit:latest
 # Run the ansible code as usual
 ```
 
@@ -55,7 +59,7 @@ Clone the code to the host then mount code and `.ssh` folder to container
 
 ```bash
 # Given that we have code somewhere in you machine
-docker run --rm -v ~/.ssh:/root/.ssh -v "$(pwd)":/root/ansible_workspace --network host -it tungbq/devops-toolkit:latest
+docker run --rm -v ~/.ssh:/root/.ssh -v "$(pwd)":/root/ansible_workspace --network host -v ~/.devops-toolkit-config:/config -it tungbq/devops-toolkit:latest
 # Run the ansible code as usual
 ```
 

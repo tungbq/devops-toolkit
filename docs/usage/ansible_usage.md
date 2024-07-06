@@ -15,6 +15,10 @@ To use the existing container instead of creating one, use `docker exec` command
 docker exec -it my_devops_toolkit /bin/bash
 ```
 
+## Common Run Modes
+
+For instructions on common run modes, visit [**DevOps Toolkit Common Run Mode**](../usage/run_mode.md).
+
 ## Use case 1: Run Ansible sample code provided in the container
 
 ```bash

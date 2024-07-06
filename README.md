@@ -43,21 +43,25 @@ _NOTE_: In the following section, we use the latest tag in the documentation, bu
 
 ## Quick start 🔥
 
-```bash
-# Use latest tag
-docker run --network host -it --rm tungbq/devops-toolkit:latest
+- Use latest tag
 
-# Use specific tag
+```bash
+docker run --network host -it --rm tungbq/devops-toolkit:latest
+```
+
+- Use specific tag
+
+```bash
 docker run --network host -it --rm tungbq/devops-toolkit:0.1.0
 ```
 
 ## Demo 📺
 
-Check out the full sample and instruction at [**samples**](./samples/)
-
 ```bash
 docker run --network host --rm tungbq/devops-toolkit:latest samples/run_sample.sh
 ```
+
+Check out the full sample and instruction at [**samples**](./samples/)
 
 ## Getting started 📖
 

@@ -22,8 +22,11 @@ docker exec -it my_devops_toolkit /bin/bash
 
 ```bash
 docker run --rm -it tungbq/devops-toolkit:latest
+
+# Login with AZ CLI
+az login --use-device-code
 ## To sign in, use a web browser to open the page https://microsoft.com/devicelogin and enter the code <SHOWN_IN_SCREEN> to authenticate
-az login
+
 # List all resource groups
 az group list
 ```

@@ -51,16 +51,16 @@ _NOTE_: In the following section, we use the latest tag in the documentation, bu
   docker run --network host -it --rm -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:latest
   ```
 
-  _NOTE_:
-
-  - Note: You can replace `~/.devops-toolkit-config` with any desired folder path on your VM.
-  - Remove the `-v ~/.devops-toolkit-config:/config` option if you do not wish to store configurations on the host (not recommended for configuration reuse).
-
 - Use specific tag
 
   ```bash
   docker run --network host -it --rm -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:0.1.0
   ```
+
+  _NOTE_:
+
+  - Note: You can replace `~/.devops-toolkit-config` with any desired folder path on your VM.
+  - Remove the `-v ~/.devops-toolkit-config:/config` option if you do not wish to store configurations on the host (not recommended for configuration reuse).
 
 ## Demo 📺
 
@@ -121,14 +121,13 @@ Once you have the image ready, you can start using the toolkit with the followin
 
 Explore the comprehensive guide below to gain insight into the detailed utilization of every tool within the toolkit.
 
-- Preparation of Configuration Folder on the Host
-  (It's recommended to mount a config folder from the host into the container for reuse. Skip this step if you do not intend to reuse configurations.)
+- Prepare configuration folder on the Host (Skip this step if you do not intend to reuse configurations.)
 
   ```bash
   mkdir ~/.devops-toolkit-config
-  # NOTE: It's recommended to use `~/.devops-toolkit-config` but any folder name on the host can be used.
-  # For example: /tmp/.demo-config01. Update your `docker run ...` command accordingly.
   ```
+
+  _NOTE:_ We are using `~/.devops-toolkit-config` to store toolkit configurations, but you can choose any folder name on the host.
 
 - For detailed instructions on using specific tools, refer to: [**DevOps toolkit specific tool user guide**](./docs/usage/README.md)
 - For instructions on common run modes, visit [**DevOps toolkit common run mode**](./docs/usage/run_mode.md)

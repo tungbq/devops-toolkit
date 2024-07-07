@@ -57,9 +57,8 @@ _NOTE_: In the following section, we use the latest tag in the documentation, bu
   docker run --network host -it --rm -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:0.1.0
   ```
 
-  _NOTE_:
-
-  - Note: You can replace `~/.devops-toolkit-config` with any desired folder path on your VM.
+- _NOTE_
+  - You can replace `~/.devops-toolkit-config` with any desired folder path on your VM.
   - Remove the `-v ~/.devops-toolkit-config:/config` option if you do not wish to store configurations on the host (not recommended for configuration reuse).
 
 ## Demo 📺

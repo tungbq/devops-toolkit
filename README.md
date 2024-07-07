@@ -23,7 +23,7 @@
 - **Regular Updates**: Weekly checks and updates for core tools ensure the toolkit's reliability and security.
 - **Sample code**: Includes sample code demonstrating the usage of various tools available in the toolkit.
 - **Support for Build Variants**: Enables users to customize the toolkit by building it with their preferred versions of each tool.
-- **Support Configuration Reusable**: Mounts a config folder on the host to the container.This allows reusing configurations in the container, like AWS and Azure login sessions, ...
+- **Support Configuration Reusable**: Mounts a config folder on the host to the container. This allows reusing configurations in the container, like AWS and Azure login sessions, ...
 
 ## Prerequisites 🔓
 
@@ -47,7 +47,7 @@ _NOTE_: In the following section, we use the latest tag in the documentation, bu
 - Use latest tag
 
   ```bash
-  mkdir ~/.devops-toolkit-config
+  mkdir -p ~/.devops-toolkit-config
   docker run --network host -it --rm -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:latest
   ```
 

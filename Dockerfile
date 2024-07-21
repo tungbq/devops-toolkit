@@ -35,7 +35,7 @@ RUN curl -k https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
 
 # Install Ansible
 # Docs: https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-and-upgrading-ansible-with-pip
-ARG ANSIBLE_VERSION=2.17.1
+ARG ANSIBLE_VERSION=2.17.2
 RUN python3 -m pip install ansible-core==${ANSIBLE_VERSION}
 
 # Install Terraform
@@ -48,7 +48,7 @@ RUN mkdir /tmp/terraform_env/ && \
     rm -rf /tmp/terraform_env/
 
 # Install Kubectl
-ARG KUBECTL_VERSION=1.30.2
+ARG KUBECTL_VERSION=1.30.3
 RUN mkdir /tmp/kubectl_env/ && \
     cd /tmp/kubectl_env/ && \
     curl -LO "https://dl.k8s.io/release/v$KUBECTL_VERSION/bin/linux/amd64/kubectl" && \
@@ -66,7 +66,7 @@ RUN mkdir /tmp/helm_env/ && \
     rm -rf /tmp/helm_env/
 
 # Install AwsCLI
-ARG AWSCLI_VERSION=2.17.13
+ARG AWSCLI_VERSION=2.17.14
 RUN mkdir /tmp/awscli_env/ && \
     cd /tmp/awscli_env/ && \
     wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip" && \

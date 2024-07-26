@@ -118,9 +118,15 @@ RUN locale-gen $LANG && update-locale && \
     pwsh -NoLogo -NoProfile -Command " \
         \$ErrorActionPreference = 'Stop' ; \
         \$ProgressPreference = 'SilentlyContinue' ; \
+        \$maxTries = 0 ; \
         while(!(Test-Path -Path \$env:PSModuleAnalysisCachePath)) {  \
             Write-Host 'Waiting for $env:PSModuleAnalysisCachePath' ; \
             Start-Sleep -Seconds 6 ; \
+            \$maxTries++ ; \
+            if(\$maxTries -gt 20) {  \
+                Write-Error 'Failed to create $env:PSModuleAnalysisCachePath' ; \
+                exit 1 ; \
+            } ; \
         }"
 
 # Cleanup

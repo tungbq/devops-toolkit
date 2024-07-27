@@ -17,24 +17,31 @@ RUN apt-get install -y --no-install-recommends \
     lsb-release \
     git \
     jq \
-    curl \
     wget \
     unzip \
-    openssh-client
+    openssh-client \
+    locales \
+    gss-ntlmssp \
+    libicu70 \
+    libssl3 \
+    libc6 \
+    libgcc1 \
+    libgssapi-krb5-2 \
+    liblttng-ust1 \
+    libstdc++6 \
+    zlib1g
 
-# Set Python version as an argument
+# Install Python
 ARG PYTHON_VERSION=3.11
-# Install Python with specified version
 RUN apt install -y python${PYTHON_VERSION} && \
-    ln -sf /usr/bin/python3.11 /usr/bin/python3
+    ln -sf /usr/bin/python${PYTHON_VERSION} /usr/bin/python3
 
-# Install pip for Python 3.12
+# Install pip for Python 3.11
 RUN curl -k https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     python3 get-pip.py && \
     rm get-pip.py
 
 # Install Ansible
-# Docs: https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-and-upgrading-ansible-with-pip
 ARG ANSIBLE_VERSION=2.17.2
 RUN python3 -m pip install ansible-core==${ANSIBLE_VERSION}
 
@@ -44,7 +51,7 @@ RUN mkdir /tmp/terraform_env/ && \
     cd /tmp/terraform_env/ && \
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
-    cp  terraform /usr/local/bin/ && \
+    cp terraform /usr/local/bin/ && \
     rm -rf /tmp/terraform_env/
 
 # Install Kubectl
@@ -85,8 +92,42 @@ RUN mkdir -p /etc/apt/keyrings && \
     echo "deb [arch=`dpkg --print-architecture` signed-by=/etc/apt/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/azure-cli/ $AZ_DIST main" | \
     tee /etc/apt/sources.list.d/azure-cli.list && \
     apt-get update && \
-    # Install a specific version
     apt-get install --no-install-recommends -y azure-cli=$AZURECLI_VERSION-1~$AZ_DIST
+
+# PowerShell Installation
+ARG PS_VERSION=7.4.4
+ARG PS_PACKAGE=powershell_${PS_VERSION}-1.deb_amd64.deb
+ARG PS_PACKAGE_URL=https://github.com/PowerShell/PowerShell/releases/download/v${PS_VERSION}/${PS_PACKAGE}
+ARG PS_INSTALL_VERSION=7
+
+RUN curl -sSL ${PS_PACKAGE_URL} -o /tmp/powershell.deb && \
+    apt-get install --no-install-recommends -y /tmp/powershell.deb && \
+    rm /tmp/powershell.deb
+
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false \
+    LC_ALL=en_US.UTF-8 \
+    LANG=en_US.UTF-8 \
+    PS_INSTALL_FOLDER=/opt/microsoft/powershell/$PS_INSTALL_VERSION \
+    PSModuleAnalysisCachePath=/var/cache/microsoft/powershell/PSModuleAnalysisCache/ModuleAnalysisCache \
+    POWERSHELL_DISTRIBUTION_CHANNEL=PSDocker-Ubuntu-22.04
+
+RUN locale-gen $LANG && update-locale && \
+    export POWERSHELL_TELEMETRY_OPTOUT=1 && \
+    chmod a+x,o-w ${PS_INSTALL_FOLDER}/pwsh && \
+    ln -sf ${PS_INSTALL_FOLDER}/pwsh /usr/bin/pwsh && \
+    pwsh -NoLogo -NoProfile -Command " \
+        \$ErrorActionPreference = 'Stop' ; \
+        \$ProgressPreference = 'SilentlyContinue' ; \
+        \$maxTries = 0 ; \
+        while(!(Test-Path -Path \$env:PSModuleAnalysisCachePath)) {  \
+            Write-Host 'Waiting for $env:PSModuleAnalysisCachePath' ; \
+            Start-Sleep -Seconds 6 ; \
+            \$maxTries++ ; \
+            if(\$maxTries -gt 20) {  \
+                Write-Error 'Failed to create $env:PSModuleAnalysisCachePath' ; \
+                exit 1 ; \
+            } ; \
+        }"
 
 # Cleanup
 RUN apt-get clean && \

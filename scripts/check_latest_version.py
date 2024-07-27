@@ -94,6 +94,10 @@ def main(output_file):
         azcli_version = version_parser.check_github_release_version("Azure CLI", "Azure/azure-cli", "azure-cli-")
         versions["azurecli"] = azcli_version
 
+        # PowerShell Core
+        pwsh_version = version_parser.check_github_release_version("PowerShell", "PowerShell/PowerShell", "v")
+        versions["pwsh"] = pwsh_version
+
         # Summary
         print("Summary:")
         print(versions)

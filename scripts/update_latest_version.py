@@ -59,7 +59,8 @@ if __name__ == "__main__":
         {"name": "kubectl", "version_arg": "KUBECTL_VERSION"},
         {"name": "helm", "version_arg": "HELM_VERSION"},
         {"name": "awscli", "version_arg": "AWSCLI_VERSION"},
-        {"name": "azurecli", "version_arg": "AZURECLI_VERSION"}
+        {"name": "azurecli", "version_arg": "AZURECLI_VERSION"},
+        {"name": "pwsh", "version_arg": "PS_VERSION"}
     ]
 
     for tool in tools:

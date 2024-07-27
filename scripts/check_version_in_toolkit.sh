@@ -11,6 +11,7 @@ kubectl_version=$(cat "$toolkit_info_path" | jq -r '.kubectl')
 helm_version=$(cat "$toolkit_info_path" | jq -r '.helm')
 awscli_version=$(cat "$toolkit_info_path" | jq -r '.awscli')
 azurecli_version=$(cat "$toolkit_info_path" | jq -r '.azurecli')
+pwsh_version=$(cat "$toolkit_info_path" | jq -r '.pwsh')
 
 # Print the versions
 echo "Desired version:"
@@ -21,6 +22,7 @@ echo "kubectl_version=$kubectl_version"
 echo "helm_version=$helm_version"
 echo "awscli_version=$awscli_version"
 echo "azurecli_version=$azurecli_version"
+echo "pwsh_version=$pwsh_version"
 
 # Define the tools and their expected versions
 declare -A tools=(
@@ -31,6 +33,7 @@ declare -A tools=(
   [helm]="$helm_version"
   [aws]="$awscli_version"
   [az]="$azurecli_version"
+  [pwsh]="$pwsh_version"
   # Add more tools as needed
 )
 

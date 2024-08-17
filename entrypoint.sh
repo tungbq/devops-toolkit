@@ -1,6 +1,7 @@
 #!/bin/bash
 
-CONFIG_DIR=/config
+# NOTE: 'dtc' stands for devops toolkit configuration
+CONFIG_DIR=/dtc
 
 # Function to create symlink if source exists
 create_symlink() {
@@ -12,18 +13,18 @@ create_symlink() {
   fi
 }
 
-# Check if the /config directory exists and is not empty
+# Check if the /dtc directory exists and is not empty
 if [ -d "$CONFIG_DIR" ]; then
   echo "Custom configuration directory detected. Setting up symlinks..."
 
   # TODO: Check and only create if folder does not exist
   ## config mount point
-  mkdir -p /config/.aws \
-    /config/.azure \
-    /config/.kube \
-    /config/.terraform.d \
-    /config/.config/helm \
-    /config/.ansible
+  mkdir -p /dtc/.aws \
+    /dtc/.azure \
+    /dtc/.kube \
+    /dtc/.terraform.d \
+    /dtc/.config/helm \
+    /dtc/.ansible
 
   ## root container path
   mkdir -p /root/.config/

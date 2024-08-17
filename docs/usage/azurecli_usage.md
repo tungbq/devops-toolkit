@@ -25,7 +25,7 @@ For instructions on common run modes, visit [**DevOps Toolkit Common Run Mode**]
 ## Use case 1: Az login and run command
 
 ```bash
-docker run --rm -it -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:latest
+docker run --rm -it -v ~/.dtc:/config tungbq/devops-toolkit:latest
 
 # Login with AZ CLI
 az login --use-device-code

@@ -26,7 +26,7 @@ For instructions on common run modes, visit [**DevOps Toolkit Common Run Mode**]
 ## Use case 1: Configure credentials and list S3 bucket with awscli
 
 ```bash
-docker run --rm --network host -it -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:latest
+docker run --rm --network host -it -v ~/.dtc:/config tungbq/devops-toolkit:latest
 ###############################################
 # Now we are in the docker container terminal #
 ###############################################

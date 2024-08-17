@@ -138,11 +138,11 @@ Built on `ubuntu:22.04` base image
 | Name       | Version                 | Release                                                                      | Usage                                              |
 | :--------- | :---------------------- | :--------------------------------------------------------------------------- | :------------------------------------------------- |
 | Python     | PYTHON_VERSION=3.11     | [Check](https://www.python.org/downloads/source/)                            | [python_usage](./docs/usage/python_usage.md)       |
-| Ansible    | ANSIBLE_VERSION=2.17.2  | [Check](https://api.github.com/repos/ansible/ansible/releases/latest)        | [ansible_usage](./docs/usage/ansible_usage.md)     |
+| Ansible    | ANSIBLE_VERSION=2.17.3  | [Check](https://api.github.com/repos/ansible/ansible/releases/latest)        | [ansible_usage](./docs/usage/ansible_usage.md)     |
 | Terraform  | TERRAFORM_VERSION=1.9.4 | [Check](https://releases.hashicorp.com/terraform/)                           | [terraform_usage](./docs/usage/terraform_usage.md) |
-| Kubectl    | KUBECTL_VERSION=1.30.3  | [Check](https://dl.k8s.io/release/stable.txt)                                | [kubectl_usage](./docs/usage/kubectl_usage.md)     |
-| Helm       | HELM_VERSION=3.15.3     | [Check](https://github.com/helm/helm/releases)                               | [helm_usage](./docs/usage/helm_usage.md)           |
-| AwsCLI     | AWSCLI_VERSION=2.17.27  | [Check](https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst)      | [awscli_usage](./docs/usage/awscli_usage.md)       |
+| Kubectl    | KUBECTL_VERSION=1.31.0  | [Check](https://dl.k8s.io/release/stable.txt)                                | [kubectl_usage](./docs/usage/kubectl_usage.md)     |
+| Helm       | HELM_VERSION=3.15.4     | [Check](https://github.com/helm/helm/releases)                               | [helm_usage](./docs/usage/helm_usage.md)           |
+| AwsCLI     | AWSCLI_VERSION=2.17.32  | [Check](https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst)      | [awscli_usage](./docs/usage/awscli_usage.md)       |
 | AzureCLI   | AZURECLI_VERSION=2.63.0 | [Check](https://learn.microsoft.com/en-us/cli/azure/release-notes-azure-cli) | [azurecli_usage](./docs/usage/azurecli_usage.md)   |
 | PowerShell | PS_VERSION=7.4.4        | [Check](https://github.com/PowerShell/PowerShell/releases)                   | TODO                                               |
 

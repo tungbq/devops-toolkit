@@ -47,24 +47,24 @@ _NOTE_: In the following section, we use the latest tag in the documentation, bu
 - Use latest tag
 
   ```bash
-  mkdir -p ~/.devops-toolkit-config
-  docker run --network host -it --rm -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:latest
+  mkdir -p ~/.dtc
+  docker run --network host -it --rm -v ~/.dtc:/dtc tungbq/devops-toolkit:latest
   ```
 
 - Use specific tag
 
   ```bash
-  docker run --network host -it --rm -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:0.1.0
+  docker run --network host -it --rm -v ~/.dtc:/dtc tungbq/devops-toolkit:0.1.0
   ```
 
 - _NOTE_
-  - You can replace `~/.devops-toolkit-config` with any desired folder path on your VM.
-  - Remove the `-v ~/.devops-toolkit-config:/config` option if you do not wish to store configurations on the host (not recommended for configuration reuse).
+  - You can replace `~/.dtc` with any desired folder path on your VM.
+  - Remove the `-v ~/.dtc:/dtc` option if you do not wish to store configurations on the host (not recommended for configuration reuse).
 
 ## Demo 📺
 
 ```bash
-docker run --network host --rm -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:latest samples/run_sample.sh
+docker run --network host --rm -v ~/.dtc:/dtc tungbq/devops-toolkit:latest samples/run_sample.sh
 ```
 
 Check out the full sample and instruction at [**samples**](./samples/)
@@ -93,7 +93,7 @@ Once you have the image ready, you can start using the toolkit with the followin
 - Start devops-toolkit container
 
   ```bash
-  docker run --network host -it --rm -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:latest
+  docker run --network host -it --rm -v ~/.dtc:/dtc tungbq/devops-toolkit:latest
   ```
 
 - Now we are in the docker container terminal, let's explore it
@@ -123,10 +123,10 @@ Explore the comprehensive guide below to gain insight into the detailed utilizat
 - Prepare configuration folder on the Host (Skip this step if you do not intend to reuse configurations.)
 
   ```bash
-  mkdir ~/.devops-toolkit-config
+  mkdir ~/.dtc
   ```
 
-  _NOTE:_ We are using `~/.devops-toolkit-config` to store toolkit configurations, but you can choose any folder name on the host.
+  _NOTE:_ We are using `~/.dtc` to store toolkit configurations, but you can choose any folder name on the host.
 
 - For detailed instructions on using specific tools, refer to: [**DevOps toolkit specific tool user guide**](./docs/usage/README.md)
 - For instructions on common run modes, visit [**DevOps toolkit common run mode**](./docs/usage/run_mode.md)

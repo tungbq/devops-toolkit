@@ -24,7 +24,7 @@ For instructions on common run modes, visit [**DevOps Toolkit Common Run Mode**]
 Mount the `.kube/config` file from the host to container
 
 ```bash
-docker run --rm --network host -it -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:latest
+docker run --rm --network host -it -v ~/.dtc:/dtc tungbq/devops-toolkit:latest
 ###############################################
 # Now we are in the docker container terminal #
 ###############################################

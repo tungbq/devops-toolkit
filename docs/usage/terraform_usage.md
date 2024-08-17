@@ -22,7 +22,7 @@ For instructions on common run modes, visit [**DevOps Toolkit Common Run Mode**]
 ## Use case 1: Run terraform sample code provided in the container
 
 ```bash
-docker run --rm --network host -it -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:latest
+docker run --rm --network host -it -v ~/.dtc:/dtc tungbq/devops-toolkit:latest
 # You now in the container terminal
 #  Navigate to Terraform sample
 pushd samples/terraform/basic
@@ -38,7 +38,7 @@ popd
 ## Use case 2: Clone external code inside container
 
 ```bash
-docker run --rm --network host -it -v ~/.devops-toolkit-config:/config tungbq/devops-toolkit:latest
+docker run --rm --network host -it -v ~/.dtc:/dtc tungbq/devops-toolkit:latest
 # You now in the container terminal
 
 # Now run your cloned script
@@ -56,7 +56,7 @@ Clone the code to the host then mount to container
 
 ```bash
 # Given that we have code somewhere in you machine
-docker run --rm -v "$(pwd)":/root/terraform_workspace -v ~/.devops-toolkit-config:/config --network host -it tungbq/devops-toolkit:latest
+docker run --rm -v "$(pwd)":/root/terraform_workspace -v ~/.dtc:/dtc --network host -it tungbq/devops-toolkit:latest
 # Run the terraform code as usual
 ```
 

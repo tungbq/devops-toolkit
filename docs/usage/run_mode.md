@@ -10,7 +10,7 @@ Command: `docker run <RUN_OPTS> tungbq/devops-toolkit:<TAG>`, some of the common
 - `--rm`: Remove the container after it completes (Ctrl + C or container exit event).
 - `--network host`: Use the host (VM) network.
 - `--name <CONTAINER_NAME>`: Assign a name to the container (e.g: `--name demo001`).
-- `-v <ABS_PATH_ON_THE_HOST>:/config`: Mount a config folder on the host to the container. This allows reusing configurations in the container, like AWS and Azure login sessions (e.g: `-v ~/.dtc:/config`, `-v /tmp/devops-toolkit-config-01:/config`).
+- `-v <ABS_PATH_ON_THE_HOST>:/config`: Mount a config folder on the host to the container. This allows reusing configurations in the container, like AWS and Azure login sessions (e.g: `-v ~/.dtc:/dtc`, `-v /tmp/devops-toolkit-config-01:/config`).
 
 ## Example
 
@@ -48,5 +48,5 @@ docker run --network host -it --name demo001 tungbq/devops-toolkit:latest
 
 ```bash
 mkdir -p ~/.dtc # or other location you want to store the configuration
-docker run --network host -it --rm -v ~/.dtc:/config tungbq/devops-toolkit:latest
+docker run --network host -it --rm -v ~/.dtc:/dtc tungbq/devops-toolkit:latest
 ```

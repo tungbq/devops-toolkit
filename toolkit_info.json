@@ -1,10 +1,10 @@
 {
   "python3": "3.11",
   "ansible": "2.17.3",
-  "terraform": "1.9.4",
+  "terraform": "1.9.5",
   "kubectl": "1.31.0",
   "helm": "3.15.4",
-  "awscli": "2.17.32",
+  "awscli": "2.17.37",
   "azurecli": "2.63.0",
-  "pwsh": "7.4.4"
+  "pwsh": "7.4.5"
 }

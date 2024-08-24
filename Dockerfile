@@ -46,7 +46,7 @@ ARG ANSIBLE_VERSION=2.17.3
 RUN python3 -m pip install ansible-core==${ANSIBLE_VERSION}
 
 # Install Terraform
-ARG TERRAFORM_VERSION=1.9.4
+ARG TERRAFORM_VERSION=1.9.5
 RUN mkdir /tmp/terraform_env/ && \
     cd /tmp/terraform_env/ && \
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
@@ -73,7 +73,7 @@ RUN mkdir /tmp/helm_env/ && \
     rm -rf /tmp/helm_env/
 
 # Install AwsCLI
-ARG AWSCLI_VERSION=2.17.32
+ARG AWSCLI_VERSION=2.17.37
 RUN mkdir /tmp/awscli_env/ && \
     cd /tmp/awscli_env/ && \
     wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip" && \
@@ -95,7 +95,7 @@ RUN mkdir -p /etc/apt/keyrings && \
     apt-get install --no-install-recommends -y azure-cli=$AZURECLI_VERSION-1~$AZ_DIST
 
 # PowerShell Installation
-ARG PS_VERSION=7.4.4
+ARG PS_VERSION=7.4.5
 ARG PS_PACKAGE=powershell_${PS_VERSION}-1.deb_amd64.deb
 ARG PS_PACKAGE_URL=https://github.com/PowerShell/PowerShell/releases/download/v${PS_VERSION}/${PS_PACKAGE}
 ARG PS_INSTALL_VERSION=7

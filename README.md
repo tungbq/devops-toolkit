@@ -40,7 +40,8 @@ sudo mv devops-toolkit-cli /usr/local/bin/
 
 ```bash
 devops-toolkit-cli init
-# Run 'devops-toolkit-cli init vX.Y.Z' if you want to use specific version. E.g: devops-toolkit-cli init 1.0.2
+# Run 'devops-toolkit-cli init vX.Y.Z' if you want to use specific version.
+# E.g: devops-toolkit-cli init 1.0.2
 ```
 
 - Start a shell in new container:

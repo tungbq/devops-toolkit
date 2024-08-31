@@ -42,7 +42,31 @@ Below is the versioning strategy for the repository and DockerHub:
 
 _NOTE_: In the following section, we use the latest tag in the documentation, but you can specify your desired tag based on your needs.
 
-## Quick start 🔥
+## Use devops-toolkit with execution script
+
+This option helps you use the devops-toolkit in the fast and efficience way.
+
+- Install
+
+```bash
+curl -o devops-toolkit https://raw.githubusercontent.com/tungbq/devops-toolkit/main/devops-toolkit; chmod +x devops-toolkit
+sudo mv devops-toolkit /usr/local/bin/
+```
+
+- Run
+
+```bash
+devops-toolkit run
+devops-toolkit run ls -la
+devops-toolkit update
+devops-toolkit cleanup
+```
+
+## Use devops-toolkit with docker command
+
+In this option you use your own docker command to start and run the devops-toolkit.
+
+### Quick start 🔥
 
 - Use latest tag
 
@@ -61,7 +85,7 @@ _NOTE_: In the following section, we use the latest tag in the documentation, bu
   - You can replace `~/.dtc` with any desired folder path on your VM.
   - Remove the `-v ~/.dtc:/dtc` option if you do not wish to store configurations on the host (not recommended for configuration reuse).
 
-## Demo 📺
+### Demo 📺
 
 ```bash
 docker run --network host --rm -v ~/.dtc:/dtc tungbq/devops-toolkit:latest samples/run_sample.sh

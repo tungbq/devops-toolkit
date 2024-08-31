@@ -142,7 +142,7 @@ Built on `ubuntu:22.04` base image
 | Terraform  | TERRAFORM_VERSION=1.9.5 | [Check](https://releases.hashicorp.com/terraform/)                           | [terraform_usage](./docs/usage/terraform_usage.md) |
 | Kubectl    | KUBECTL_VERSION=1.31.0  | [Check](https://dl.k8s.io/release/stable.txt)                                | [kubectl_usage](./docs/usage/kubectl_usage.md)     |
 | Helm       | HELM_VERSION=3.15.4     | [Check](https://github.com/helm/helm/releases)                               | [helm_usage](./docs/usage/helm_usage.md)           |
-| AwsCLI     | AWSCLI_VERSION=2.17.37  | [Check](https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst)      | [awscli_usage](./docs/usage/awscli_usage.md)       |
+| AwsCLI     | AWSCLI_VERSION=2.17.42  | [Check](https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst)      | [awscli_usage](./docs/usage/awscli_usage.md)       |
 | AzureCLI   | AZURECLI_VERSION=2.63.0 | [Check](https://learn.microsoft.com/en-us/cli/azure/release-notes-azure-cli) | [azurecli_usage](./docs/usage/azurecli_usage.md)   |
 | PowerShell | PS_VERSION=7.4.5        | [Check](https://github.com/PowerShell/PowerShell/releases)                   | TODO                                               |
 

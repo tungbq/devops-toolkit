@@ -26,7 +26,7 @@
 
 Use the provided execution script simplifies setup, execution and managing DevOps Toolkit.
 
-1. **Install**:
+### 1. Install
 
 ```bash
 curl -o devops-toolkit https://raw.githubusercontent.com/tungbq/devops-toolkit/main/devops-toolkit
@@ -34,7 +34,7 @@ chmod +x devops-toolkit
 sudo mv devops-toolkit /usr/local/bin/
 ```
 
-2. **Run**:
+### 2. Run
 
 - Initialize the docker image, container and configuration directory:
 
@@ -63,18 +63,18 @@ devops-toolkit shell
 
 - For more commands, use `devops-toolkit help`.
 
-## Use Docker Command Directly
+## Use DevOps Toolkit with docker command directly
 
-Follow this instruction if you would like to use from docker command without the help of execution script
+Follow this instruction if you would like to use from docker command without the help of the execution script
 
-- **Quick Start**:
+### 1. Quick Start
 
-  ```bash
-  mkdir -p $HOME/.dtc
-  docker run --network host -it --rm -v $HOME/.dtc:/dtc tungbq/devops-toolkit:latest
-  ```
+```bash
+mkdir -p $HOME/.dtc # Skip this step if you already created the configuration folder before
+docker run --network host -it --rm -v $HOME/.dtc:/dtc tungbq/devops-toolkit:latest
+```
 
-- **Advanced Run Options**:
+### 2. Advanced Run Options
 
 ```bash
 docker run -it --name devops-toolkit-ctn \
@@ -84,7 +84,11 @@ docker run -it --name devops-toolkit-ctn \
     --workdir "$PWD" \
     --network host \
     tungbq/devops-toolkit:latest
+
+# Adjust the docker run command base on your use cases
 ```
+
+### 3. Note
 
 - You can replace `$HOME/.dtc` with any desired folder path on your VM.
 - Remove the `-v $HOME/.dtc:/dtc` option if you do not wish to store configurations on the host (not recommended for configuration reuse).
@@ -100,6 +104,7 @@ You can pull specific versions from Docker Hub using:
 
 ```bash
 docker pull tungbq/devops-toolkit:1.2.3
+docker pull tungbq/devops-toolkit:latest
 ```
 
 For more details on versioning, check the [release notes](https://github.com/tungbq/devops-toolkit/releases).

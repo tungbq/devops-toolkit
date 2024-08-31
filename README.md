@@ -36,14 +36,14 @@ sudo mv devops-toolkit /usr/local/bin/
 
 2. **Run**:
 
-- Initialize the docker image and configuration directory:
+- Initialize the docker image, container and configuration directory:
 
 ```bash
 devops-toolkit init
-# Run 'devops-toolkit init vX.Y.Z' if you want to use specific version
+# Run 'devops-toolkit init vX.Y.Z' if you want to use specific version. E.g: devops-toolkit init 1.0.2
 ```
 
-- Start a new container:
+- Start a shell in new container:
 
 ```bash
 devops-toolkit run
@@ -72,16 +72,22 @@ Follow this instruction if you would like to use from docker command without the
   ```bash
   mkdir -p $HOME/.dtc
   docker run --network host -it --rm -v $HOME/.dtc:/dtc tungbq/devops-toolkit:latest
-
-  # You can replace `$HOME/.dtc` with any desired folder path on your VM.
-  # Remove the `-v $HOME/.dtc:/dtc` option if you do not wish to store configurations on the host (not recommended for configuration reuse).
   ```
 
 - **Advanced Run Options**:
 
 ```bash
-# TODO
+docker run -it --name devops-toolkit-ctn \
+    --volume "$PWD:$PWD" \
+    --volume "$HOME/.dtc:/dtc" \
+    --volume "$HOME/.ssh:/root/.ssh" \
+    --workdir "$PWD" \
+    --network host \
+    tungbq/devops-toolkit:latest
 ```
+
+- You can replace `$HOME/.dtc` with any desired folder path on your VM.
+- Remove the `-v $HOME/.dtc:/dtc` option if you do not wish to store configurations on the host (not recommended for configuration reuse).
 
 ## Versioning
 

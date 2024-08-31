@@ -7,7 +7,25 @@ Some document to help you start with python
 - <https://www.python.org/doc/>
 - <https://github.com/tungbq/devops-basic/tree/main/topics/python>
 
-## Note
+## Run with devops-toolkit-cli
+
+### Start the container
+
+Navigate to your workspace folder, then run:
+
+```bash
+devops-toolkit-cli init
+devops-toolkit-cli run
+
+# You now in the container terminal. Execute the python command normally
+python3 --version
+```
+
+It will mount the workspace code to container and you then can execute desired scripts inside the `devops-toolkit` container
+
+## Run with Docker command
+
+### Note
 
 To use the existing container instead of creating one, use `docker exec` command instead of `docker run`
 
@@ -16,11 +34,11 @@ To use the existing container instead of creating one, use `docker exec` command
 docker exec -it my_devops_toolkit /bin/bash
 ```
 
-## Common Run Modes
+### Common Run Modes
 
 For instructions on common run modes, visit [**DevOps Toolkit Common Run Mode**](../usage/run_mode.md).
 
-## Use case 1: Run python sample code provided in the container
+### Use case 1: Run python sample code provided in the container
 
 ```bash
 docker run --rm --network host -it -v ~/.dtc:/dtc tungbq/devops-toolkit:latest
@@ -28,7 +46,7 @@ docker run --rm --network host -it -v ~/.dtc:/dtc tungbq/devops-toolkit:latest
 python3 samples/python/rectangle_area_calculator.py
 ```
 
-## Use case 2: Clone external code inside container
+### Use case 2: Clone external code inside container
 
 ```bash
 docker run --rm --network host -it -v ~/.dtc:/dtc tungbq/devops-toolkit:latest
@@ -46,7 +64,7 @@ cd Python
 python3 Day_of_week.py
 ```
 
-## Use case 3: Mount external code to container
+### Use case 3: Mount external code to container
 
 Clone the code to the host then mount to container
 
@@ -56,6 +74,6 @@ docker run --rm -v "$(pwd)":/root/python_workspace --network host -it -v ~/.dtc:
 # Run the python code as usual
 ```
 
-## Troubleshooting
+### Troubleshooting
 
 - For any issues, check [this reference](../troubleshooting/TROUBLESHOOTING.md)

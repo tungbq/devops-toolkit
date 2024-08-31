@@ -24,7 +24,7 @@
 
 ## Getting Started
 
-Use the provided execution script simplifies setup, execution and managing DevOps Toolkit.
+The provided execution script simplifies the setup, execution, and management of the DevOps Toolkit.
 
 ### 1. Install
 
@@ -36,11 +36,14 @@ sudo mv devops-toolkit-cli /usr/local/bin/
 
 ### 2. Run
 
+Navigate to your workspace folder, then:
+
 - Initialize the docker image, container and configuration directory:
 
 ```bash
 devops-toolkit-cli init
-# Run 'devops-toolkit-cli init vX.Y.Z' if you want to use specific version. E.g: devops-toolkit-cli init 1.0.2
+# Run 'devops-toolkit-cli init vX.Y.Z' if you want to use specific version.
+# E.g: devops-toolkit-cli init 1.0.2
 ```
 
 - Start a shell in new container:
@@ -61,11 +64,14 @@ devops-toolkit-cli run ls -la
 devops-toolkit-cli shell
 ```
 
-- For more commands, use `devops-toolkit-cli help`.
+### 3. Get Help
 
-## Use DevOps Toolkit with docker command directly
+- For more commands, run `devops-toolkit-cli help`.
+- For detailed `devops-toolkit-cli` document and advanced usage, see: [docs/usage/devops_toolkit_cli](./docs/usage/devops_toolkit_cli.md)
 
-Follow this instruction if you would like to use from docker command without the help of the execution script
+## Use DevOps Toolkit with Docker Command Directly
+
+Follow these instructions if you prefer to use Docker commands without the help of the execution script.
 
 ### 1. Quick Start
 
@@ -90,6 +96,7 @@ docker run -it --name devops-toolkit-ctn \
 
 ### 3. Note
 
+- `.dtc` stands for **D**evOps **T**oolkit **C**onfiguration
 - You can replace `$HOME/.dtc` with any desired folder path on your VM.
 - Remove the `-v $HOME/.dtc:/dtc` option if you do not wish to store configurations on the host (not recommended for configuration reuse).
 
@@ -107,7 +114,7 @@ docker pull tungbq/devops-toolkit:1.2.3
 docker pull tungbq/devops-toolkit:latest
 ```
 
-For more details on versioning, check the [release notes](https://github.com/tungbq/devops-toolkit/releases).
+For more details on versioning, check the [**release notes**](https://github.com/tungbq/devops-toolkit/releases).
 
 ## User Guide 📖
 

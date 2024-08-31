@@ -1,0 +1,240 @@
+#!/bin/bash
+
+# Color codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Logging function
+log() {
+    local color=$1
+    local message=$2
+    echo -e "${color}${message}${NC}"
+}
+
+# Default configuration options
+DOCKER_IMAGE="${DOCKER_IMAGE:-tungbq/devops-toolkit:latest}"
+CONFIG_MOUNT_PATH="${CONFIG_MOUNT_PATH:-$HOME/.dtc}"
+CONTAINER_NAME="${CONTAINER_NAME:-devops_toolkit}"
+CONTAINER_SHELL="${CONTAINER_SHELL:-/bin/bash}"
+RUN_MODE="${RUN_MODE:-run}"
+NETWORK="${NETWORK:---net=host}"
+
+if [ -z "$CONTAINER_NAME" ]; then
+    log $RED "No CONTAINER_NAME provided"
+    exit 1
+fi
+
+# Function to check if local image is up-to-date with DockerHub
+is_image_up_to_date() {
+    local image="$1"
+    local repo="${image%:*}"
+    local tag="${image#*:}"
+
+    local local_digest=$(docker image inspect --format='{{index .RepoDigests 0}}' "$image" 2>/dev/null | cut -d'@' -f2)
+    local remote_digest=$(docker pull -q "$image" > /dev/null 2>&1 && docker image inspect --format='{{index .RepoDigests 0}}' "$image" | cut -d'@' -f2)
+
+    [ "$local_digest" = "$remote_digest" ]
+}
+
+pull_image() {
+    local image="$1"
+
+    if [[ "$image" != "sha256:"* ]]; then
+        if docker image inspect "$image" >/dev/null 2>&1; then
+            if is_image_up_to_date "$image"; then
+                log $YELLOW "Image $image is up-to-date. Skipping pull."
+            else
+                log $BLUE "Local image $image is outdated. Pulling latest version..."
+                docker pull "$image" || { log $RED "Failed to pull image $image"; exit 1; }
+            fi
+        else
+            log $BLUE "Pulling image $image..."
+            docker pull "$image" || { log $RED "Failed to pull image $image"; exit 1; }
+        fi
+    fi
+}
+
+start_container() {
+    local image="$1"
+    if ! docker inspect --type=container "$CONTAINER_NAME" > /dev/null 2>&1; then
+        log $BLUE "Starting new container with image $image..."
+        docker run -d --name "$CONTAINER_NAME" \
+            --volume "$PWD:$PWD" \
+            --volume "$CONFIG_MOUNT_PATH:/dtc" \
+            --volume "$HOME/.ssh:/root/.ssh" \
+            --workdir "$PWD" \
+            --init \
+            --entrypoint tail \
+            $NETWORK \
+            $DOCKER_ARGS \
+            "$image" -f /dev/null > /dev/null || { log $RED "Failed to start container"; exit 1; }
+        log $GREEN "Container started successfully"
+    else
+        log $YELLOW "Container $CONTAINER_NAME already exists"
+    fi
+}
+
+exec_in_container() {
+    local command="$1"
+
+    local RUN_CMD=$CONTAINER_SHELL
+
+    if [ -n "$command" ]; then
+        RUN_CMD+=" -c $command"
+    fi
+
+    log $BLUE "Executing command in container $CONTAINER_NAME..."
+    docker exec -it "$CONTAINER_NAME" $RUN_CMD || {
+        log $RED "Failed to execute command in container $CONTAINER_NAME"; exit 1;
+    }
+}
+
+cleanup() {
+    log $BLUE "Cleaning up..."
+    if docker inspect --type=container "$CONTAINER_NAME" > /dev/null 2>&1; then
+        docker stop "$CONTAINER_NAME" > /dev/null
+        docker rm "$CONTAINER_NAME" > /dev/null
+        log $GREEN "Container $CONTAINER_NAME has been removed."
+    else
+        log $YELLOW "Container $CONTAINER_NAME does not exist."
+    fi
+}
+
+update() {
+    local version="$1"
+    local new_image
+
+    if [ -z "$version" ]; then
+        new_image="${DOCKER_IMAGE%:*}:latest"
+        log $BLUE "Updating to the latest version..."
+    else
+        new_image="${DOCKER_IMAGE%:*}:$version"
+        log $BLUE "Updating to version $version..."
+    fi
+
+    if [ "$new_image" == "$DOCKER_IMAGE" ]; then
+        if is_image_up_to_date "$new_image"; then
+            log $YELLOW "The specified image ($new_image) is already in use and up-to-date. No update needed."
+            return
+        else
+            log $BLUE "The specified image ($new_image) is in use but outdated. Updating..."
+        fi
+    fi
+
+    pull_image "$new_image"
+    cleanup
+    DOCKER_IMAGE="$new_image"
+    start_container "$DOCKER_IMAGE"
+    log $GREEN "Update completed successfully. New image: $DOCKER_IMAGE"
+}
+
+version() {
+    log $BLUE "DevOps Toolkit Version Information:"
+    log $GREEN "Current Docker Image: $DOCKER_IMAGE"
+    if docker inspect --type=container "$CONTAINER_NAME" > /dev/null 2>&1; then
+        local container_image=$(docker inspect --format='{{.Config.Image}}' "$CONTAINER_NAME")
+        log $GREEN "Running Container Image: $container_image"
+    else
+        log $YELLOW "No running container found."
+    fi
+}
+
+list_versions() {
+    log $BLUE "Available versions of DevOps Toolkit:"
+    local repo="${DOCKER_IMAGE%:*}"
+    curl -s "https://registry.hub.docker.com/v2/repositories/${repo}/tags?page_size=100" | \
+        jq -r '.results[].name' | sort -V
+}
+
+health_check() {
+    if docker inspect --type=container "$CONTAINER_NAME" > /dev/null 2>&1; then
+        local status=$(docker inspect --format='{{.State.Status}}' "$CONTAINER_NAME")
+        local health=$(docker inspect --format='{{.State.Health.Status}}' "$CONTAINER_NAME")
+        log $GREEN "Container Status: $status"
+        log $GREEN "Container Health: ${health:-N/A}"
+    else
+        log $RED "Container $CONTAINER_NAME does not exist."
+    fi
+}
+
+show_logs() {
+    if docker inspect --type=container "$CONTAINER_NAME" > /dev/null 2>&1; then
+        docker logs "$CONTAINER_NAME"
+    else
+        log $RED "Container $CONTAINER_NAME does not exist."
+    fi
+}
+
+shell_access() {
+    if docker inspect --type=container "$CONTAINER_NAME" > /dev/null 2>&1; then
+        log $BLUE "Accessing shell in container $CONTAINER_NAME..."
+        docker exec -it "$CONTAINER_NAME" $CONTAINER_SHELL
+    else
+        log $RED "Container $CONTAINER_NAME does not exist."
+    fi
+}
+
+usage() {
+    log $BLUE "Usage: $0 [command] [options]"
+    echo "Commands:"
+    echo "  run [command]: Start a new container and run a command"
+    echo "  exec [command]: Execute a command in an existing container"
+    echo "  cleanup: Remove the container"
+    echo "  update [version]: Update the container image. If version is omitted, updates to latest."
+    echo "  version: Display version information"
+    echo "  list-versions: List available versions of the DevOps toolkit"
+    echo "  health: Perform a health check on the running container"
+    echo "  logs: View the logs of the running container"
+    echo "  shell: Get a shell inside the running container"
+}
+
+case "$1" in
+    run)
+        RUN_MODE="run"
+        shift
+        log $BLUE "Running in 'run' mode..."
+        pull_image "$DOCKER_IMAGE"
+        start_container "$DOCKER_IMAGE"
+        exec_in_container "$@"
+        ;;
+    exec)
+        RUN_MODE="exec"
+        shift
+        log $BLUE "Running in 'exec' mode..."
+        exec_in_container "$@"
+        ;;
+    cleanup)
+        cleanup
+        ;;
+    update)
+        shift
+        update "$1"
+        ;;
+    version)
+        version
+        ;;
+    list-versions)
+        list_versions
+        ;;
+    health)
+        health_check
+        ;;
+    logs)
+        show_logs
+        ;;
+    shell)
+        shell_access
+        ;;
+    help)
+        usage
+        exit 0
+        ;;
+    *)
+        log $RED "Invalid command: $1"
+        usage
+        exit 1
+        ;;
+esac

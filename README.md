@@ -24,74 +24,64 @@
 
 ## Getting Started
 
-You can use the DevOps Toolkit with two approaches:
-
-### Approach 1: Use the Execution Script
-
-The provided script simplifies setup and execution.
+Use the provided execution script simplifies setup, execution and managing DevOps Toolkit.
 
 1. **Install**:
 
-   ```bash
-   curl -o devops-toolkit https://raw.githubusercontent.com/tungbq/devops-toolkit/main/devops-toolkit
-   chmod +x devops-toolkit
-   sudo mv devops-toolkit /usr/local/bin/
-   ```
+```bash
+curl -o devops-toolkit https://raw.githubusercontent.com/tungbq/devops-toolkit/main/devops-toolkit
+chmod +x devops-toolkit
+sudo mv devops-toolkit /usr/local/bin/
+```
 
 2. **Run**:
 
-   - Initialize the docker image and configuration directory:
+- Initialize the docker image and configuration directory:
 
-     ```bash
-     devops-toolkit init
-     # Run 'devops-toolkit init vX.Y.Z' if you want to use specific version
-     ```
+```bash
+devops-toolkit init
+# Run 'devops-toolkit init vX.Y.Z' if you want to use specific version
+```
 
-   - Start a new container:
+- Start a new container:
 
-     ```bash
-     devops-toolkit run
-     ```
+```bash
+devops-toolkit run
+```
 
-   - Execute a command in the container:
+- Execute a command in the container:
 
-     ```bash
-     devops-toolkit run ls -la
-     ```
+```bash
+devops-toolkit run ls -la
+```
 
-   - Access the shell:
+- Access the shell:
 
-     ```bash
-     devops-toolkit shell
-     ```
+```bash
+devops-toolkit shell
+```
 
-   - For more commands, use `devops-toolkit help`.
+- For more commands, use `devops-toolkit help`.
 
-### Approach 2: Use Docker Command Directly
+## Use Docker Command Directly
 
-Quickly start the toolkit with a simple Docker command.
+Follow this instruction if you would like to use from docker command without the help of execution script
 
 - **Quick Start**:
 
   ```bash
-  mkdir -p ~/.dtc
-  docker run --network host -it --rm -v ~/.dtc:/dtc tungbq/devops-toolkit:latest
+  mkdir -p $HOME/.dtc
+  docker run --network host -it --rm -v $HOME/.dtc:/dtc tungbq/devops-toolkit:latest
 
-  # You can replace `~/.dtc` with any desired folder path on your VM.
-  # Remove the `-v ~/.dtc:/dtc` option if you do not wish to store configurations on the host (not recommended for configuration reuse).
+  # You can replace `$HOME/.dtc` with any desired folder path on your VM.
+  # Remove the `-v $HOME/.dtc:/dtc` option if you do not wish to store configurations on the host (not recommended for configuration reuse).
   ```
 
-- **Advanced Options**:
-
-  For more detailed examples and commands, refer to our [full guide](./docs/usage/README.md).
-
-- **Demo 📺**
+- **Advanced Run Options**:
 
 ```bash
-docker run --network host --rm -v ~/.dtc:/dtc tungbq/devops-toolkit:latest samples/run_sample.sh
+# TODO
 ```
-
-Check out the full sample and instruction at [**samples**](./samples/)
 
 ## Versioning
 

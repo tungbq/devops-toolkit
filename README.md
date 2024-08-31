@@ -93,7 +93,7 @@ docker run -it --name devops-toolkit-ctn \
 
 ### 3. Note
 
-- `.dtc` stands for DevOps Toolkit Configuration
+- `.dtc` stands for **d**evOps **t**oolkit **c**onfiguration
 - You can replace `$HOME/.dtc` with any desired folder path on your VM.
 - Remove the `-v $HOME/.dtc:/dtc` option if you do not wish to store configurations on the host (not recommended for configuration reuse).
 

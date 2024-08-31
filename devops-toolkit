@@ -27,8 +27,6 @@ start_container() {
     if ! docker inspect --type=container "$CONTAINER_NAME" > /dev/null 2>&1; then
         echo "Starting new container with image $image..."
         docker run -d --name "$CONTAINER_NAME" \
-            --user "$(id -u):$(id -g)" \
-            --tmpfs "/run/user/$(id -u)" \
             --volume "$PWD:$PWD" \
             --workdir "$PWD" \
             --init \

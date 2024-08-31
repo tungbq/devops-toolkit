@@ -180,6 +180,7 @@ shell_access() {
 usage() {
     log $BLUE "Usage: $0 [command] [options]"
     echo "Commands:"
+    echo "  init [version]: Initialize the container and configuration directory. If version is omitted, initializes with the latest image."
     echo "  run [command]: Start a new container and run a command"
     echo "  exec [command]: Execute a command in an existing container"
     echo "  cleanup: Remove the container"
@@ -191,7 +192,35 @@ usage() {
     echo "  shell: Get a shell inside the running container"
 }
 
+init() {
+    local version="$1"
+    local image="${DOCKER_IMAGE%:*}:${version:-latest}"
+
+    # Check if the directory exists
+    if [ ! -d "$CONFIG_MOUNT_PATH" ]; then
+        # If the directory doesn't exist, create it
+        mkdir -p "$CONFIG_MOUNT_PATH"
+        echo "Config path $DICONFIG_MOUNT_PATHR created."
+    else
+        echo "Config path $CONFIG_MOUNT_PATH already exists."
+    fi
+
+    if docker inspect --type=container "$CONTAINER_NAME" > /dev/null 2>&1; then
+        log $YELLOW "Container $CONTAINER_NAME already exists. Skipping initialization."
+        log $YELLOW "Run 'devops-toolkit cleanup' then init again if you want to re-init!"
+    else
+        log $BLUE "Initializing container with image $image..."
+        pull_image "$image"
+        start_container "$image"
+        log $GREEN "Initialization complete."
+    fi
+}
+
 case "$1" in
+    init)
+        shift
+        init "$1"
+        ;;
     run)
         RUN_MODE="run"
         shift

@@ -29,9 +29,9 @@ Use the provided execution script simplifies setup, execution and managing DevOp
 ### 1. Install
 
 ```bash
-curl -o devops-toolkit https://raw.githubusercontent.com/tungbq/devops-toolkit/main/devops-toolkit
-chmod +x devops-toolkit
-sudo mv devops-toolkit /usr/local/bin/
+curl -o devops-toolkit-cli https://raw.githubusercontent.com/tungbq/devops-toolkit/main/devops-toolkit-cli
+chmod +x devops-toolkit-cli
+sudo mv devops-toolkit-cli /usr/local/bin/
 ```
 
 ### 2. Run
@@ -39,29 +39,29 @@ sudo mv devops-toolkit /usr/local/bin/
 - Initialize the docker image, container and configuration directory:
 
 ```bash
-devops-toolkit init
-# Run 'devops-toolkit init vX.Y.Z' if you want to use specific version. E.g: devops-toolkit init 1.0.2
+devops-toolkit-cli init
+# Run 'devops-toolkit-cli init vX.Y.Z' if you want to use specific version. E.g: devops-toolkit-cli init 1.0.2
 ```
 
 - Start a shell in new container:
 
 ```bash
-devops-toolkit run
+devops-toolkit-cli run
 ```
 
 - Execute a command in the container:
 
 ```bash
-devops-toolkit run ls -la
+devops-toolkit-cli run ls -la
 ```
 
 - Access the shell:
 
 ```bash
-devops-toolkit shell
+devops-toolkit-cli shell
 ```
 
-- For more commands, use `devops-toolkit help`.
+- For more commands, use `devops-toolkit-cli help`.
 
 ## Use DevOps Toolkit with docker command directly
 

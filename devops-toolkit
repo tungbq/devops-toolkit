@@ -73,6 +73,7 @@ start_container() {
         docker run -d --name "$CONTAINER_NAME" \
             --volume "$PWD:$PWD" \
             --volume "$CONFIG_MOUNT_PATH:/dtc" \
+            --volume "$HOME/.ssh:/root/.ssh" \
             --workdir "$PWD" \
             --init \
             --entrypoint tail \

@@ -24,7 +24,7 @@
 
 ## Getting Started
 
-The provided execution script `devops-toolkit-cli` simplifies the setup, execution, and management of the DevOps Toolkit.
+The provided execution script simplifies the setup, execution, and management of the DevOps Toolkit.
 
 ### 1. Install
 

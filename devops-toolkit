@@ -1,5 +1,19 @@
 #!/bin/bash
 
+# Color codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Logging function
+log() {
+    local color=$1
+    local message=$2
+    echo -e "${color}${message}${NC}"
+}
+
 # Default configuration options
 DOCKER_IMAGE="${DOCKER_IMAGE:-tungbq/devops-toolkit:latest}"
 CONFIG_MOUNT_PATH="${CONFIG_MOUNT_PATH:-$HOME/.dtc}"
@@ -9,15 +23,16 @@ RUN_MODE="${RUN_MODE:-run}"  # Default to 'run'; change to 'exec' for existing c
 NETWORK="${NETWORK:---net=host}"
 
 if [ -z "$CONTAINER_NAME" ]; then
-  echo "No CONTAINER_NAME provided"
-  exit 1
+    log $RED "No CONTAINER_NAME provided"
+    exit 1
 fi
 
 pull_image() {
     local image="$1"
 
     if [[ "$image" != "sha256:"* ]]; then
-        docker pull "$image" || { echo "Failed to pull image $image"; exit 1; }
+        log $BLUE "Pulling image $image..."
+        docker pull "$image" || { log $RED "Failed to pull image $image"; exit 1; }
     fi
 }
 
@@ -25,7 +40,7 @@ pull_image() {
 start_container() {
     local image="$1"
     if ! docker inspect --type=container "$CONTAINER_NAME" > /dev/null 2>&1; then
-        echo "Starting new container with image $image..."
+        log $BLUE "Starting new container with image $image..."
         docker run -d --name "$CONTAINER_NAME" \
             --volume "$PWD:$PWD" \
             --volume "$CONFIG_MOUNT_PATH:/dtc" \
@@ -34,9 +49,10 @@ start_container() {
             --entrypoint tail \
             $NETWORK \
             $DOCKER_ARGS \
-            "$image" -f /dev/null > /dev/null || { echo "Failed to start container"; exit 1; }
+            "$image" -f /dev/null > /dev/null || { log $RED "Failed to start container"; exit 1; }
+        log $GREEN "Container started successfully"
     else
-        echo "Container $CONTAINER_NAME existed"
+        log $YELLOW "Container $CONTAINER_NAME already exists"
     fi
 }
 
@@ -50,26 +66,27 @@ exec_in_container() {
         RUN_CMD+=" -c $command"
     fi
 
+    log $BLUE "Executing command in container $CONTAINER_NAME..."
     docker exec -it "$CONTAINER_NAME" $RUN_CMD || {
-        echo "Failed to execute command in container $CONTAINER_NAME"; exit 1;
+        log $RED "Failed to execute command in container $CONTAINER_NAME"; exit 1;
     }
 }
 
 # Cleanup function to remove the container
 cleanup() {
-    echo "Cleaning up..."
+    log $YELLOW "Cleaning up..."
     if docker inspect --type=container "$CONTAINER_NAME" > /dev/null 2>&1; then
         docker stop "$CONTAINER_NAME" > /dev/null
         docker rm "$CONTAINER_NAME" > /dev/null
-        echo "Container $CONTAINER_NAME has been removed."
+        log $YELLOW "Container $CONTAINER_NAME has been removed."
     else
-        echo "Container $CONTAINER_NAME does not exist."
+        log $YELLOW "Container $CONTAINER_NAME does not exist."
     fi
 }
 
 # Usage function
 usage() {
-    echo "Usage: $0 [run|exec|cleanup] [command]"
+    log $BLUE "Usage: $0 [run|exec|cleanup] [command]"
     echo "  run: Start a new container and run a command"
     echo "  exec: Execute a command in an existing container"
     echo "  cleanup: Remove the container"
@@ -80,6 +97,7 @@ case "$1" in
     run)
         RUN_MODE="run"
         shift
+        log $BLUE "Running in 'run' mode..."
         pull_image "$DOCKER_IMAGE"
         start_container "$DOCKER_IMAGE"
         exec_in_container "$@"
@@ -87,6 +105,7 @@ case "$1" in
     exec)
         RUN_MODE="exec"
         shift
+        log $BLUE "Running in 'exec' mode..."
         exec_in_container "$@"
         ;;
     cleanup)
@@ -94,7 +113,7 @@ case "$1" in
         exit 0
         ;;
     *)
-        echo "Invalid command: $1"
+        log $RED "Invalid command: $1"
         usage
         exit 1
         ;;

@@ -11,7 +11,25 @@ Some document to help you start with helm
 - <https://helm.sh/docs/>
 - <https://github.com/tungbq/devops-basic/tree/main/topics/helm>
 
-## Note
+## Run with devops-toolkit-cli
+
+### Start the container
+
+Navigate to your workspace folder, then run:
+
+```bash
+devops-toolkit-cli init
+devops-toolkit-cli run
+
+# You now in the container terminal. Execute the helm command normally
+helm --version
+```
+
+It will mount the workspace code to container and you then can execute desired scripts inside the `devops-toolkit` container.
+
+## Run with Docker command
+
+### Note
 
 To use the existing container instead of creating one, use `docker exec` command instead of `docker run`
 
@@ -19,11 +37,11 @@ To use the existing container instead of creating one, use `docker exec` command
 docker exec -it my_devops_toolkit /bin/bash
 ```
 
-## Common Run Modes
+### Common Run Modes
 
 For instructions on common run modes, visit [**DevOps Toolkit Common Run Mode**](../usage/run_mode.md).
 
-## Use case 1: Deploy an application with Helm
+### Use case 1: Deploy an application with Helm
 
 ```bash
 docker run --rm --network host -it -v ~/.dtc:/dtc tungbq/devops-toolkit:latest
@@ -58,6 +76,6 @@ CHART VERSION: 9.23.0
 APP VERSION: 8.0.36
 ```
 
-## Troubleshooting
+### Troubleshooting
 
 - For any issues, check [this reference](../troubleshooting/TROUBLESHOOTING.md)

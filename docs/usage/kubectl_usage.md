@@ -7,7 +7,25 @@ Some document to help you start with kubernetes (k8s)
 - <https://kubernetes.io/docs/home/>
 - <https://github.com/tungbq/devops-basic/tree/main/topics/k8s>
 
-## Note
+## Run with devops-toolkit-cli
+
+### Start the container
+
+Navigate to your workspace folder, then run:
+
+```bash
+devops-toolkit-cli init
+devops-toolkit-cli run
+
+# You now in the container terminal. Execute the kubectl command normally
+kubectl --version
+```
+
+It will mount the workspace code to container and you then can execute desired scripts inside the `devops-toolkit` container.
+
+## Run with Docker command
+
+### Note
 
 To use the existing container instead of creating one, use `docker exec` command instead of `docker run`
 
@@ -15,11 +33,11 @@ To use the existing container instead of creating one, use `docker exec` command
 docker exec -it my_devops_toolkit /bin/bash
 ```
 
-## Common Run Modes
+### Common Run Modes
 
 For instructions on common run modes, visit [**DevOps Toolkit Common Run Mode**](../usage/run_mode.md).
 
-## Use case 1: Use kube config from the host
+### Use case 1: Use kube config from the host
 
 Mount the `.kube/config` file from the host to container
 
@@ -56,6 +74,6 @@ NAME               READY   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment   2/2     2            2           115s
 ```
 
-## Troubleshooting
+### Troubleshooting
 
 - For any issues, check [this reference](../troubleshooting/TROUBLESHOOTING.md)

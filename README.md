@@ -109,7 +109,7 @@ docker pull tungbq/devops-toolkit:1.2.3
 docker pull tungbq/devops-toolkit:latest
 ```
 
-For more details on versioning, check the [release notes](https://github.com/tungbq/devops-toolkit/releases).
+For more details on versioning, check the [**release notes**](https://github.com/tungbq/devops-toolkit/releases).
 
 ## User Guide 📖
 

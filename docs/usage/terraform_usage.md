@@ -7,7 +7,23 @@ Some document to help you start with terraform
 - <https://developer.hashicorp.com/terraform>
 - <https://github.com/tungbq/devops-basic/tree/main/topics/terraform>
 
-## Note
+### Start the container
+
+Navigate to your workspace folder, then run:
+
+```bash
+devops-toolkit-cli init
+devops-toolkit-cli run
+
+# You now in the container terminal. Execute the terraform command normally
+terraform --version
+```
+
+It will mount the workspace code to container and you then can execute desired scripts inside the `devops-toolkit` container
+
+## Run with Docker command
+
+### Note
 
 To use the existing container instead of creating one, use `docker exec` command instead of `docker run`
 
@@ -15,11 +31,11 @@ To use the existing container instead of creating one, use `docker exec` command
 docker exec -it my_devops_toolkit /bin/bash
 ```
 
-## Common Run Modes
+### Common Run Modes
 
 For instructions on common run modes, visit [**DevOps Toolkit Common Run Mode**](../usage/run_mode.md).
 
-## Use case 1: Run terraform sample code provided in the container
+### Use case 1: Run terraform sample code provided in the container
 
 ```bash
 docker run --rm --network host -it -v ~/.dtc:/dtc tungbq/devops-toolkit:latest
@@ -35,7 +51,7 @@ terraform destroy
 popd
 ```
 
-## Use case 2: Clone external code inside container
+### Use case 2: Clone external code inside container
 
 ```bash
 docker run --rm --network host -it -v ~/.dtc:/dtc tungbq/devops-toolkit:latest
@@ -50,7 +66,7 @@ cd terraform-examples
 # Run terraform here: init-plan-apply,...
 ```
 
-## Use case 3: Mount external code to container
+### Use case 3: Mount external code to container
 
 Clone the code to the host then mount to container
 
@@ -60,6 +76,6 @@ docker run --rm -v "$(pwd)":/root/terraform_workspace -v ~/.dtc:/dtc --network h
 # Run the terraform code as usual
 ```
 
-## Troubleshooting
+### Troubleshooting
 
 - For any issues, check [this reference](../troubleshooting/TROUBLESHOOTING.md)

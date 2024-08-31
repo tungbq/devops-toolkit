@@ -46,14 +46,15 @@ _NOTE_: In the following section, we use the latest tag in the documentation, bu
 
 This option helps you use the devops-toolkit in the fast and efficience way.
 
-- Install
+### Install
 
 ```bash
-curl -o devops-toolkit https://raw.githubusercontent.com/tungbq/devops-toolkit/main/devops-toolkit; chmod +x devops-toolkit
+curl -o devops-toolkit https://raw.githubusercontent.com/tungbq/devops-toolkit/main/devops-toolkit
+chmod +x devops-toolkit
 sudo mv devops-toolkit /usr/local/bin/
 ```
 
-- Run
+### Run
 
 ```bash
 devops-toolkit run

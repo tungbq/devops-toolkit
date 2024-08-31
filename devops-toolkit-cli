@@ -93,6 +93,11 @@ exec_in_container() {
 }
 
 cleanup() {
+    read -p "Are you sure you want to remove the container '$CONTAINER_NAME'? Type 'yes' to confirm: " confirmation
+    if [ "$confirmation" != "yes" ]; then
+        log $YELLOW "Cleanup aborted."
+        return
+    fi
     log $BLUE "Cleaning up..."
     if docker inspect --type=container "$CONTAINER_NAME" > /dev/null 2>&1; then
         docker stop "$CONTAINER_NAME" > /dev/null

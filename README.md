@@ -40,7 +40,7 @@ The provided script simplifies setup and execution.
 
 2. **Run**:
 
-   - Start a new container:
+   - Initialize the docker image and configuration directory:
 
      ```bash
      devops-toolkit init

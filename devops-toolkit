@@ -180,7 +180,7 @@ shell_access() {
 usage() {
     log $BLUE "Usage: $0 [command] [options]"
     echo "Commands:"
-    echo "  init [version]: Initialize the container. If version is omitted, initializes with the latest image."
+    echo "  init [version]: Initialize the container and configuration directory. If version is omitted, initializes with the latest image."
     echo "  run [command]: Start a new container and run a command"
     echo "  exec [command]: Execute a command in an existing container"
     echo "  cleanup: Remove the container"

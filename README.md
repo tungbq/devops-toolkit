@@ -64,7 +64,10 @@ devops-toolkit-cli run ls -la
 devops-toolkit-cli shell
 ```
 
-- For more commands, use `devops-toolkit-cli help`.
+### 3. Get Help
+
+- For more commands, run `devops-toolkit-cli help`.
+- For detailed `devops-toolkit-cli` document, see: [docs/usage/devops_toolkit_cli](./docs/usage/devops_toolkit_cli.md)
 
 ## Use DevOps Toolkit with Docker Command Directly
 

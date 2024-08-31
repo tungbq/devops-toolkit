@@ -15,88 +15,72 @@
   <a href="https://github.com/tungbq/devops-toolkit/stargazers"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/tungbq/devops-toolkit"/></a>
 </p>
 
-## Key features
+## Key Features
 
-- **Pre-installed Tools**: Includes a variety of essential tools such as git, python, ansible, terraform, kubectl, helm, awscli, azurecli, etc.
-- **Continuous Integration**: Utilizes full CI/CD for deployment to Docker Hub using GitHub Actions.
-- **Documentation**: Provides detailed documentation for each tool included.
-- **Regular Updates**: Weekly checks and updates for core tools ensure the toolkit's reliability and security.
-- **Sample code**: Includes sample code demonstrating the usage of various tools available in the toolkit.
-- **Support for Build Variants**: Enables users to customize the toolkit by building it with their preferred versions of each tool.
-- **Support Configuration Reusable**: Mounts a config folder on the host to the container. This allows reusing configurations in the container, like AWS and Azure login sessions, ...
+- **Comprehensive Toolset**: Pre-installed with tools like Git, Python, Ansible, Terraform, kubectl, Helm, AWS CLI, Azure CLI, and more.
+- **Easy Integration**: Use it directly or customize it with your preferred versions.
+- **Efficient Updates**: Weekly updates ensure the latest versions and security patches.
+- **Configuration Reusability**: Mounts host config folders for seamless reuse across sessions.
 
-## Prerequisites 🔓
+## Getting Started
 
-Before you begin, ensure that you have [Docker](https://docs.docker.com/engine/install/) installed. It's also helpful to have a basic understanding of Docker concepts.
+You can use the DevOps Toolkit with two approaches:
 
-## Versioning 🔖
+### Approach 1: Use the Execution Script
 
-Below is the versioning strategy for the repository and DockerHub:
+The provided script simplifies setup and execution.
 
-- Tagging format:
-  - Repository: `vX.Y.Z`, for example: `v1.2.3`
-  - DockerHub: `X.Y.Z`, for example: `1.2.3`. (Usage: `docker pull tungbq/devops-toolkit:1.2.3`)
-- Tagging description:
-  - Specific tag (e.g., `0.1.0`, `0.2.3`): Contains the latest tooling version and repository features at the time this repository is tagged.
-  - In addition to that, we offer the latest tag on DockerHub (`latest`): Contains the latest tooling version and repository features inside the toolkit, which will be built and updated on a weekly basis.
+1. **Install**:
 
-_NOTE_: In the following section, we use the latest tag in the documentation, but you can specify your desired tag based on your needs.
+   ```bash
+   curl -o devops-toolkit https://raw.githubusercontent.com/tungbq/devops-toolkit/main/devops-toolkit
+   chmod +x devops-toolkit
+   sudo mv devops-toolkit /usr/local/bin/
+   ```
 
-## Use devops-toolkit with execution script
+2. **Run**:
 
-The `devops-toolkit` script in this repo helps you use the devops-toolkit in the fast and efficience way.
+   - Start a new container:
 
-### Install
+     ```bash
+     devops-toolkit run
+     ```
 
-```bash
-curl -o devops-toolkit https://raw.githubusercontent.com/tungbq/devops-toolkit/main/devops-toolkit
-chmod +x devops-toolkit
-sudo mv devops-toolkit /usr/local/bin/
-```
+   - Execute a command in the container:
 
-### Run
+     ```bash
+     devops-toolkit run ls -la
+     ```
 
-Navigate to your working directory then run the devops-toolkit
+   - Access the shell:
 
-```bash
-# See available commands or get help
-devops-toolkit help
-# Start a new container
-devops-toolkit run
-# Start a new container and run a command
-devops-toolkit run ls -la
-# Execute the shell
-devops-toolkit shell
-# Update the devops-toolkit
-devops-toolkit update
-# Remove container
-devops-toolkit cleanup
-```
+     ```bash
+     devops-toolkit shell
+     ```
 
-## Use devops-toolkit with docker command
+   - For more commands, use `devops-toolkit help`.
 
-In this option you use your own docker command to start and run the devops-toolkit.
+### Approach 2: Use Docker Command Directly
 
-### Quick start 🔥
+Quickly start the toolkit with a simple Docker command.
 
-- Use latest tag
+- **Quick Start**:
 
   ```bash
   mkdir -p ~/.dtc
   docker run --network host -it --rm -v ~/.dtc:/dtc tungbq/devops-toolkit:latest
   ```
 
-- Use specific tag
+_NOTE_:
 
-  ```bash
-  docker run --network host -it --rm -v ~/.dtc:/dtc tungbq/devops-toolkit:0.1.0
-  ```
+- You can replace `~/.dtc` with any desired folder path on your VM.
+- Remove the `-v ~/.dtc:/dtc` option if you do not wish to store configurations on the host (not recommended for configuration reuse).
 
-- _NOTE_
-  - You can replace `~/.dtc` with any desired folder path on your VM.
-  - Remove the `-v ~/.dtc:/dtc` option if you do not wish to store configurations on the host (not recommended for configuration reuse).
+- **Advanced Options**:
 
-### Demo 📺
+  For more detailed examples and commands, refer to our [full guide](./docs/usage/README.md).
+
+- **Demo 📺**
 
 ```bash
 docker run --network host --rm -v ~/.dtc:/dtc tungbq/devops-toolkit:latest samples/run_sample.sh
@@ -104,64 +88,24 @@ docker run --network host --rm -v ~/.dtc:/dtc tungbq/devops-toolkit:latest sampl
 
 Check out the full sample and instruction at [**samples**](./samples/)
 
-## Getting started 📖
+## Versioning
 
-### Pull the official image from Docker Hub
+We use the following versioning scheme:
 
-DockerHub image: [**tungbq/devops-toolkit:latest**](https://hub.docker.com/r/tungbq/devops-toolkit)
+- **Repository Tags**: `vX.Y.Z` (e.g., `v1.2.3`)
+- **Docker Tags**: `X.Y.Z` or `latest` for the most recent version.
+
+You can pull specific versions from Docker Hub using:
 
 ```bash
-docker pull tungbq/devops-toolkit:latest
+docker pull tungbq/devops-toolkit:1.2.3
 ```
 
-### Build your own image
-
-Skip this step if you use the image from DockerHub
-
-- If you prefer to build your own image from the source code, refer to the [**build_toolkit_image**](./docs/build/build_toolkit_image.md) instructions.
-- We can customize the toolkit by building it with our preferred versions of each tool.
-
-### Start and explore the toolkit container
-
-Once you have the image ready, you can start using the toolkit with the following commands
-
-- Start devops-toolkit container
-
-  ```bash
-  docker run --network host -it --rm -v ~/.dtc:/dtc tungbq/devops-toolkit:latest
-  ```
-
-- Now we are in the docker container terminal, let's explore it
-
-  ```bash
-  root@docker-desktop:~# python3 --version
-  Python 3.12.2
-
-  root@docker-desktop:~# terraform --version
-  Terraform v1.7.5
-  on linux_amd64
-
-  root@docker-desktop:~# kubectl version
-  Client Version: v1.29.3
-  Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
-
-  root@docker-desktop:~# aws configure
-  root@docker-desktop:~# az login --use-device-code
-
-  # ... more command as your needed
-  ```
+For more details on versioning, check the release notes.
 
 ## User Guide 📖
 
 Explore the comprehensive guide below to gain insight into the detailed utilization of every tool within the toolkit.
-
-- Prepare configuration folder on the Host (Skip this step if you do not intend to reuse configurations.)
-
-  ```bash
-  mkdir ~/.dtc
-  ```
-
-  _NOTE:_ We are using `~/.dtc` to store toolkit configurations, but you can choose any folder name on the host.
 
 - For detailed instructions on using specific tools, refer to: [**DevOps toolkit specific tool user guide**](./docs/usage/README.md)
 - For instructions on common run modes, visit [**DevOps toolkit common run mode**](./docs/usage/run_mode.md)

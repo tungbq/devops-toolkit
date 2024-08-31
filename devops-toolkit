@@ -2,7 +2,7 @@
 
 # Default configuration options
 DOCKER_IMAGE="${DOCKER_IMAGE:-tungbq/devops-toolkit:latest}"
-MOUNT_PATH="${MOUNT_PATH:-~/.dtc}"
+CONFIG_MOUNT_PATH="${CONFIG_MOUNT_PATH:-$HOME/.dtc}"
 CONTAINER_NAME="${CONTAINER_NAME:-devops_toolkit}"
 CONTAINER_SHELL="${CONTAINER_SHELL:-/bin/bash}"
 RUN_MODE="${RUN_MODE:-run}"  # Default to 'run'; change to 'exec' for existing containers
@@ -28,6 +28,7 @@ start_container() {
         echo "Starting new container with image $image..."
         docker run -d --name "$CONTAINER_NAME" \
             --volume "$PWD:$PWD" \
+            --volume "$CONFIG_MOUNT_PATH:/dtc" \
             --workdir "$PWD" \
             --init \
             --entrypoint tail \

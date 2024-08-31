@@ -36,6 +36,8 @@ sudo mv devops-toolkit-cli /usr/local/bin/
 
 ### 2. Run
 
+Navigate to your workspace folder, then:
+
 - Initialize the docker image, container and configuration directory:
 
 ```bash

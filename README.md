@@ -43,6 +43,13 @@ The provided script simplifies setup and execution.
    - Start a new container:
 
      ```bash
+     devops-toolkit init
+     # Run 'devops-toolkit init vX.Y.Z' if you want to use specific version
+     ```
+
+   - Start a new container:
+
+     ```bash
      devops-toolkit run
      ```
 

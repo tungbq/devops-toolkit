@@ -56,6 +56,8 @@ sudo mv devops-toolkit /usr/local/bin/
 
 ### Run
 
+Navigate to your working directory then run the devops-toolkit
+
 ```bash
 # See available commands or get help
 devops-toolkit help

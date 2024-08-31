@@ -69,12 +69,10 @@ Quickly start the toolkit with a simple Docker command.
   ```bash
   mkdir -p ~/.dtc
   docker run --network host -it --rm -v ~/.dtc:/dtc tungbq/devops-toolkit:latest
+
+  # You can replace `~/.dtc` with any desired folder path on your VM.
+  # Remove the `-v ~/.dtc:/dtc` option if you do not wish to store configurations on the host (not recommended for configuration reuse).
   ```
-
-_NOTE_:
-
-- You can replace `~/.dtc` with any desired folder path on your VM.
-- Remove the `-v ~/.dtc:/dtc` option if you do not wish to store configurations on the host (not recommended for configuration reuse).
 
 - **Advanced Options**:
 
@@ -101,7 +99,7 @@ You can pull specific versions from Docker Hub using:
 docker pull tungbq/devops-toolkit:1.2.3
 ```
 
-For more details on versioning, check the release notes.
+For more details on versioning, check the [release notes](https://github.com/tungbq/devops-toolkit/releases).
 
 ## User Guide 📖
 

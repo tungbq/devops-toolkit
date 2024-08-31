@@ -24,7 +24,7 @@
 
 ## Getting Started
 
-Use the provided execution script simplifies setup, execution and managing DevOps Toolkit.
+The provided execution script `devops-toolkit-cli` simplifies the setup, execution, and management of the DevOps Toolkit.
 
 ### 1. Install
 
@@ -63,9 +63,9 @@ devops-toolkit-cli shell
 
 - For more commands, use `devops-toolkit-cli help`.
 
-## Use DevOps Toolkit with docker command directly
+## Use DevOps Toolkit with Docker Command Directly
 
-Follow this instruction if you would like to use from docker command without the help of the execution script
+Follow these instructions if you prefer to use Docker commands without the help of the execution script.
 
 ### 1. Quick Start
 

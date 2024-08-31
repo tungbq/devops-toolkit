@@ -207,7 +207,7 @@ init() {
 
     if docker inspect --type=container "$CONTAINER_NAME" > /dev/null 2>&1; then
         log $YELLOW "Container $CONTAINER_NAME already exists. Skipping initialization."
-        log $YELLOW "Run 'devops-toolkit cleanup' then init again if you want to re-init!"
+        log $YELLOW "Run 'devops-toolkit-cli cleanup' then init again if you want to re-init!"
     else
         log $BLUE "Initializing container with image $image..."
         pull_image "$image"

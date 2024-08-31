@@ -228,6 +228,10 @@ case "$1" in
     shell)
         shell_access
         ;;
+    help)
+        usage
+        exit 0
+        ;;
     *)
         log $RED "Invalid command: $1"
         usage

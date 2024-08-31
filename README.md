@@ -44,7 +44,7 @@ _NOTE_: In the following section, we use the latest tag in the documentation, bu
 
 ## Use devops-toolkit with execution script
 
-This option helps you use the devops-toolkit in the fast and efficience way.
+The `devops-toolkit` script in this repo helps you use the devops-toolkit in the fast and efficience way.
 
 ### Install
 
@@ -57,9 +57,17 @@ sudo mv devops-toolkit /usr/local/bin/
 ### Run
 
 ```bash
+# See available commands or get help
+devops-toolkit help
+# Start a new container
 devops-toolkit run
+# Start a new container and run a command
 devops-toolkit run ls -la
+# Execute the shell
+devops-toolkit shell
+# Update the devops-toolkit
 devops-toolkit update
+# Remove container
 devops-toolkit cleanup
 ```
 

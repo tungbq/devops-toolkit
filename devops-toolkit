@@ -31,8 +31,12 @@ pull_image() {
     local image="$1"
 
     if [[ "$image" != "sha256:"* ]]; then
-        log $BLUE "Pulling image $image..."
-        docker pull "$image" || { log $RED "Failed to pull image $image"; exit 1; }
+        if docker image inspect "$image" >/dev/null 2>&1; then
+            log $YELLOW "Image $image already exists locally. Skipping pull."
+        else
+            log $BLUE "Pulling image $image..."
+            docker pull "$image" || { log $RED "Failed to pull image $image"; exit 1; }
+        fi
     fi
 }
 
@@ -74,22 +78,57 @@ exec_in_container() {
 
 # Cleanup function to remove the container
 cleanup() {
-    log $YELLOW "Cleaning up..."
+    log $BLUE "Cleaning up..."
     if docker inspect --type=container "$CONTAINER_NAME" > /dev/null 2>&1; then
         docker stop "$CONTAINER_NAME" > /dev/null
         docker rm "$CONTAINER_NAME" > /dev/null
-        log $YELLOW "Container $CONTAINER_NAME has been removed."
+        log $GREEN "Container $CONTAINER_NAME has been removed."
     else
         log $YELLOW "Container $CONTAINER_NAME does not exist."
     fi
 }
 
+# Update function to pull and replace the image
+update() {
+    local version="$1"
+    local new_image
+
+    if [ -z "$version" ]; then
+        new_image="${DOCKER_IMAGE%:*}:latest"
+        log $BLUE "Updating to the latest version..."
+    else
+        new_image="${DOCKER_IMAGE%:*}:$version"
+        log $BLUE "Updating to version $version..."
+    fi
+
+    # Check if the new image is different from the current one
+    if [ "$new_image" == "$DOCKER_IMAGE" ]; then
+        log $YELLOW "The specified image ($new_image) is already in use. No update needed."
+        return
+    fi
+
+    # Pull the new image (if it doesn't exist locally)
+    pull_image "$new_image"
+
+    # Stop and remove the existing container
+    cleanup
+
+    # Update the DOCKER_IMAGE variable
+    DOCKER_IMAGE="$new_image"
+
+    # Start a new container with the updated image
+    start_container "$DOCKER_IMAGE"
+
+    log $GREEN "Update completed successfully. New image: $DOCKER_IMAGE"
+}
+
 # Usage function
 usage() {
-    log $BLUE "Usage: $0 [run|exec|cleanup] [command]"
+    log $BLUE "Usage: $0 [run|exec|cleanup|update] [command|version]"
     echo "  run: Start a new container and run a command"
     echo "  exec: Execute a command in an existing container"
     echo "  cleanup: Remove the container"
+    echo "  update [version]: Update the container image. If version is omitted, updates to latest."
 }
 
 # Main logic
@@ -110,6 +149,11 @@ case "$1" in
         ;;
     cleanup)
         cleanup
+        exit 0
+        ;;
+    update)
+        shift
+        update "$1"
         exit 0
         ;;
     *)

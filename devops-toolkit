@@ -1,0 +1,102 @@
+#!/bin/bash
+
+# Default configuration options
+DOCKER_IMAGE="${DOCKER_IMAGE:-tungbq/devops-toolkit:latest}"
+MOUNT_PATH="${MOUNT_PATH:-~/.dtc}"
+CONTAINER_NAME="${CONTAINER_NAME:-devops_toolkit}"
+CONTAINER_SHELL="${CONTAINER_SHELL:-/bin/bash}"
+RUN_MODE="${RUN_MODE:-run}"  # Default to 'run'; change to 'exec' for existing containers
+NETWORK="${NETWORK:---net=host}"
+
+if [ -z "$CONTAINER_NAME" ]; then
+  echo "No CONTAINER_NAME provided"
+  exit 1
+fi
+
+pull_image() {
+    local image="$1"
+
+    if [[ "$image" != "sha256:"* ]]; then
+        docker pull "$image" || { echo "Failed to pull image $image"; exit 1; }
+    fi
+}
+
+# Check if the container exists, if not, create it
+start_container() {
+    local image="$1"
+    if ! docker inspect --type=container "$CONTAINER_NAME" > /dev/null 2>&1; then
+        echo "Starting new container with image $image..."
+        docker run -d --name "$CONTAINER_NAME" \
+            --user "$(id -u):$(id -g)" \
+            --tmpfs "/run/user/$(id -u)" \
+            --volume "$PWD:$PWD" \
+            --workdir "$PWD" \
+            --init \
+            --entrypoint tail \
+            $NETWORK \
+            $DOCKER_ARGS \
+            "$image" -f /dev/null > /dev/null || { echo "Failed to start container"; exit 1; }
+    else
+        echo "Container $CONTAINER_NAME existed"
+    fi
+}
+
+# Execute a command inside an existing container
+exec_in_container() {
+    local command="$1"
+
+    local RUN_CMD=$CONTAINER_SHELL
+
+    if [ -n "$command" ]; then
+        RUN_CMD+=" -c $command"
+    fi
+
+    docker exec -it "$CONTAINER_NAME" $RUN_CMD || {
+        echo "Failed to execute command in container $CONTAINER_NAME"; exit 1;
+    }
+}
+
+# Cleanup function to remove the container
+cleanup() {
+    echo "Cleaning up..."
+    if docker inspect --type=container "$CONTAINER_NAME" > /dev/null 2>&1; then
+        docker stop "$CONTAINER_NAME" > /dev/null
+        docker rm "$CONTAINER_NAME" > /dev/null
+        echo "Container $CONTAINER_NAME has been removed."
+    else
+        echo "Container $CONTAINER_NAME does not exist."
+    fi
+}
+
+# Usage function
+usage() {
+    echo "Usage: $0 [run|exec|cleanup] [command]"
+    echo "  run: Start a new container and run a command"
+    echo "  exec: Execute a command in an existing container"
+    echo "  cleanup: Remove the container"
+}
+
+# Main logic
+case "$1" in
+    run)
+        RUN_MODE="run"
+        shift
+        pull_image "$DOCKER_IMAGE"
+        start_container "$DOCKER_IMAGE"
+        exec_in_container "$@"
+        ;;
+    exec)
+        RUN_MODE="exec"
+        shift
+        exec_in_container "$@"
+        ;;
+    cleanup)
+        cleanup
+        exit 0
+        ;;
+    *)
+        echo "Invalid command: $1"
+        usage
+        exit 1
+        ;;
+esac

@@ -39,11 +39,13 @@ sudo mv devops-toolkit-cli /usr/local/bin/
 Navigate to your workspace folder, then:
 
 - Initialize the docker image, container and configuration directory:
+  - If you already init before and want to re-init in new workspace, run `devops-toolkit-cli cleanup` before initialization.
 
 ```bash
 devops-toolkit-cli init
 # Run 'devops-toolkit-cli init vX.Y.Z' if you want to use specific version.
 # E.g: devops-toolkit-cli init 1.0.2
+
 ```
 
 - Start a shell in new container:

@@ -27,12 +27,37 @@ if [ -z "$CONTAINER_NAME" ]; then
     exit 1
 fi
 
+# Function to check if local image is up-to-date with DockerHub
+is_image_up_to_date() {
+    local image="$1"
+    local repo="${image%:*}"
+    local tag="${image#*:}"
+
+    # Get the digest of the local image
+    local local_digest=$(docker image inspect --format='{{index .RepoDigests 0}}' "$image" 2>/dev/null | cut -d'@' -f2)
+
+    # Get the digest of the remote image
+    local remote_digest=$(docker pull -q "$image" > /dev/null 2>&1 && docker image inspect --format='{{index .RepoDigests 0}}' "$image" | cut -d'@' -f2)
+
+    # Compare digests
+    if [ "$local_digest" = "$remote_digest" ]; then
+        return 0  # Up-to-date
+    else
+        return 1  # Not up-to-date
+    fi
+}
+
 pull_image() {
     local image="$1"
 
     if [[ "$image" != "sha256:"* ]]; then
         if docker image inspect "$image" >/dev/null 2>&1; then
-            log $YELLOW "Image $image already exists locally. Skipping pull."
+            if is_image_up_to_date "$image"; then
+                log $YELLOW "Image $image is up-to-date. Skipping pull."
+            else
+                log $BLUE "Local image $image is outdated. Pulling latest version..."
+                docker pull "$image" || { log $RED "Failed to pull image $image"; exit 1; }
+            fi
         else
             log $BLUE "Pulling image $image..."
             docker pull "$image" || { log $RED "Failed to pull image $image"; exit 1; }
@@ -103,11 +128,15 @@ update() {
 
     # Check if the new image is different from the current one
     if [ "$new_image" == "$DOCKER_IMAGE" ]; then
-        log $YELLOW "The specified image ($new_image) is already in use. No update needed."
-        return
+        if is_image_up_to_date "$new_image"; then
+            log $YELLOW "The specified image ($new_image) is already in use and up-to-date. No update needed."
+            return
+        else
+            log $BLUE "The specified image ($new_image) is in use but outdated. Updating..."
+        fi
     fi
 
-    # Pull the new image (if it doesn't exist locally)
+    # Pull the new image (if it doesn't exist locally or is outdated)
     pull_image "$new_image"
 
     # Stop and remove the existing container

@@ -1,4 +1,4 @@
-# DevOps Toolkit demo
+# DevOps Toolkit demo 📺
 
 ## Quick demo
 

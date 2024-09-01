@@ -97,6 +97,7 @@ devops-toolkit-cli shell my_toolkit_01
 
 ```bash
 devops-toolkit-cli cleanup my_toolkit_01
+# Run 'devops-toolkit-cli list' to list all available containers
 # Run 'devops-toolkit-cli cleanup --all' to cleanup all devops-toolkit containers
 ```
 

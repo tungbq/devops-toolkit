@@ -31,7 +31,12 @@ container_exists() {
 # Function to add a container to the list
 add_container() {
     local container_name="$1"
-    echo "$container_name" >> "$CONTAINER_LIST_FILE"
+    if grep -q "^${container_name}$" "$CONTAINER_LIST_FILE" 2>/dev/null; then
+        log $YELLOW "Container '$container_name' already exists in the list. Skipping addition."
+    else
+        echo "$container_name" >> "$CONTAINER_LIST_FILE"
+        log $GREEN "Container '$container_name' added to the list."
+    fi
 }
 
 # Function to remove a container from the list
@@ -74,7 +79,6 @@ start_container() {
     local image="$1"
     local container_name="$2"
     if ! docker inspect --type=container "$container_name" > /dev/null 2>&1; then
-        add_container "$container_name"
         log $BLUE "Starting new container $container_name with image $image..."
         docker run -d --name "$container_name" \
             --volume "$PWD:$PWD" \

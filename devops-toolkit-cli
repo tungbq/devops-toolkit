@@ -75,6 +75,16 @@ pull_image() {
     fi
 }
 
+shell_access() {
+    local container_name="$1"
+    if docker inspect --type=container "$container_name" > /dev/null 2>&1; then
+        log $BLUE "Accessing shell in container $container_name..."
+        docker exec -it "$container_name" $CONTAINER_SHELL
+    else
+        log $RED "Container $container_name does not exist."
+    fi
+}
+
 start_container() {
     local image="$1"
     local container_name="$2"

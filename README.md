@@ -70,27 +70,33 @@ Navigate to your workspace folder, then:
 - Initialize the docker image, container and configuration directory:
 
 ```bash
-devops-toolkit-cli init
-# Run 'devops-toolkit-cli init vX.Y.Z' if you want to use specific version.
-# E.g: devops-toolkit-cli init 1.0.2
+devops-toolkit-cli init my_toolkit_01
+# Run 'devops-toolkit-cli init my_toolkit_01 vX.Y.Z' if you want to use specific version.
+# E.g: devops-toolkit-cli init my_toolkit_01 1.0.2
 ```
 
 - Start a shell in new container:
 
 ```bash
-devops-toolkit-cli run
+devops-toolkit-cli run my_toolkit_01
 ```
 
 - Execute a command in the container:
 
 ```bash
-devops-toolkit-cli run ls -la
+devops-toolkit-cli run my_toolkit_01 ls -la
 ```
 
 - Access the shell:
 
 ```bash
-devops-toolkit-cli shell
+devops-toolkit-cli shell my_toolkit_01
+```
+
+- Remove container if it's not used anymore
+
+```bash
+devops-toolkit-cli cleanup my_toolkit_01
 ```
 
 ### 3. Get Help

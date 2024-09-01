@@ -74,6 +74,7 @@ start_container() {
     local image="$1"
     local container_name="$2"
     if ! docker inspect --type=container "$container_name" > /dev/null 2>&1; then
+        add_container "$container_name"
         log $BLUE "Starting new container $container_name with image $image..."
         docker run -d --name "$container_name" \
             --volume "$PWD:$PWD" \
@@ -285,6 +286,7 @@ case "$1" in
         log $BLUE "Running in 'run' mode for container $container_name..."
         pull_image "$DOCKER_IMAGE"
         start_container "$DOCKER_IMAGE" "$container_name"
+        add_container "$container_name"
         exec_in_container "$container_name" "$@"
         ;;
     exec)

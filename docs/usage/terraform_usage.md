@@ -12,8 +12,8 @@ Some document to help you start with terraform
 Navigate to your workspace folder, then run:
 
 ```bash
-devops-toolkit-cli init
-devops-toolkit-cli run
+devops-toolkit-cli init demo_terraform01
+devops-toolkit-cli run demo_terraform01
 
 # You now in the container terminal. Execute the terraform command normally
 terraform --version

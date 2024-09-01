@@ -14,8 +14,8 @@ Some document to help you start with python
 Navigate to your workspace folder, then run:
 
 ```bash
-devops-toolkit-cli init
-devops-toolkit-cli run
+devops-toolkit-cli init demo_python01
+devops-toolkit-cli run demo_python01
 
 # You now in the container terminal. Execute the python command normally
 python3 --version

@@ -14,8 +14,8 @@ Some document to help you start with ansible
 Navigate to your workspace folder, then run:
 
 ```bash
-devops-toolkit-cli init
-devops-toolkit-cli run
+devops-toolkit-cli init demo_ansible01
+devops-toolkit-cli run demo_ansible01
 
 # You now in the container terminal. Execute the ansible command normally
 ansible --version

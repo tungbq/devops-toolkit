@@ -18,8 +18,8 @@ Some document to help you start with helm
 Navigate to your workspace folder, then run:
 
 ```bash
-devops-toolkit-cli init
-devops-toolkit-cli run
+devops-toolkit-cli init demo_helm01
+devops-toolkit-cli run demo_helm01
 
 # You now in the container terminal. Execute the helm command normally
 helm --version

@@ -19,8 +19,8 @@ Some document to help you start with awscli
 Navigate to your workspace folder, then run:
 
 ```bash
-devops-toolkit-cli init
-devops-toolkit-cli run
+devops-toolkit-cli init demo_awscli01
+devops-toolkit-cli run demo_awscli01
 
 # You now in the container terminal. Execute the awscli command normally
 awscli --version

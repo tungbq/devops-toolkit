@@ -93,6 +93,12 @@ devops-toolkit-cli run my_toolkit_01 ls -la
 devops-toolkit-cli shell my_toolkit_01
 ```
 
+- Remove container if it's not used anymore
+
+```bash
+devops-toolkit-cli cleanup my_toolkit_01
+```
+
 ### 3. Get Help
 
 - For more commands, run `devops-toolkit-cli help`.

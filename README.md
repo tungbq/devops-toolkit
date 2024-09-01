@@ -24,7 +24,36 @@
 
 ## Getting Started
 
-The provided execution script simplifies the setup, execution, and management of the DevOps Toolkit.
+### 1. Quick Start
+
+```bash
+mkdir -p $HOME/.dtc # Skip this step if you already created the configuration folder before
+docker run --rm --name devops-toolkit-demo1 --network host -it -v $HOME/.dtc:/dtc tungbq/devops-toolkit:latest
+```
+
+### 2. Advanced Run Options
+
+```bash
+docker run -it --name devops-toolkit-demo2 \
+    --volume "$PWD:$PWD" \
+    --volume "$HOME/.dtc:/dtc" \
+    --volume "$HOME/.ssh:/root/.ssh" \
+    --workdir "$PWD" \
+    --network host \
+    tungbq/devops-toolkit:latest
+
+# Adjust the docker run command base on your use cases
+```
+
+### 3. Note
+
+- `.dtc` stands for **D**evOps **T**oolkit **C**onfiguration
+- You can replace `$HOME/.dtc` with any desired folder path on your VM.
+- Remove the `-v $HOME/.dtc:/dtc` option if you do not wish to store configurations on the host (not recommended for configuration reuse).
+
+## Use DevOps Toolkit with devops-toolkit-cli
+
+Optionally, you can use the provided execution script which simplifies the setup, execution, and management of the DevOps Toolkit.
 
 ### 1. Install
 
@@ -39,13 +68,11 @@ sudo mv devops-toolkit-cli /usr/local/bin/
 Navigate to your workspace folder, then:
 
 - Initialize the docker image, container and configuration directory:
-  - If you already init before and want to re-init in new workspace, run `devops-toolkit-cli cleanup` before initialization.
 
 ```bash
 devops-toolkit-cli init
 # Run 'devops-toolkit-cli init vX.Y.Z' if you want to use specific version.
 # E.g: devops-toolkit-cli init 1.0.2
-
 ```
 
 - Start a shell in new container:
@@ -70,37 +97,6 @@ devops-toolkit-cli shell
 
 - For more commands, run `devops-toolkit-cli help`.
 - For detailed `devops-toolkit-cli` document and advanced usage, see: [docs/usage/devops_toolkit_cli](./docs/usage/devops_toolkit_cli.md)
-
-## Use DevOps Toolkit with Docker Command Directly
-
-Follow these instructions if you prefer to use Docker commands without the help of the execution script.
-
-### 1. Quick Start
-
-```bash
-mkdir -p $HOME/.dtc # Skip this step if you already created the configuration folder before
-docker run --network host -it --rm -v $HOME/.dtc:/dtc tungbq/devops-toolkit:latest
-```
-
-### 2. Advanced Run Options
-
-```bash
-docker run -it --name devops-toolkit-ctn \
-    --volume "$PWD:$PWD" \
-    --volume "$HOME/.dtc:/dtc" \
-    --volume "$HOME/.ssh:/root/.ssh" \
-    --workdir "$PWD" \
-    --network host \
-    tungbq/devops-toolkit:latest
-
-# Adjust the docker run command base on your use cases
-```
-
-### 3. Note
-
-- `.dtc` stands for **D**evOps **T**oolkit **C**onfiguration
-- You can replace `$HOME/.dtc` with any desired folder path on your VM.
-- Remove the `-v $HOME/.dtc:/dtc` option if you do not wish to store configurations on the host (not recommended for configuration reuse).
 
 ## Versioning
 

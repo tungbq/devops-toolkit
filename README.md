@@ -130,6 +130,10 @@ Explore the comprehensive guide below to gain insight into the detailed utilizat
 - For detailed instructions on using specific tools, refer to: [**DevOps toolkit specific tool user guide**](./docs/usage/README.md)
 - For instructions on common run modes, visit [**DevOps toolkit common run mode**](./docs/usage/run_mode.md)
 
+## Demo
+
+- Checkout the Demo code and instruction [here](./demo/).
+
 ## The DevOps Toolkit Core 🧰
 
 Built on `ubuntu:22.04` base image

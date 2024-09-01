@@ -111,6 +111,10 @@ exec_in_container() {
 
 cleanup() {
     local container_name="$1"
+    if [[ "$container_name" == "--all" ]]; then
+        cleanup_all
+        return
+    fi
     read -p "Are you sure you want to remove the container '$container_name'? Type 'yes' to confirm: " confirmation
     if [ "$confirmation" != "yes" ]; then
         log $YELLOW "Cleanup aborted."
@@ -126,83 +130,28 @@ cleanup() {
         log $YELLOW "Container $container_name does not exist."
     fi
 }
-
-update() {
-    local container_name="$1"
-    local version="$2"
-    local new_image
-
-    if [ -z "$version" ]; then
-        new_image="${DOCKER_IMAGE%:*}:latest"
-        log $BLUE "Updating $container_name to the latest version..."
-    else
-        new_image="${DOCKER_IMAGE%:*}:$version"
-        log $BLUE "Updating $container_name to version $version..."
+cleanup_all() {
+    read -p "Are you sure you want to remove ALL DevOps Toolkit containers? Type 'yes' to confirm: " confirmation
+    if [ "$confirmation" != "yes" ]; then
+        log $YELLOW "Cleanup all aborted."
+        return
     fi
-
-    if [ "$new_image" == "$DOCKER_IMAGE" ]; then
-        if is_image_up_to_date "$new_image"; then
-            log $YELLOW "The specified image ($new_image) is already in use and up-to-date. No update needed."
-            return
-        else
-            log $BLUE "The specified image ($new_image) is in use but outdated. Updating..."
-        fi
-    fi
-
-    pull_image "$new_image"
-    cleanup "$container_name"
-    DOCKER_IMAGE="$new_image"
-    start_container "$DOCKER_IMAGE" "$container_name"
-    add_container "$container_name"
-    log $GREEN "Update completed successfully for $container_name. New image: $DOCKER_IMAGE"
-}
-
-version() {
-    local container_name="$1"
-    log $BLUE "DevOps Toolkit Version Information for $container_name:"
-    log $GREEN "Current Docker Image: $DOCKER_IMAGE"
-    if docker inspect --type=container "$container_name" > /dev/null 2>&1; then
-        local container_image=$(docker inspect --format='{{.Config.Image}}' "$container_name")
-        log $GREEN "Running Container Image: $container_image"
-    else
-        log $YELLOW "No running container found for $container_name."
-    fi
-}
-
-list_versions() {
-    log $BLUE "Available versions of DevOps Toolkit:"
-    local repo="${DOCKER_IMAGE%:*}"
-    curl -s "https://registry.hub.docker.com/v2/repositories/${repo}/tags?page_size=100" | \
-        jq -r '.results[].name' | sort -V
-}
-
-health_check() {
-    local container_name="$1"
-    if docker inspect --type=container "$container_name" > /dev/null 2>&1; then
-        local status=$(docker inspect --format='{{.State.Status}}' "$container_name")
-        local health=$(docker inspect --format='{{.State.Health.Status}}' "$container_name")
-        log $GREEN "Container Status for $container_name: $status"
-        log $GREEN "Container Health for $container_name: ${health:-N/A}"
-    else
-        log $RED "Container $container_name does not exist."
-    fi
-}
-
-show_logs() {
-    local container_name="$1"
-    if docker inspect --type=container "$container_name" > /dev/null 2>&1; then
-        docker logs "$container_name"
-    else
-        log $RED "Container $container_name does not exist."
-    fi
-}
-
-shell_access() {
-    local container_name="$1"
-    if docker inspect --type=container "$container_name" > /dev/null 2>&1; then
-        log $BLUE "Accessing shell in container $container_name..."
+    log $BLUE "Cleaning up all DevOps Toolkit containers..."
+    if [ -f "$CONTAINER_LIST_FILE" ]; then
+        while IFS= read -r container_name; do
+            if docker inspect --type=container "$container_name" > /dev/null 2>&1; then
+                docker stop "$container_name" > /dev/null
+                docker rm "$container_name" > /dev/null
+                log $GREEN "Container $container_name has been removed."
+            else
+                log $YELLOW "Container $container_name does not exist, but was in the list."
+            fi
+        done < "$CONTAINER_LIST_FILE"
+        # Clear the container list file
+        > "$CONTAINER_LIST_FILE"
+        log $GREEN "All DevOps Toolkit containers have been removed and the list has been cleared."
         docker exec -it "$container_name" $CONTAINER_SHELL
-    else
+        log $YELLOW "No container list file found. Nothing to clean up."
         log $RED "Container $container_name does not exist."
     fi
 }
@@ -213,6 +162,7 @@ usage() {
     echo "  init <container_name> [version]: Initialize a new container and configuration directory. If version is omitted, initializes with the latest image."
     echo "  run <container_name> [command]: Start a new container and run a command"
     echo "  exec <container_name> [command]: Execute a command in an existing container"
+    echo "  cleanup --all: Remove all DevOps Toolkit containers"
     echo "  cleanup <container_name>: Remove the specified container"
     echo "  update <container_name> [version]: Update the container image. If version is omitted, updates to latest."
     echo "  version <container_name>: Display version information for the specified container"

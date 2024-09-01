@@ -106,6 +106,78 @@ start_container() {
     fi
 }
 
+
+update() {
+    local container_name="$1"
+    local version="$2"
+    local new_image
+
+    if [ -z "$version" ]; then
+        new_image="${DOCKER_IMAGE%:*}:latest"
+        log $BLUE "Updating $container_name to the latest version..."
+    else
+        new_image="${DOCKER_IMAGE%:*}:$version"
+        log $BLUE "Updating $container_name to version $version..."
+    fi
+
+    if [ "$new_image" == "$DOCKER_IMAGE" ]; then
+        if is_image_up_to_date "$new_image"; then
+            log $YELLOW "The specified image ($new_image) is already in use and up-to-date. No update needed."
+            return
+        else
+            log $BLUE "The specified image ($new_image) is in use but outdated. Updating..."
+        fi
+    fi
+
+    pull_image "$new_image"
+    cleanup "$container_name"
+    DOCKER_IMAGE="$new_image"
+    start_container "$DOCKER_IMAGE" "$container_name"
+    add_container "$container_name"
+    log $GREEN "Update completed successfully for $container_name. New image: $DOCKER_IMAGE"
+}
+
+version() {
+    local container_name="$1"
+    log $BLUE "DevOps Toolkit Version Information for $container_name:"
+    log $GREEN "Current Docker Image: $DOCKER_IMAGE"
+    if docker inspect --type=container "$container_name" > /dev/null 2>&1; then
+        local container_image=$(docker inspect --format='{{.Config.Image}}' "$container_name")
+        log $GREEN "Running Container Image: $container_image"
+    else
+        log $YELLOW "No running container found for $container_name."
+    fi
+}
+
+list_versions() {
+    log $BLUE "Available versions of DevOps Toolkit:"
+    local repo="${DOCKER_IMAGE%:*}"
+    curl -s "https://registry.hub.docker.com/v2/repositories/${repo}/tags?page_size=100" | \
+        jq -r '.results[].name' | sort -V
+}
+
+health_check() {
+    local container_name="$1"
+    if docker inspect --type=container "$container_name" > /dev/null 2>&1; then
+        local status=$(docker inspect --format='{{.State.Status}}' "$container_name")
+        local health=$(docker inspect --format='{{.State.Health.Status}}' "$container_name")
+        log $GREEN "Container Status for $container_name: $status"
+        log $GREEN "Container Health for $container_name: ${health:-N/A}"
+    else
+        log $RED "Container $container_name does not exist."
+    fi
+}
+
+show_logs() {
+    local container_name="$1"
+    if docker inspect --type=container "$container_name" > /dev/null 2>&1; then
+        docker logs "$container_name"
+    else
+        log $RED "Container $container_name does not exist."
+    fi
+}
+
+
 exec_in_container() {
     local container_name="$1"
     shift

@@ -17,15 +17,28 @@ log() {
 # Default configuration options
 DOCKER_IMAGE="${DOCKER_IMAGE:-tungbq/devops-toolkit:latest}"
 CONFIG_MOUNT_PATH="${CONFIG_MOUNT_PATH:-$HOME/.dtc}"
-CONTAINER_NAME="${CONTAINER_NAME:-devops_toolkit}"
 CONTAINER_SHELL="${CONTAINER_SHELL:-/bin/bash}"
 RUN_MODE="${RUN_MODE:-run}"
 NETWORK="${NETWORK:---net=host}"
+CONTAINER_LIST_FILE="${CONFIG_MOUNT_PATH}/container_list.txt"
 
-if [ -z "$CONTAINER_NAME" ]; then
-    log $RED "No CONTAINER_NAME provided"
-    exit 1
-fi
+# Function to check if a container exists in the list
+container_exists() {
+    local container_name="$1"
+    grep -q "^${container_name}$" "$CONTAINER_LIST_FILE" 2>/dev/null
+}
+
+# Function to add a container to the list
+add_container() {
+    local container_name="$1"
+    echo "$container_name" >> "$CONTAINER_LIST_FILE"
+}
+
+# Function to remove a container from the list
+remove_container() {
+    local container_name="$1"
+    sed -i "/^${container_name}$/d" "$CONTAINER_LIST_FILE"
+}
 
 # Function to check if local image is up-to-date with DockerHub
 is_image_up_to_date() {
@@ -59,9 +72,10 @@ pull_image() {
 
 start_container() {
     local image="$1"
-    if ! docker inspect --type=container "$CONTAINER_NAME" > /dev/null 2>&1; then
-        log $BLUE "Starting new container with image $image..."
-        docker run -d --name "$CONTAINER_NAME" \
+    local container_name="$2"
+    if ! docker inspect --type=container "$container_name" > /dev/null 2>&1; then
+        log $BLUE "Starting new container $container_name with image $image..."
+        docker run -d --name "$container_name" \
             --volume "$PWD:$PWD" \
             --volume "$CONFIG_MOUNT_PATH:/dtc" \
             --volume "$HOME/.ssh:/root/.ssh" \
@@ -71,14 +85,16 @@ start_container() {
             $NETWORK \
             $DOCKER_ARGS \
             "$image" -f /dev/null > /dev/null || { log $RED "Failed to start container"; exit 1; }
-        log $GREEN "Container started successfully"
+        log $GREEN "Container $container_name started successfully"
     else
-        log $YELLOW "Container $CONTAINER_NAME already exists"
+        log $YELLOW "Container $container_name already exists"
     fi
 }
 
 exec_in_container() {
-    local command="$1"
+    local container_name="$1"
+    shift
+    local command="$@"
 
     local RUN_CMD=$CONTAINER_SHELL
 
@@ -86,38 +102,41 @@ exec_in_container() {
         RUN_CMD+=" -c $command"
     fi
 
-    log $BLUE "Executing command in container $CONTAINER_NAME..."
-    docker exec -it "$CONTAINER_NAME" $RUN_CMD || {
-        log $RED "Failed to execute command in container $CONTAINER_NAME"; exit 1;
+    log $BLUE "Executing command in container $container_name..."
+    docker exec -it "$container_name" $RUN_CMD || {
+        log $RED "Failed to execute command in container $container_name"; exit 1;
     }
 }
 
 cleanup() {
-    read -p "Are you sure you want to remove the container '$CONTAINER_NAME'? Type 'yes' to confirm: " confirmation
+    local container_name="$1"
+    read -p "Are you sure you want to remove the container '$container_name'? Type 'yes' to confirm: " confirmation
     if [ "$confirmation" != "yes" ]; then
         log $YELLOW "Cleanup aborted."
         return
     fi
     log $BLUE "Cleaning up..."
-    if docker inspect --type=container "$CONTAINER_NAME" > /dev/null 2>&1; then
-        docker stop "$CONTAINER_NAME" > /dev/null
-        docker rm "$CONTAINER_NAME" > /dev/null
-        log $GREEN "Container $CONTAINER_NAME has been removed."
+    if docker inspect --type=container "$container_name" > /dev/null 2>&1; then
+        docker stop "$container_name" > /dev/null
+        docker rm "$container_name" > /dev/null
+        remove_container "$container_name"
+        log $GREEN "Container $container_name has been removed."
     else
-        log $YELLOW "Container $CONTAINER_NAME does not exist."
+        log $YELLOW "Container $container_name does not exist."
     fi
 }
 
 update() {
-    local version="$1"
+    local container_name="$1"
+    local version="$2"
     local new_image
 
     if [ -z "$version" ]; then
         new_image="${DOCKER_IMAGE%:*}:latest"
-        log $BLUE "Updating to the latest version..."
+        log $BLUE "Updating $container_name to the latest version..."
     else
         new_image="${DOCKER_IMAGE%:*}:$version"
-        log $BLUE "Updating to version $version..."
+        log $BLUE "Updating $container_name to version $version..."
     fi
 
     if [ "$new_image" == "$DOCKER_IMAGE" ]; then
@@ -130,20 +149,22 @@ update() {
     fi
 
     pull_image "$new_image"
-    cleanup
+    cleanup "$container_name"
     DOCKER_IMAGE="$new_image"
-    start_container "$DOCKER_IMAGE"
-    log $GREEN "Update completed successfully. New image: $DOCKER_IMAGE"
+    start_container "$DOCKER_IMAGE" "$container_name"
+    add_container "$container_name"
+    log $GREEN "Update completed successfully for $container_name. New image: $DOCKER_IMAGE"
 }
 
 version() {
-    log $BLUE "DevOps Toolkit Version Information:"
+    local container_name="$1"
+    log $BLUE "DevOps Toolkit Version Information for $container_name:"
     log $GREEN "Current Docker Image: $DOCKER_IMAGE"
-    if docker inspect --type=container "$CONTAINER_NAME" > /dev/null 2>&1; then
-        local container_image=$(docker inspect --format='{{.Config.Image}}' "$CONTAINER_NAME")
+    if docker inspect --type=container "$container_name" > /dev/null 2>&1; then
+        local container_image=$(docker inspect --format='{{.Config.Image}}' "$container_name")
         log $GREEN "Running Container Image: $container_image"
     else
-        log $YELLOW "No running container found."
+        log $YELLOW "No running container found for $container_name."
     fi
 }
 
@@ -155,112 +176,159 @@ list_versions() {
 }
 
 health_check() {
-    if docker inspect --type=container "$CONTAINER_NAME" > /dev/null 2>&1; then
-        local status=$(docker inspect --format='{{.State.Status}}' "$CONTAINER_NAME")
-        local health=$(docker inspect --format='{{.State.Health.Status}}' "$CONTAINER_NAME")
-        log $GREEN "Container Status: $status"
-        log $GREEN "Container Health: ${health:-N/A}"
+    local container_name="$1"
+    if docker inspect --type=container "$container_name" > /dev/null 2>&1; then
+        local status=$(docker inspect --format='{{.State.Status}}' "$container_name")
+        local health=$(docker inspect --format='{{.State.Health.Status}}' "$container_name")
+        log $GREEN "Container Status for $container_name: $status"
+        log $GREEN "Container Health for $container_name: ${health:-N/A}"
     else
-        log $RED "Container $CONTAINER_NAME does not exist."
+        log $RED "Container $container_name does not exist."
     fi
 }
 
 show_logs() {
-    if docker inspect --type=container "$CONTAINER_NAME" > /dev/null 2>&1; then
-        docker logs "$CONTAINER_NAME"
+    local container_name="$1"
+    if docker inspect --type=container "$container_name" > /dev/null 2>&1; then
+        docker logs "$container_name"
     else
-        log $RED "Container $CONTAINER_NAME does not exist."
+        log $RED "Container $container_name does not exist."
     fi
 }
 
 shell_access() {
-    if docker inspect --type=container "$CONTAINER_NAME" > /dev/null 2>&1; then
-        log $BLUE "Accessing shell in container $CONTAINER_NAME..."
-        docker exec -it "$CONTAINER_NAME" $CONTAINER_SHELL
+    local container_name="$1"
+    if docker inspect --type=container "$container_name" > /dev/null 2>&1; then
+        log $BLUE "Accessing shell in container $container_name..."
+        docker exec -it "$container_name" $CONTAINER_SHELL
     else
-        log $RED "Container $CONTAINER_NAME does not exist."
+        log $RED "Container $container_name does not exist."
     fi
 }
 
 usage() {
-    log $BLUE "Usage: $0 [command] [options]"
+    log $BLUE "Usage: $0 [command] <container_name> [options]"
     echo "Commands:"
-    echo "  init [version]: Initialize the container and configuration directory. If version is omitted, initializes with the latest image."
-    echo "  run [command]: Start a new container and run a command"
-    echo "  exec [command]: Execute a command in an existing container"
-    echo "  cleanup: Remove the container"
-    echo "  update [version]: Update the container image. If version is omitted, updates to latest."
-    echo "  version: Display version information"
+    echo "  init <container_name> [version]: Initialize a new container and configuration directory. If version is omitted, initializes with the latest image."
+    echo "  run <container_name> [command]: Start a new container and run a command"
+    echo "  exec <container_name> [command]: Execute a command in an existing container"
+    echo "  cleanup <container_name>: Remove the specified container"
+    echo "  update <container_name> [version]: Update the container image. If version is omitted, updates to latest."
+    echo "  version <container_name>: Display version information for the specified container"
     echo "  list-versions: List available versions of the DevOps toolkit"
-    echo "  health: Perform a health check on the running container"
-    echo "  logs: View the logs of the running container"
-    echo "  shell: Get a shell inside the running container"
+    echo "  health <container_name>: Perform a health check on the specified running container"
+    echo "  logs <container_name>: View the logs of the specified running container"
+    echo "  shell <container_name>: Get a shell inside the specified running container"
+    echo "  list: List all initialized containers"
 }
 
 init() {
-    local version="$1"
+    local container_name="$1"
+    local version="$2"
     local image="${DOCKER_IMAGE%:*}:${version:-latest}"
+
+    if [ -z "$container_name" ]; then
+        log $RED "No container name provided"
+        usage
+        exit 1
+    fi
 
     # Check if the directory exists
     if [ ! -d "$CONFIG_MOUNT_PATH" ]; then
         # If the directory doesn't exist, create it
         mkdir -p "$CONFIG_MOUNT_PATH"
-        echo "Config path $DICONFIG_MOUNT_PATHR created."
+        echo "Config path $CONFIG_MOUNT_PATH created."
     else
         echo "Config path $CONFIG_MOUNT_PATH already exists."
     fi
 
-    if docker inspect --type=container "$CONTAINER_NAME" > /dev/null 2>&1; then
-        log $YELLOW "Container $CONTAINER_NAME already exists. Skipping initialization."
-        log $YELLOW "Run 'devops-toolkit-cli cleanup' then init again if you want to re-init!"
+    # Create container list file if it doesn't exist
+    touch "$CONTAINER_LIST_FILE"
+
+    if container_exists "$container_name"; then
+        log $YELLOW "Container $container_name already exists. Skipping initialization."
+        log $YELLOW "Run 'devops-toolkit-cli cleanup $container_name' then init again if you want to re-init!"
     else
-        log $BLUE "Initializing container with image $image..."
+        log $BLUE "Initializing container $container_name with image $image..."
         pull_image "$image"
-        start_container "$image"
-        log $GREEN "Initialization complete."
+        start_container "$image" "$container_name"
+        add_container "$container_name"
+        log $GREEN "Initialization complete for $container_name."
     fi
 }
 
+list_containers() {
+    log $BLUE "Initialized containers:"
+    if [ -f "$CONTAINER_LIST_FILE" ]; then
+        cat "$CONTAINER_LIST_FILE"
+    else
+        log $YELLOW "No containers initialized yet."
+    fi
+}
+
+# Main script logic
 case "$1" in
     init)
         shift
-        init "$1"
+        init "$@"
         ;;
     run)
         RUN_MODE="run"
         shift
-        log $BLUE "Running in 'run' mode..."
+        container_name="$1"
+        shift
+        if [ -z "$container_name" ]; then
+            log $RED "No container name provided"
+            usage
+            exit 1
+        fi
+        log $BLUE "Running in 'run' mode for container $container_name..."
         pull_image "$DOCKER_IMAGE"
-        start_container "$DOCKER_IMAGE"
-        exec_in_container "$@"
+        start_container "$DOCKER_IMAGE" "$container_name"
+        exec_in_container "$container_name" "$@"
         ;;
     exec)
         RUN_MODE="exec"
         shift
-        log $BLUE "Running in 'exec' mode..."
-        exec_in_container "$@"
+        container_name="$1"
+        shift
+        if [ -z "$container_name" ]; then
+            log $RED "No container name provided"
+            usage
+            exit 1
+        fi
+        log $BLUE "Running in 'exec' mode for container $container_name..."
+        exec_in_container "$container_name" "$@"
         ;;
     cleanup)
-        cleanup
+        shift
+        cleanup "$1"
         ;;
     update)
         shift
-        update "$1"
+        update "$@"
         ;;
     version)
-        version
+        shift
+        version "$1"
         ;;
     list-versions)
         list_versions
         ;;
     health)
-        health_check
+        shift
+        health_check "$1"
         ;;
     logs)
-        show_logs
+        shift
+        show_logs "$1"
         ;;
     shell)
-        shell_access
+        shift
+        shell_access "$1"
+        ;;
+    list)
+        list_containers
         ;;
     help)
         usage

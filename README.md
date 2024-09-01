@@ -28,6 +28,7 @@
 
 ```bash
 mkdir -p $HOME/.dtc # Skip this step if you already created the configuration folder before
+docker pull tungbq/devops-toolkit:latest
 docker run --rm --name devops-toolkit-demo1 --network host -it -v $HOME/.dtc:/dtc tungbq/devops-toolkit:latest
 ```
 

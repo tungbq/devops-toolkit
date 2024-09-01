@@ -14,8 +14,8 @@ Some document to help you start with kubernetes (k8s)
 Navigate to your workspace folder, then run:
 
 ```bash
-devops-toolkit-cli init
-devops-toolkit-cli run
+devops-toolkit-cli init demo_kubectl01
+devops-toolkit-cli run demo_kubectl01
 
 # You now in the container terminal. Execute the kubectl command normally
 kubectl --version

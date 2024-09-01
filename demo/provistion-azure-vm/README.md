@@ -57,11 +57,16 @@ Enter 'yes' to confirm
 - Now you can go to Azure Portal to verify your VM: https://portal.azure.com/#home
 - Or ping the Public IP shown in the console
 
-## Destroy Terraform
-
+## Cleanup
+Destroy the resources with terraform if they are not used anymore:
 ```bash
 # In devops-toolkit contaienr env
 terraform destroy
+```
+
+And also remove the demo docker container with this command:
+```bash
+devops-toolkit-cli cleanup demo_azure_tf
 ```
 
 ## Conclusion

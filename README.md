@@ -29,10 +29,13 @@
 ```bash
 mkdir -p $HOME/.dtc # Skip this step if you already created the configuration folder before
 docker pull tungbq/devops-toolkit:latest
-docker run --rm --name devops-toolkit-demo1 --network host -it -v $HOME/.dtc:/dtc tungbq/devops-toolkit:latest
+docker -it run --rm --name devops-toolkit-demo1 \
+    -v $HOME/.dtc:/dtc \
+    --network host  \
+    tungbq/devops-toolkit:latest
 ```
 
-### 2. Advanced Run Options
+### 2. Run with custom tool config from host (.dtc)
 
 ```bash
 docker run -it --name devops-toolkit-demo2 \
@@ -46,7 +49,27 @@ docker run -it --name devops-toolkit-demo2 \
 # Adjust the docker run command base on your use cases
 ```
 
-### 3. Note
+### 3. Run with tool config from host
+
+```bash
+docker run -it --name devops-toolkit-demo3 \
+    --volume "$HOME/.aws:/root/.aws" \
+    --volume "$HOME/.azure:/root/.azure" \
+    --volume "$HOME/.kube:/root/.kube" \
+    --volume "$HOME/.terraform.d:/root/.terraform.d" \
+    --volume "$HOME/.config/helm:/root/.config/helm" \
+    --volume "$HOME/.ansible:/root/.ansible" \
+    --volume "$HOME/.gitconfig:/root/.gitconfig" \
+    --volume "$HOME/.ssh:/root/.ssh" \
+    --volume "$PWD:$PWD" \
+    --workdir "$PWD" \
+    --network host \
+    tungbq/devops-toolkit:latest
+
+# Adjust the docker run command base on your use cases
+```
+
+### 4. Note
 
 - `.dtc` stands for **D**evOps **T**oolkit **C**onfiguration
 - You can replace `$HOME/.dtc` with any desired folder path on your VM.

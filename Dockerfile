@@ -129,6 +129,9 @@ RUN locale-gen $LANG && update-locale && \
             } ; \
         }"
 
+# ZSH
+RUN apt install -y zsh
+
 # Cleanup
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*

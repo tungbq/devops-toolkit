@@ -73,7 +73,7 @@ RUN mkdir /tmp/helm_env/ && \
     rm -rf /tmp/helm_env/
 
 # Install AwsCLI
-ARG AWSCLI_VERSION=2.17.42
+ARG AWSCLI_VERSION=2.17.46
 RUN mkdir /tmp/awscli_env/ && \
     cd /tmp/awscli_env/ && \
     wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip" && \
@@ -82,7 +82,7 @@ RUN mkdir /tmp/awscli_env/ && \
     rm -rf /tmp/awscli_env/
 
 # Install AzureCLI
-ARG AZURECLI_VERSION=2.63.0
+ARG AZURECLI_VERSION=2.64.0
 RUN mkdir -p /etc/apt/keyrings && \
     curl -sLS https://packages.microsoft.com/keys/microsoft.asc | \
     gpg --dearmor | \

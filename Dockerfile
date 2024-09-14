@@ -42,7 +42,7 @@ RUN curl -k https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     rm get-pip.py
 
 # Install Ansible
-ARG ANSIBLE_VERSION=2.17.3
+ARG ANSIBLE_VERSION=2.17.4
 RUN python3 -m pip install ansible-core==${ANSIBLE_VERSION}
 
 # Install Terraform
@@ -64,7 +64,7 @@ RUN mkdir /tmp/kubectl_env/ && \
     rm -rf /tmp/kubectl_env/
 
 # Install Helm
-ARG HELM_VERSION=3.15.4
+ARG HELM_VERSION=3.16.1
 RUN mkdir /tmp/helm_env/ && \
     cd /tmp/helm_env/ && \
     wget https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz && \
@@ -73,7 +73,7 @@ RUN mkdir /tmp/helm_env/ && \
     rm -rf /tmp/helm_env/
 
 # Install AwsCLI
-ARG AWSCLI_VERSION=2.17.46
+ARG AWSCLI_VERSION=2.17.51
 RUN mkdir /tmp/awscli_env/ && \
     cd /tmp/awscli_env/ && \
     wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip" && \

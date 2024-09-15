@@ -36,7 +36,7 @@ docker -it run --rm --name devops-toolkit-demo1 \
 ```
 
 ### 2. Run with custom tool config from host (.dtc)
-
+Mount current directory and start the toolkit
 ```bash
 docker run -it --name devops-toolkit-demo2 \
     --volume "$PWD:$PWD" \

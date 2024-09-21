@@ -46,7 +46,7 @@ ARG ANSIBLE_VERSION=2.17.4
 RUN python3 -m pip install ansible-core==${ANSIBLE_VERSION}
 
 # Install Terraform
-ARG TERRAFORM_VERSION=1.9.5
+ARG TERRAFORM_VERSION=1.9.6
 RUN mkdir /tmp/terraform_env/ && \
     cd /tmp/terraform_env/ && \
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
@@ -55,7 +55,7 @@ RUN mkdir /tmp/terraform_env/ && \
     rm -rf /tmp/terraform_env/
 
 # Install Kubectl
-ARG KUBECTL_VERSION=1.31.0
+ARG KUBECTL_VERSION=1.31.1
 RUN mkdir /tmp/kubectl_env/ && \
     cd /tmp/kubectl_env/ && \
     curl -LO "https://dl.k8s.io/release/v$KUBECTL_VERSION/bin/linux/amd64/kubectl" && \
@@ -73,7 +73,7 @@ RUN mkdir /tmp/helm_env/ && \
     rm -rf /tmp/helm_env/
 
 # Install AwsCLI
-ARG AWSCLI_VERSION=2.17.51
+ARG AWSCLI_VERSION=2.17.56
 RUN mkdir /tmp/awscli_env/ && \
     cd /tmp/awscli_env/ && \
     wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip" && \

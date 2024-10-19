@@ -42,11 +42,11 @@ RUN curl -k https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     rm get-pip.py
 
 # Install Ansible
-ARG ANSIBLE_VERSION=2.17.4
+ARG ANSIBLE_VERSION=2.17.5
 RUN python3 -m pip install ansible-core==${ANSIBLE_VERSION}
 
 # Install Terraform
-ARG TERRAFORM_VERSION=1.9.7
+ARG TERRAFORM_VERSION=1.9.8
 RUN mkdir /tmp/terraform_env/ && \
     cd /tmp/terraform_env/ && \
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
@@ -64,7 +64,7 @@ RUN mkdir /tmp/kubectl_env/ && \
     rm -rf /tmp/kubectl_env/
 
 # Install Helm
-ARG HELM_VERSION=3.16.1
+ARG HELM_VERSION=3.16.2
 RUN mkdir /tmp/helm_env/ && \
     cd /tmp/helm_env/ && \
     wget https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz && \
@@ -73,7 +73,7 @@ RUN mkdir /tmp/helm_env/ && \
     rm -rf /tmp/helm_env/
 
 # Install AwsCLI
-ARG AWSCLI_VERSION=2.18.0
+ARG AWSCLI_VERSION=2.18.10
 RUN mkdir /tmp/awscli_env/ && \
     cd /tmp/awscli_env/ && \
     wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip" && \
@@ -82,7 +82,7 @@ RUN mkdir /tmp/awscli_env/ && \
     rm -rf /tmp/awscli_env/
 
 # Install AzureCLI
-ARG AZURECLI_VERSION=2.64.0
+ARG AZURECLI_VERSION=2.65.0
 RUN mkdir -p /etc/apt/keyrings && \
     curl -sLS https://packages.microsoft.com/keys/microsoft.asc | \
     gpg --dearmor | \

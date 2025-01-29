@@ -2,7 +2,7 @@ name: Update Toolkit
 
 on:
   schedule:
-    - cron: '0 0 * * 6' # Run every Saturday at midnight
+    - cron: '0 0 */14 * 6' # Run every 14 days on Saturday at midnight
   workflow_dispatch:
 
 jobs:

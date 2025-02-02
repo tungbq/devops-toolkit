@@ -4,18 +4,13 @@
 
 ```bash
 cd devops-toolkit/demo/provistion-azure-vm
-```
 
-## Init devops-toolkit container
-
-```bash
-devops-toolkit-cli init demo_azure_tf
-```
-
-## Run devops-toolkit container
-
-```bash
-devops-toolkit-cli run demo_azure_tf
+mkdir -p $HOME/.dtc # Skip this step if you already created the configuration folder before
+docker pull tungbq/devops-toolkit:latest
+docker run -it --rm --name demo_azure_tf \
+    -v $HOME/.dtc:/dtc \
+    --network host  \
+    tungbq/devops-toolkit:latest
 ```
 
 At this point, your container already started with `demo/provistion-azure-vm` code available inside. Let's move to the next step
@@ -58,15 +53,12 @@ Enter 'yes' to confirm
 - Or ping the Public IP shown in the console
 
 ## Cleanup
+
 Destroy the resources with terraform if they are not used anymore:
+
 ```bash
 # In devops-toolkit contaienr env
 terraform destroy
-```
-
-And also remove the demo docker container with this command:
-```bash
-devops-toolkit-cli cleanup demo_azure_tf
 ```
 
 ## Conclusion

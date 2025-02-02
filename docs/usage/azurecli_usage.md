@@ -10,22 +10,6 @@ Some document to help you start with azurecli
 
 - <https://learn.microsoft.com/en-us/cli/azure/>
 
-## Run with devops-toolkit-cli
-
-### Start the container
-
-Navigate to your workspace folder, then run:
-
-```bash
-devops-toolkit-cli init demo_azcli01
-devops-toolkit-cli run demo_azcli01
-
-# You now in the container terminal. Execute the az command normally
-az --version
-```
-
-It will mount the workspace code to container and you then can execute desired scripts inside the `devops-toolkit` container.
-
 ## Run with Docker command
 
 ### Note

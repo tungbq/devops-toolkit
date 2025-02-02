@@ -7,22 +7,6 @@ Some document to help you start with python
 - <https://www.python.org/doc/>
 - <https://github.com/tungbq/devops-basic/tree/main/topics/python>
 
-## Run with devops-toolkit-cli
-
-### Start the container
-
-Navigate to your workspace folder, then run:
-
-```bash
-devops-toolkit-cli init demo_python01
-devops-toolkit-cli run demo_python01
-
-# You now in the container terminal. Execute the python command normally
-python3 --version
-```
-
-It will mount the workspace code to container and you then can execute desired scripts inside the `devops-toolkit` container
-
 ## Run with Docker command
 
 ### Note

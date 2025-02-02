@@ -7,20 +7,6 @@ Some document to help you start with terraform
 - <https://developer.hashicorp.com/terraform>
 - <https://github.com/tungbq/devops-basic/tree/main/topics/terraform>
 
-### Start the container
-
-Navigate to your workspace folder, then run:
-
-```bash
-devops-toolkit-cli init demo_terraform01
-devops-toolkit-cli run demo_terraform01
-
-# You now in the container terminal. Execute the terraform command normally
-terraform --version
-```
-
-It will mount the workspace code to container and you then can execute desired scripts inside the `devops-toolkit` container
-
 ## Run with Docker command
 
 ### Note

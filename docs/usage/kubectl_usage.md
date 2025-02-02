@@ -7,22 +7,6 @@ Some document to help you start with kubernetes (k8s)
 - <https://kubernetes.io/docs/home/>
 - <https://github.com/tungbq/devops-basic/tree/main/topics/k8s>
 
-## Run with devops-toolkit-cli
-
-### Start the container
-
-Navigate to your workspace folder, then run:
-
-```bash
-devops-toolkit-cli init demo_kubectl01
-devops-toolkit-cli run demo_kubectl01
-
-# You now in the container terminal. Execute the kubectl command normally
-kubectl --version
-```
-
-It will mount the workspace code to container and you then can execute desired scripts inside the `devops-toolkit` container.
-
 ## Run with Docker command
 
 ### Note

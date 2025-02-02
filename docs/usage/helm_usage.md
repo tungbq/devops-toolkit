@@ -11,22 +11,6 @@ Some document to help you start with helm
 - <https://helm.sh/docs/>
 - <https://github.com/tungbq/devops-basic/tree/main/topics/helm>
 
-## Run with devops-toolkit-cli
-
-### Start the container
-
-Navigate to your workspace folder, then run:
-
-```bash
-devops-toolkit-cli init demo_helm01
-devops-toolkit-cli run demo_helm01
-
-# You now in the container terminal. Execute the helm command normally
-helm --version
-```
-
-It will mount the workspace code to container and you then can execute desired scripts inside the `devops-toolkit` container.
-
 ## Run with Docker command
 
 ### Note

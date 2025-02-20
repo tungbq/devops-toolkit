@@ -2,9 +2,9 @@
   "python3": "3.11",
   "ansible": "2.18.2",
   "terraform": "1.10.5",
-  "kubectl": "1.32.1",
-  "helm": "3.17.0",
-  "awscli": "2.23.11",
-  "azurecli": "2.68.0",
+  "kubectl": "1.32.2",
+  "helm": "3.17.1",
+  "awscli": "2.24.5",
+  "azurecli": "2.69.0",
   "pwsh": "7.5.0"
 }

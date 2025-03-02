@@ -42,11 +42,11 @@ RUN curl -k https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     rm get-pip.py
 
 # Install Ansible
-ARG ANSIBLE_VERSION=2.18.2
+ARG ANSIBLE_VERSION=2.18.3
 RUN python3 -m pip install ansible-core==${ANSIBLE_VERSION}
 
 # Install Terraform
-ARG TERRAFORM_VERSION=1.10.5
+ARG TERRAFORM_VERSION=1.11.0
 RUN mkdir /tmp/terraform_env/ && \
     cd /tmp/terraform_env/ && \
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
@@ -73,7 +73,7 @@ RUN mkdir /tmp/helm_env/ && \
     rm -rf /tmp/helm_env/
 
 # Install AwsCLI
-ARG AWSCLI_VERSION=2.24.5
+ARG AWSCLI_VERSION=2.24.15
 RUN mkdir /tmp/awscli_env/ && \
     cd /tmp/awscli_env/ && \
     wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip" && \

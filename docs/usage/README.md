@@ -30,6 +30,10 @@ This guide us how to use the `devops-toolkit` with serveral usecases
 
 - Check [**azurecli_usage**](./azurecli_usage.md)
 
+## PowerShell
+
+- Check [**powershell_usage**](./powershell_usage.md)
+
 ## Troubleshooting
 
 - For any issues, check [this document](../troubleshooting/TROUBLESHOOTING.md)

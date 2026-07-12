@@ -6,11 +6,12 @@ FROM ubuntu:${UBUNTU_VERSION}
 ARG DEBIAN_FRONTEND=noninteractive
 ARG TZ=UTC
 
-# Update
-RUN apt-get update
-
-# Install required packages
-RUN apt-get install -y --no-install-recommends \
+# Install required packages + Python in a single layer so the apt cache
+# never lingers in the image (deleting it in a later layer does not shrink
+# the layer that downloaded it)
+ARG PYTHON_VERSION=3.11
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
     ca-certificates \
     curl \
     gnupg \
@@ -29,12 +30,11 @@ RUN apt-get install -y --no-install-recommends \
     libgssapi-krb5-2 \
     liblttng-ust1 \
     libstdc++6 \
-    zlib1g
-
-# Install Python
-ARG PYTHON_VERSION=3.11
-RUN apt install -y python${PYTHON_VERSION} && \
-    ln -sf /usr/bin/python${PYTHON_VERSION} /usr/bin/python3
+    zlib1g \
+    python${PYTHON_VERSION} && \
+    ln -sf /usr/bin/python${PYTHON_VERSION} /usr/bin/python3 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install pip for Python 3.11
 RUN curl -k https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
@@ -42,11 +42,14 @@ RUN curl -k https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     rm get-pip.py
 
 # Install Ansible
-ARG ANSIBLE_VERSION=2.18.3
-RUN python3 -m pip install ansible-core==${ANSIBLE_VERSION}
+# cryptography is pinned explicitly (rather than left to ansible-core's
+# transitive resolution) because older wheels bundle a vulnerable OpenSSL
+ARG ANSIBLE_VERSION=2.19.11
+ARG CRYPTOGRAPHY_VERSION=49.0.0
+RUN python3 -m pip install ansible-core==${ANSIBLE_VERSION} cryptography==${CRYPTOGRAPHY_VERSION}
 
 # Install Terraform
-ARG TERRAFORM_VERSION=1.11.2
+ARG TERRAFORM_VERSION=1.15.8
 RUN mkdir /tmp/terraform_env/ && \
     cd /tmp/terraform_env/ && \
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
@@ -55,7 +58,7 @@ RUN mkdir /tmp/terraform_env/ && \
     rm -rf /tmp/terraform_env/
 
 # Install Kubectl
-ARG KUBECTL_VERSION=1.32.3
+ARG KUBECTL_VERSION=1.36.2
 RUN mkdir /tmp/kubectl_env/ && \
     cd /tmp/kubectl_env/ && \
     curl -LO "https://dl.k8s.io/release/v$KUBECTL_VERSION/bin/linux/amd64/kubectl" && \
@@ -64,7 +67,7 @@ RUN mkdir /tmp/kubectl_env/ && \
     rm -rf /tmp/kubectl_env/
 
 # Install Helm
-ARG HELM_VERSION=3.17.2
+ARG HELM_VERSION=3.21.3
 RUN mkdir /tmp/helm_env/ && \
     cd /tmp/helm_env/ && \
     wget https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz && \
@@ -73,7 +76,7 @@ RUN mkdir /tmp/helm_env/ && \
     rm -rf /tmp/helm_env/
 
 # Install AwsCLI
-ARG AWSCLI_VERSION=2.24.24
+ARG AWSCLI_VERSION=2.35.21
 RUN mkdir /tmp/awscli_env/ && \
     cd /tmp/awscli_env/ && \
     wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip" && \
@@ -82,7 +85,7 @@ RUN mkdir /tmp/awscli_env/ && \
     rm -rf /tmp/awscli_env/
 
 # Install AzureCLI
-ARG AZURECLI_VERSION=2.70.0
+ARG AZURECLI_VERSION=2.88.0
 RUN mkdir -p /etc/apt/keyrings && \
     curl -sLS https://packages.microsoft.com/keys/microsoft.asc | \
     gpg --dearmor | \
@@ -92,10 +95,18 @@ RUN mkdir -p /etc/apt/keyrings && \
     echo "deb [arch=`dpkg --print-architecture` signed-by=/etc/apt/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/azure-cli/ $AZ_DIST main" | \
     tee /etc/apt/sources.list.d/azure-cli.list && \
     apt-get update && \
-    apt-get install --no-install-recommends -y azure-cli=$AZURECLI_VERSION-1~$AZ_DIST
+    apt-get install --no-install-recommends -y azure-cli=$AZURECLI_VERSION-1~$AZ_DIST && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    # azure-cli vendors its own venv under /opt/az with its own pinned deps,
+    # separate from the system pip environment - patch its cryptography too.
+    # Use "python3 -m pip", not the "pip" console script: azure-cli's deb
+    # ships that script with a shebang baked in from Microsoft's own build
+    # environment (/mnt/repo/python_env/bin/python3), which doesn't exist here.
+    /opt/az/bin/python3 -m pip install --no-cache-dir --upgrade "cryptography==${CRYPTOGRAPHY_VERSION}"
 
 # PowerShell Installation
-ARG PS_VERSION=7.5.0
+ARG PS_VERSION=7.6.3
 ARG PS_PACKAGE=powershell_${PS_VERSION}-1.deb_amd64.deb
 ARG PS_PACKAGE_URL=https://github.com/PowerShell/PowerShell/releases/download/v${PS_VERSION}/${PS_PACKAGE}
 ARG PS_INSTALL_VERSION=7
@@ -128,10 +139,6 @@ RUN locale-gen $LANG && update-locale && \
                 exit 1 ; \
             } ; \
         }"
-
-# Cleanup
-RUN apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
 WORKDIR /root

@@ -7,11 +7,11 @@
 <p align="center">🐳 Container image for an all-in-one DevOps environment with popular tools like Ansible, Terraform, kubectl, AWS CLI, Azure CLI, Git, Python and more...</p>
 
 <p align="center">
-  <a href="https://img.shields.io/github/last-commit/tungbq/devops-toolkit/main"><img alt="last commit" src="https://img.shields.io/github/last-commit/tungbq/devops-toolkit/main" /></a>
+  <a href="https://github.com/tungbq/devops-toolkit/commits/main"><img alt="last commit" src="https://img.shields.io/github/last-commit/tungbq/devops-toolkit/main" /></a>
   <a href="https://github.com/tungbq/devops-toolkit/releases"><img alt="devops-toolkit release" src="https://img.shields.io/github/release/tungbq/devops-toolkit.svg" /></a>
-  <a href="[https://hub.docker.com/r/tungbq/devops-toolkit/tags](https://github.com/tungbq/devops-toolkit/actions/workflows/deploy-docker-image-release.yml/badge.svg)">
-     <img alt="Docker main" src="https://github.com/tungbq/devops-toolkit/actions/workflows/deploy-docker-image-release.yml/badge.svg"/></a>
-  <a href="https://img.shields.io/docker/pulls/tungbq/devops-toolkit"><img alt="tungbq/devops-toolkit" src="https://img.shields.io/docker/pulls/tungbq/devops-toolkit"/></a>
+  <a href="https://github.com/tungbq/devops-toolkit/actions/workflows/deploy-docker-image-release.yml"><img alt="Docker release" src="https://github.com/tungbq/devops-toolkit/actions/workflows/deploy-docker-image-release.yml/badge.svg"/></a>
+  <a href="https://github.com/tungbq/devops-toolkit/actions/workflows/vulnerability-scanner.yaml"><img alt="Vulnerability scan" src="https://github.com/tungbq/devops-toolkit/actions/workflows/vulnerability-scanner.yaml/badge.svg"/></a>
+  <a href="https://hub.docker.com/r/tungbq/devops-toolkit"><img alt="tungbq/devops-toolkit" src="https://img.shields.io/docker/pulls/tungbq/devops-toolkit"/></a>
   <a href="https://github.com/tungbq/devops-toolkit/stargazers"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/tungbq/devops-toolkit"/></a>
 </p>
 
@@ -109,15 +109,22 @@ Built on `ubuntu:22.04` base image
 | Name       | Version                 | Release                                                                      | Usage                                              |
 | :--------- | :---------------------- | :--------------------------------------------------------------------------- | :------------------------------------------------- |
 | Python     | PYTHON_VERSION=3.11     | [Check](https://www.python.org/downloads/source/)                            | [python_usage](./docs/usage/python_usage.md)       |
-| Ansible    | ANSIBLE_VERSION=2.18.3  | [Check](https://api.github.com/repos/ansible/ansible/releases/latest)        | [ansible_usage](./docs/usage/ansible_usage.md)     |
-| Terraform  | TERRAFORM_VERSION=1.11.2 | [Check](https://releases.hashicorp.com/terraform/)                           | [terraform_usage](./docs/usage/terraform_usage.md) |
-| Kubectl    | KUBECTL_VERSION=1.32.3  | [Check](https://dl.k8s.io/release/stable.txt)                                | [kubectl_usage](./docs/usage/kubectl_usage.md)     |
-| Helm       | HELM_VERSION=3.17.2     | [Check](https://github.com/helm/helm/releases)                               | [helm_usage](./docs/usage/helm_usage.md)           |
-| AwsCLI     | AWSCLI_VERSION=2.24.24  | [Check](https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst)      | [awscli_usage](./docs/usage/awscli_usage.md)       |
-| AzureCLI   | AZURECLI_VERSION=2.70.0 | [Check](https://learn.microsoft.com/en-us/cli/azure/release-notes-azure-cli) | [azurecli_usage](./docs/usage/azurecli_usage.md)   |
-| PowerShell | PS_VERSION=7.5.0        | [Check](https://github.com/PowerShell/PowerShell/releases)                   | [powershell_usage](./docs/usage/powershell_usage.md) |
+| Ansible    | ANSIBLE_VERSION=2.19.11  | [Check](https://api.github.com/repos/ansible/ansible/releases/latest)        | [ansible_usage](./docs/usage/ansible_usage.md)     |
+| Terraform  | TERRAFORM_VERSION=1.15.8 | [Check](https://releases.hashicorp.com/terraform/)                           | [terraform_usage](./docs/usage/terraform_usage.md) |
+| Kubectl    | KUBECTL_VERSION=1.36.2  | [Check](https://dl.k8s.io/release/stable.txt)                                | [kubectl_usage](./docs/usage/kubectl_usage.md)     |
+| Helm       | HELM_VERSION=3.21.3     | [Check](https://github.com/helm/helm/releases)                               | [helm_usage](./docs/usage/helm_usage.md)           |
+| AwsCLI     | AWSCLI_VERSION=2.35.21  | [Check](https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst)      | [awscli_usage](./docs/usage/awscli_usage.md)       |
+| AzureCLI   | AZURECLI_VERSION=2.88.0 | [Check](https://learn.microsoft.com/en-us/cli/azure/release-notes-azure-cli) | [azurecli_usage](./docs/usage/azurecli_usage.md)   |
+| PowerShell | PS_VERSION=7.6.3        | [Check](https://github.com/PowerShell/PowerShell/releases)                   | [powershell_usage](./docs/usage/powershell_usage.md) |
 
 And more tools to be implemented...
+
+## Security 🔒
+
+- Every image is scanned for `CRITICAL`/`HIGH` vulnerabilities with [Trivy](https://github.com/aquasecurity/trivy) before it is merged and before it is published to Docker Hub — builds with fixable findings are blocked.
+- The published `latest` image is re-scanned on a recurring schedule, and all scan results are published to this repo's [Security tab](https://github.com/tungbq/devops-toolkit/security/code-scanning).
+- A CycloneDX SBOM is generated for every `main` and release build.
+- See [SECURITY.md](./SECURITY.md) for the full policy and how to report a vulnerability.
 
 ## Contributing
 

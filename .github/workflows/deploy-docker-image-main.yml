@@ -10,6 +10,10 @@ on:
   #     - 'scripts/*'
   #     - '.github/workflows/*'
 
+permissions:
+  contents: read
+  security-events: write
+
 jobs:
   buildandpush:
     runs-on: ubuntu-latest
@@ -39,6 +43,46 @@ jobs:
         run: |
           echo "Run sample tool code inside toolkit"
           docker run --rm devops-toolkit-merge:$GITHUB_SHA samples/run_sample.sh
+
+      - name: Scan image with Trivy (SARIF for Security tab)
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: 'devops-toolkit-merge:${{ github.sha }}'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+          ignore-unfixed: true
+
+      - name: Upload Trivy results to the Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+      - name: Block publish on fixable CRITICAL/HIGH vulnerabilities
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: 'devops-toolkit-merge:${{ github.sha }}'
+          format: 'table'
+          exit-code: '1'
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+          ignore-unfixed: true
+
+      - name: Generate SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          image: 'devops-toolkit-merge:${{ github.sha }}'
+          format: 'cyclonedx-json'
+          output-file: 'sbom.cyclonedx.json'
+
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-main-${{ github.sha }}
+          path: sbom.cyclonedx.json
+          retention-days: 90
 
       - name: Push Docker Image
         run: |

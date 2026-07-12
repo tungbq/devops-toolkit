@@ -45,7 +45,7 @@ class VersionParser:
 
     def check_kubectl_version(self):
         pattern = r'v(\d+\.\d+\.\d+)'
-        return self.check_version("kubectl", "https://cdn.dl.k8s.io/release/stable.txt", pattern)
+        return self.check_version("kubectl", "https://dl.k8s.io/release/stable.txt", pattern)
 
     def check_awscli_version(self):
         version_pattern = re.compile(r'\b(\d+\.\d+\.\d+)\b')

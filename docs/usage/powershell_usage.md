@@ -57,14 +57,14 @@ Sample Result
 
 ```bash
 root@docker-desktop:~# pwsh
-PowerShell 7.5.0
+PowerShell 7.6.3
 PS /root> $PSVersionTable
 
 Name                           Value
 ----                           -----
-PSVersion                      7.5.0
+PSVersion                      7.6.3
 PSEdition                      Core
-GitCommitId                    7.5.0
+GitCommitId                    7.6.3
 OS                             Linux 5.15.167.4-microsoft-standard-WSL2 #1 SMP ...
 Platform                       Unix
 PSCompatibleVersions           {1.0, 2.0, 3.0, 4.0…}

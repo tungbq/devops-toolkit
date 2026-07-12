@@ -40,8 +40,13 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Install pip for Python 3.12
+# --break-system-packages: Ubuntu 24.04 marks the system Python as
+# "externally managed" (PEP 668) and refuses plain pip installs. That
+# protection exists to stop pip from fighting apt on a general-purpose
+# system - it doesn't apply here, since this container's system Python
+# is entirely dedicated to running this toolkit.
 RUN curl -k https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
-    python3 get-pip.py && \
+    python3 get-pip.py --break-system-packages && \
     rm get-pip.py
 
 # Install Ansible
@@ -49,7 +54,7 @@ RUN curl -k https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
 # transitive resolution) because older wheels bundle a vulnerable OpenSSL
 ARG ANSIBLE_VERSION=2.21.1
 ARG CRYPTOGRAPHY_VERSION=49.0.0
-RUN python3 -m pip install ansible-core==${ANSIBLE_VERSION} cryptography==${CRYPTOGRAPHY_VERSION}
+RUN python3 -m pip install --break-system-packages ansible-core==${ANSIBLE_VERSION} cryptography==${CRYPTOGRAPHY_VERSION}
 
 # Install Terraform
 ARG TERRAFORM_VERSION=1.15.8
@@ -106,7 +111,7 @@ RUN mkdir -p /etc/apt/keyrings && \
     # Use "python3 -m pip", not the "pip" console script: azure-cli's deb
     # ships that script with a shebang baked in from Microsoft's own build
     # environment (/mnt/repo/python_env/bin/python3), which doesn't exist here.
-    /opt/az/bin/python3 -m pip install --no-cache-dir --upgrade "cryptography==${CRYPTOGRAPHY_VERSION}"
+    /opt/az/bin/python3 -m pip install --no-cache-dir --break-system-packages --upgrade "cryptography==${CRYPTOGRAPHY_VERSION}"
 
 # PowerShell Installation
 ARG PS_VERSION=7.6.3

@@ -1,0 +1,17 @@
+# Vulnerabilities in Go modules vendored inside upstream release binaries we
+# download as-is (kubectl, terraform). A fix exists in the Go module itself,
+# but no kubectl/terraform release has been cut yet that picks it up, so
+# there is nothing in this repo to bump. Re-evaluate this list whenever
+# KUBECTL_VERSION or TERRAFORM_VERSION changes and drop any CVE that's
+# resolved in the new release.
+
+# kubectl v1.36.2 - golang.org/x/net / stdlib
+CVE-2026-25681
+CVE-2026-27136
+CVE-2026-33814
+CVE-2026-39821
+CVE-2026-39822
+
+# terraform v1.15.8 - stdlib
+CVE-2026-27145
+CVE-2026-42504

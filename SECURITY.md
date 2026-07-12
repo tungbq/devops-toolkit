@@ -19,6 +19,7 @@ Every image build is scanned for OS and library vulnerabilities with [Trivy](htt
 - The published `tungbq/devops-toolkit:latest` image is re-scanned on a recurring schedule to catch newly disclosed CVEs in already-shipped layers.
 - All scan results are uploaded as SARIF and published to this repository's [Security tab](https://github.com/tungbq/devops-toolkit/security/code-scanning).
 - A [CycloneDX SBOM](https://cyclonedx.org/) is generated for every `main` and release build and attached as a workflow artifact for supply-chain verification.
+- A small number of CVEs are explicitly suppressed via [`.trivyignore`](./.trivyignore) with inline justification — currently limited to Go-module CVEs vendored inside upstream binaries (kubectl, terraform) where no release fixing them exists yet. This list is reviewed whenever those tools are version-bumped.
 
 ## Reporting a Vulnerability
 

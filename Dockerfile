@@ -42,8 +42,11 @@ RUN curl -k https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     rm get-pip.py
 
 # Install Ansible
+# cryptography is pinned explicitly (rather than left to ansible-core's
+# transitive resolution) because older wheels bundle a vulnerable OpenSSL
 ARG ANSIBLE_VERSION=2.19.11
-RUN python3 -m pip install ansible-core==${ANSIBLE_VERSION}
+ARG CRYPTOGRAPHY_VERSION=49.0.0
+RUN python3 -m pip install ansible-core==${ANSIBLE_VERSION} cryptography==${CRYPTOGRAPHY_VERSION}
 
 # Install Terraform
 ARG TERRAFORM_VERSION=1.15.8

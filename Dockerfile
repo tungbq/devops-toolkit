@@ -42,7 +42,7 @@ RUN curl -k https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     rm get-pip.py
 
 # Install Ansible
-ARG ANSIBLE_VERSION=2.21.1
+ARG ANSIBLE_VERSION=2.19.11
 RUN python3 -m pip install ansible-core==${ANSIBLE_VERSION}
 
 # Install Terraform

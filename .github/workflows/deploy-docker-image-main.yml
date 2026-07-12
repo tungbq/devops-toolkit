@@ -45,7 +45,7 @@ jobs:
           docker run --rm devops-toolkit-merge:$GITHUB_SHA samples/run_sample.sh
 
       - name: Scan image with Trivy (SARIF for Security tab)
-        uses: aquasecurity/trivy-action@0.33.1
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: 'devops-toolkit-merge:${{ github.sha }}'
           format: 'sarif'
@@ -61,7 +61,7 @@ jobs:
           sarif_file: 'trivy-results.sarif'
 
       - name: Block publish on fixable CRITICAL/HIGH vulnerabilities
-        uses: aquasecurity/trivy-action@0.33.1
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: 'devops-toolkit-merge:${{ github.sha }}'
           format: 'table'

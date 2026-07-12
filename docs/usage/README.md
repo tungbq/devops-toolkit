@@ -22,6 +22,10 @@ This guide us how to use the `devops-toolkit` with serveral usecases
 
 - Check [**helm_usage**](./helm_usage.md)
 
+## GitHub CLI
+
+- Check [**githubcli_usage**](./githubcli_usage.md)
+
 ## AwsCLI
 
 - Check [**awscli_usage**](./awscli_usage.md)

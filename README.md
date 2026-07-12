@@ -17,7 +17,7 @@
 
 ## Key Features
 
-- **Comprehensive Toolset**: Pre-installed with tools like Git, Python, Ansible, Terraform, kubectl, Helm, AWS CLI, Azure CLI, and more.
+- **Comprehensive Toolset**: Pre-installed with tools like Git, Python, Ansible, Terraform, kubectl, Helm, GitHub CLI, AWS CLI, Azure CLI, and more.
 - **Easy Integration**: Use it directly or customize it with your preferred versions.
 - **Efficient Updates**: Weekly updates ensure the latest versions and security patches.
 - **Configuration Reusability**: Mounts host config folders for seamless reuse across sessions.
@@ -113,6 +113,7 @@ Built on `ubuntu:24.04` base image
 | Terraform  | TERRAFORM_VERSION=1.15.8 | [Check](https://releases.hashicorp.com/terraform/)                           | [terraform_usage](./docs/usage/terraform_usage.md) |
 | Kubectl    | KUBECTL_VERSION=1.36.2  | [Check](https://dl.k8s.io/release/stable.txt)                                | [kubectl_usage](./docs/usage/kubectl_usage.md)     |
 | Helm       | HELM_VERSION=3.21.3     | [Check](https://github.com/helm/helm/releases)                               | [helm_usage](./docs/usage/helm_usage.md)           |
+| GitHub CLI | GH_VERSION=2.96.0       | [Check](https://github.com/cli/cli/releases)                                 | [githubcli_usage](./docs/usage/githubcli_usage.md) |
 | AwsCLI     | AWSCLI_VERSION=2.35.21  | [Check](https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst)      | [awscli_usage](./docs/usage/awscli_usage.md)       |
 | AzureCLI   | AZURECLI_VERSION=2.88.0 | [Check](https://learn.microsoft.com/en-us/cli/azure/release-notes-azure-cli) | [azurecli_usage](./docs/usage/azurecli_usage.md)   |
 | PowerShell | PS_VERSION=7.6.3        | [Check](https://github.com/PowerShell/PowerShell/releases)                   | [powershell_usage](./docs/usage/powershell_usage.md) |

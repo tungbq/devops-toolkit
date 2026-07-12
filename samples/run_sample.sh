@@ -45,3 +45,9 @@ console_log "Running Helm sample: add and search"
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm search repo bitnami | grep jenkins
 
+###########
+# GitHub CLI
+###########
+console_log "Running GitHub CLI sample: check version"
+gh --version
+

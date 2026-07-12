@@ -99,8 +99,11 @@ RUN mkdir -p /etc/apt/keyrings && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     # azure-cli vendors its own venv under /opt/az with its own pinned deps,
-    # separate from the system pip environment - patch its cryptography too
-    /opt/az/bin/pip install --no-cache-dir --upgrade "cryptography==${CRYPTOGRAPHY_VERSION}"
+    # separate from the system pip environment - patch its cryptography too.
+    # Use "python3 -m pip", not the "pip" console script: azure-cli's deb
+    # ships that script with a shebang baked in from Microsoft's own build
+    # environment (/mnt/repo/python_env/bin/python3), which doesn't exist here.
+    /opt/az/bin/python3 -m pip install --no-cache-dir --upgrade "cryptography==${CRYPTOGRAPHY_VERSION}"
 
 # PowerShell Installation
 ARG PS_VERSION=7.6.3

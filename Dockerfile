@@ -97,7 +97,10 @@ RUN mkdir -p /etc/apt/keyrings && \
     apt-get update && \
     apt-get install --no-install-recommends -y azure-cli=$AZURECLI_VERSION-1~$AZ_DIST && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    # azure-cli vendors its own venv under /opt/az with its own pinned deps,
+    # separate from the system pip environment - patch its cryptography too
+    /opt/az/bin/pip install --no-cache-dir --upgrade "cryptography==${CRYPTOGRAPHY_VERSION}"
 
 # PowerShell Installation
 ARG PS_VERSION=7.6.3

@@ -39,8 +39,9 @@ class VersionParser:
 
     def check_python_version(self):
         # Specifying the Python version for installation via apt (saves time and reduces image size). Refer to issue #104.
-        # While manual updates for the Python version are needed, 3.11 has been reliable so far (on Ubuntu:22.04 base image).
-        python_version = "3.11"
+        # Manual updates are needed here since this tracks whatever Python version ships
+        # in the pinned Ubuntu base image's apt repos (3.12 on Ubuntu:24.04).
+        python_version = "3.12"
         return python_version
 
     def check_kubectl_version(self):

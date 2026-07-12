@@ -1,5 +1,5 @@
-# Use the official Ubuntu 22.04 base image
-ARG UBUNTU_VERSION=22.04
+# Use the official Ubuntu 24.04 base image
+ARG UBUNTU_VERSION=24.04
 FROM ubuntu:${UBUNTU_VERSION}
 
 # Set environment variables to avoid interactive installation prompts
@@ -8,8 +8,11 @@ ARG TZ=UTC
 
 # Install required packages + Python in a single layer so the apt cache
 # never lingers in the image (deleting it in a later layer does not shrink
-# the layer that downloaded it)
-ARG PYTHON_VERSION=3.11
+# the layer that downloaded it).
+# Package names below are Ubuntu 24.04 (noble)'s post 64-bit-time_t-transition
+# names: libicu74 (was libicu70), libssl3t64 (was libssl3), libgcc-s1 (was
+# libgcc1), liblttng-ust1t64 (was liblttng-ust1).
+ARG PYTHON_VERSION=3.12
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     ca-certificates \
@@ -23,12 +26,12 @@ RUN apt-get update && \
     openssh-client \
     locales \
     gss-ntlmssp \
-    libicu70 \
-    libssl3 \
+    libicu74 \
+    libssl3t64 \
     libc6 \
-    libgcc1 \
+    libgcc-s1 \
     libgssapi-krb5-2 \
-    liblttng-ust1 \
+    liblttng-ust1t64 \
     libstdc++6 \
     zlib1g \
     python${PYTHON_VERSION} && \
@@ -36,7 +39,7 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Install pip for Python 3.11
+# Install pip for Python 3.12
 RUN curl -k https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     python3 get-pip.py && \
     rm get-pip.py
@@ -44,7 +47,7 @@ RUN curl -k https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
 # Install Ansible
 # cryptography is pinned explicitly (rather than left to ansible-core's
 # transitive resolution) because older wheels bundle a vulnerable OpenSSL
-ARG ANSIBLE_VERSION=2.19.11
+ARG ANSIBLE_VERSION=2.21.1
 ARG CRYPTOGRAPHY_VERSION=49.0.0
 RUN python3 -m pip install ansible-core==${ANSIBLE_VERSION} cryptography==${CRYPTOGRAPHY_VERSION}
 
@@ -120,7 +123,7 @@ ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false \
     LANG=en_US.UTF-8 \
     PS_INSTALL_FOLDER=/opt/microsoft/powershell/$PS_INSTALL_VERSION \
     PSModuleAnalysisCachePath=/var/cache/microsoft/powershell/PSModuleAnalysisCache/ModuleAnalysisCache \
-    POWERSHELL_DISTRIBUTION_CHANNEL=PSDocker-Ubuntu-22.04
+    POWERSHELL_DISTRIBUTION_CHANNEL=PSDocker-Ubuntu-24.04
 
 RUN locale-gen $LANG && update-locale && \
     export POWERSHELL_TELEMETRY_OPTOUT=1 && \

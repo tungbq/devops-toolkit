@@ -104,12 +104,12 @@ Explore the comprehensive guide below to gain insight into the detailed utilizat
 
 ## The DevOps Toolkit Core 🧰
 
-Built on `ubuntu:22.04` base image
+Built on `ubuntu:24.04` base image
 
 | Name       | Version                 | Release                                                                      | Usage                                              |
 | :--------- | :---------------------- | :--------------------------------------------------------------------------- | :------------------------------------------------- |
-| Python     | PYTHON_VERSION=3.11     | [Check](https://www.python.org/downloads/source/)                            | [python_usage](./docs/usage/python_usage.md)       |
-| Ansible    | ANSIBLE_VERSION=2.19.11  | [Check](https://api.github.com/repos/ansible/ansible/releases/latest)        | [ansible_usage](./docs/usage/ansible_usage.md)     |
+| Python     | PYTHON_VERSION=3.12     | [Check](https://www.python.org/downloads/source/)                            | [python_usage](./docs/usage/python_usage.md)       |
+| Ansible    | ANSIBLE_VERSION=2.21.1  | [Check](https://api.github.com/repos/ansible/ansible/releases/latest)        | [ansible_usage](./docs/usage/ansible_usage.md)     |
 | Terraform  | TERRAFORM_VERSION=1.15.8 | [Check](https://releases.hashicorp.com/terraform/)                           | [terraform_usage](./docs/usage/terraform_usage.md) |
 | Kubectl    | KUBECTL_VERSION=1.36.2  | [Check](https://dl.k8s.io/release/stable.txt)                                | [kubectl_usage](./docs/usage/kubectl_usage.md)     |
 | Helm       | HELM_VERSION=3.21.3     | [Check](https://github.com/helm/helm/releases)                               | [helm_usage](./docs/usage/helm_usage.md)           |

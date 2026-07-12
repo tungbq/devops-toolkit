@@ -115,7 +115,7 @@ Built on `ubuntu:22.04` base image
 | Helm       | HELM_VERSION=3.17.2     | [Check](https://github.com/helm/helm/releases)                               | [helm_usage](./docs/usage/helm_usage.md)           |
 | AwsCLI     | AWSCLI_VERSION=2.24.24  | [Check](https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst)      | [awscli_usage](./docs/usage/awscli_usage.md)       |
 | AzureCLI   | AZURECLI_VERSION=2.70.0 | [Check](https://learn.microsoft.com/en-us/cli/azure/release-notes-azure-cli) | [azurecli_usage](./docs/usage/azurecli_usage.md)   |
-| PowerShell | PS_VERSION=7.5.0        | [Check](https://github.com/PowerShell/PowerShell/releases)                   | TODO                                               |
+| PowerShell | PS_VERSION=7.5.0        | [Check](https://github.com/PowerShell/PowerShell/releases)                   | [powershell_usage](./docs/usage/powershell_usage.md) |
 
 And more tools to be implemented...
 

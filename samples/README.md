@@ -70,3 +70,10 @@ gh --version
 ## AzureCLI
 
 - TODO
+
+## GCloudCLI
+
+```bash
+# Check Google Cloud CLI version
+gcloud --version
+```

@@ -17,7 +17,7 @@
 
 ## Key Features
 
-- **Comprehensive Toolset**: Pre-installed with tools like Git, Python, Ansible, Terraform, kubectl, Helm, GitHub CLI, AWS CLI, Azure CLI, and more.
+- **Comprehensive Toolset**: Pre-installed with tools like Git, Python, Ansible, Terraform, kubectl, Helm, GitHub CLI, AWS CLI, Azure CLI, Google Cloud CLI, and more.
 - **Easy Integration**: Use it directly or customize it with your preferred versions.
 - **Efficient Updates**: Tool versions are checked automatically and verified against the real installed binaries before every release, so published images track current, patched versions rather than drifting silently.
 - **Configuration Reusability**: Mounts host config folders for seamless reuse across sessions.
@@ -116,6 +116,7 @@ Built on `ubuntu:24.04` base image
 | GitHub CLI | GH_VERSION=2.96.0       | [Check](https://github.com/cli/cli/releases)                                 | [githubcli_usage](./docs/usage/githubcli_usage.md) |
 | AwsCLI     | AWSCLI_VERSION=2.35.21  | [Check](https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst)      | [awscli_usage](./docs/usage/awscli_usage.md)       |
 | AzureCLI   | AZURECLI_VERSION=2.88.0 | [Check](https://learn.microsoft.com/en-us/cli/azure/release-notes-azure-cli) | [azurecli_usage](./docs/usage/azurecli_usage.md)   |
+| GCloudCLI  | GCLOUD_VERSION=575.0.1  | [Check](https://cloud.google.com/sdk/docs/release-notes)                     | [gcloudcli_usage](./docs/usage/gcloudcli_usage.md) |
 | PowerShell | PS_VERSION=7.6.3        | [Check](https://github.com/PowerShell/PowerShell/releases)                   | [powershell_usage](./docs/usage/powershell_usage.md) |
 
 And more tools to be implemented...

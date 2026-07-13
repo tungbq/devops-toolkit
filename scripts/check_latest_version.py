@@ -52,6 +52,14 @@ class VersionParser:
         version_pattern = re.compile(r'\b(\d+\.\d+\.\d+)\b')
         return self.check_version("awscli", "https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst", version_pattern)
 
+    def check_gcloud_version(self):
+        # Google Cloud CLI isn't distributed via GitHub releases; its rapid-channel
+        # manifest is the canonical source gcloud itself uses to check for updates.
+        req = self.do_http_request("https://dl.google.com/dl/cloudsdk/channels/rapid/components-2.json")
+        latest_version = req["version"]
+        print(f"Latest version of Google Cloud CLI: {latest_version}")
+        return latest_version
+
     def check_github_release_version(self, name, repo, tag_prefix="v"):
         print(f"Checking {name} version from repo {repo} using tag prefix: {tag_prefix}")
         latest_version = None
@@ -98,6 +106,10 @@ def main(output_file):
         # AZ CLi
         azcli_version = version_parser.check_github_release_version("Azure CLI", "Azure/azure-cli", "azure-cli-")
         versions["azurecli"] = azcli_version
+
+        # Google Cloud CLI
+        gcloud_version = version_parser.check_gcloud_version()
+        versions["gcloudcli"] = gcloud_version
 
         # PowerShell Core
         pwsh_version = version_parser.check_github_release_version("PowerShell", "PowerShell/PowerShell", "v")

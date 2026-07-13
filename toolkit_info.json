@@ -7,5 +7,6 @@
   "githubcli": "2.96.0",
   "awscli": "2.35.21",
   "azurecli": "2.88.0",
+  "gcloudcli": "575.0.1",
   "pwsh": "7.6.3"
 }

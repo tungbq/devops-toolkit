@@ -122,6 +122,37 @@ RUN mkdir -p /etc/apt/keyrings && \
     # environment (/mnt/repo/python_env/bin/python3), which doesn't exist here.
     /opt/az/bin/python3 -m pip install --no-cache-dir --break-system-packages --upgrade "cryptography==${CRYPTOGRAPHY_VERSION}"
 
+# Install Google Cloud CLI
+ARG GCLOUD_VERSION=575.0.1
+RUN mkdir -p /tmp/gcloud_env/ && \
+    cd /tmp/gcloud_env/ && \
+    wget "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-${GCLOUD_VERSION}-linux-x86_64.tar.gz" && \
+    tar -xzf google-cloud-cli-${GCLOUD_VERSION}-linux-x86_64.tar.gz -C /opt && \
+    /opt/google-cloud-sdk/install.sh --quiet --usage-reporting=false --path-update=false --command-completion=false --rc-path=/dev/null && \
+    ln -sf /opt/google-cloud-sdk/bin/gcloud /usr/local/bin/gcloud && \
+    ln -sf /opt/google-cloud-sdk/bin/gsutil /usr/local/bin/gsutil && \
+    ln -sf /opt/google-cloud-sdk/bin/bq /usr/local/bin/bq && \
+    # gcloud vendors its own bundled Python under platform/bundledpythonunix
+    # with its own pinned deps, separate from the system pip environment -
+    # patch its cryptography too (same issue as azure-cli's /opt/az venv).
+    # gcloud also vendors pyOpenSSL, which imports cryptography's internal
+    # OpenSSL bindings directly - bumping cryptography alone (even with
+    # --no-deps, even with full --upgrade resolution, since pyOpenSSL isn't
+    # a *dependency* of cryptography so neither approach touches it) leaves
+    # pyOpenSSL calling attributes cryptography's bindings no longer expose
+    # ("AttributeError: module 'lib' has no attribute 'GEN_EMAIL'"). Bump
+    # both together, pinned to versions PyPI declares compatible with each
+    # other, and use --no-deps so nothing else in the pinned snapshot moves.
+    BUNDLED_PY=$(find /opt/google-cloud-sdk/platform/bundledpythonunix -maxdepth 2 -type f -name "python3*" ! -name "*-config" | head -1) && \
+    "$BUNDLED_PY" -m pip install --no-cache-dir --break-system-packages --force-reinstall --no-deps \
+      "cryptography==${CRYPTOGRAPHY_VERSION}" "pyOpenSSL==26.3.0" && \
+    # gsutil vendors urllib3's entire source tree, including urllib3's own
+    # test-only dummy TLS server fixtures (dead weight here, and their
+    # checked-in dummy private keys trip vulnerability scanners as if they
+    # were real secrets)
+    rm -rf /opt/google-cloud-sdk/platform/gsutil/third_party/urllib3/dummyserver && \
+    rm -rf /tmp/gcloud_env/
+
 # PowerShell Installation
 ARG PS_VERSION=7.6.3
 ARG PS_PACKAGE=powershell_${PS_VERSION}-1.deb_amd64.deb

@@ -19,7 +19,7 @@
 
 - **Comprehensive Toolset**: Pre-installed with tools like Git, Python, Ansible, Terraform, kubectl, Helm, GitHub CLI, AWS CLI, Azure CLI, and more.
 - **Easy Integration**: Use it directly or customize it with your preferred versions.
-- **Efficient Updates**: Weekly updates ensure the latest versions and security patches.
+- **Efficient Updates**: Tool versions are checked automatically and verified against the real installed binaries before every release, so published images track current, patched versions rather than drifting silently.
 - **Configuration Reusability**: Mounts host config folders for seamless reuse across sessions.
 
 ## Getting Started
@@ -121,6 +121,8 @@ Built on `ubuntu:24.04` base image
 And more tools to be implemented...
 
 ## Security 🔒
+
+Whichever tag you pull — `latest` or a pinned `vX.Y.Z` release — you're getting a specific, reproducible set of tool versions, not a silently drifting image. Every version we ship is built from the exact tool versions recorded in [`toolkit_info.json`](./toolkit_info.json), verified against the real installed binaries, and scanned for vulnerabilities before it's published, so you can standardize on the toolkit without re-verifying it yourself each time.
 
 - Every image is scanned for `CRITICAL`/`HIGH` vulnerabilities with [Trivy](https://github.com/aquasecurity/trivy) before it is merged and before it is published to Docker Hub — builds with fixable findings are blocked.
 - The published `latest` image is re-scanned on a recurring schedule, and all scan results are published to this repo's [Security tab](https://github.com/tungbq/devops-toolkit/security/code-scanning).

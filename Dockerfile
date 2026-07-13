@@ -132,6 +132,16 @@ RUN mkdir -p /tmp/gcloud_env/ && \
     ln -sf /opt/google-cloud-sdk/bin/gcloud /usr/local/bin/gcloud && \
     ln -sf /opt/google-cloud-sdk/bin/gsutil /usr/local/bin/gsutil && \
     ln -sf /opt/google-cloud-sdk/bin/bq /usr/local/bin/bq && \
+    # gcloud vendors its own bundled Python under platform/bundledpythonunix
+    # with its own pinned deps, separate from the system pip environment -
+    # patch its cryptography too (same issue as azure-cli's /opt/az venv).
+    BUNDLED_PY=$(find /opt/google-cloud-sdk/platform/bundledpythonunix -maxdepth 2 -type f -name "python3*" ! -name "*-config" | head -1) && \
+    "$BUNDLED_PY" -m pip install --no-cache-dir --break-system-packages --upgrade "cryptography==${CRYPTOGRAPHY_VERSION}" && \
+    # gsutil vendors urllib3's entire source tree, including urllib3's own
+    # test-only dummy TLS server fixtures (dead weight here, and their
+    # checked-in dummy private keys trip vulnerability scanners as if they
+    # were real secrets)
+    rm -rf /opt/google-cloud-sdk/platform/gsutil/third_party/urllib3/dummyserver && \
     rm -rf /tmp/gcloud_env/
 
 # PowerShell Installation

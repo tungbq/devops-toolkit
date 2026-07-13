@@ -13,6 +13,7 @@
   <a href="https://github.com/tungbq/devops-toolkit/actions/workflows/vulnerability-scanner.yaml"><img alt="Vulnerability scan" src="https://github.com/tungbq/devops-toolkit/actions/workflows/vulnerability-scanner.yaml/badge.svg"/></a>
   <a href="https://hub.docker.com/r/tungbq/devops-toolkit"><img alt="tungbq/devops-toolkit" src="https://img.shields.io/docker/pulls/tungbq/devops-toolkit"/></a>
   <a href="https://github.com/tungbq/devops-toolkit/stargazers"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/tungbq/devops-toolkit"/></a>
+  <a href="./LICENSE"><img alt="License" src="https://img.shields.io/github/license/tungbq/devops-toolkit"/></a>
 </p>
 
 ## Key Features
@@ -138,6 +139,10 @@ Whichever tag you pull — `latest` or a pinned `vX.Y.Z` release — you're gett
 - Looking for the issue to work on? Check the list of our open issues [**good first issue**](https://github.com/tungbq/devops-toolkit/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 - Feel free to open a new issue if you encounter the toolkit bug or want to request more content about DevOps toolkit
 - Submit a [new issue](https://github.com/tungbq/devops-toolkit/issues/new) (🐛) if you encounter the bug/error when using this toolkit
+
+## License 📄
+
+Licensed under the [Apache License, Version 2.0](./LICENSE). You're free to use, modify, and distribute this project, including commercially, provided you retain the copyright notice and state significant changes. The license also grants an explicit patent license from contributors and includes the standard "AS IS" warranty disclaimer.
 
 ## Hit the Star! ⭐
 

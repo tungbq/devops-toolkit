@@ -4,6 +4,7 @@
   "terraform": "1.15.8",
   "kubectl": "1.36.2",
   "helm": "3.21.3",
+  "githubcli": "2.96.0",
   "awscli": "2.35.21",
   "azurecli": "2.88.0",
   "pwsh": "7.6.3"

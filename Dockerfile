@@ -83,6 +83,15 @@ RUN mkdir /tmp/helm_env/ && \
     mv linux-amd64/helm /usr/local/bin/helm && \
     rm -rf /tmp/helm_env/
 
+# Install GitHub CLI
+ARG GH_VERSION=2.96.0
+RUN mkdir /tmp/gh_env/ && \
+    cd /tmp/gh_env/ && \
+    wget https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_amd64.tar.gz && \
+    tar -xvzf gh_${GH_VERSION}_linux_amd64.tar.gz && \
+    cp gh_${GH_VERSION}_linux_amd64/bin/gh /usr/local/bin/gh && \
+    rm -rf /tmp/gh_env/
+
 # Install AwsCLI
 ARG AWSCLI_VERSION=2.35.21
 RUN mkdir /tmp/awscli_env/ && \

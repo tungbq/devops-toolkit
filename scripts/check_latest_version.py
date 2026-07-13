@@ -87,6 +87,10 @@ def main(output_file):
         helm_version = version_parser.check_github_release_version("Helm", "helm/helm")
         versions["helm"] = helm_version
 
+        # GitHub CLI
+        githubcli_version = version_parser.check_github_release_version("GitHub CLI", "cli/cli")
+        versions["githubcli"] = githubcli_version
+
         # Awscli
         awscli_version = version_parser.check_awscli_version()
         versions["awscli"] = awscli_version

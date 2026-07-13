@@ -56,6 +56,13 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm search repo bitnami | grep jenkins
 ```
 
+## GitHub CLI
+
+```bash
+# Check GitHub CLI version
+gh --version
+```
+
 ## AwsCLI
 
 - TODO

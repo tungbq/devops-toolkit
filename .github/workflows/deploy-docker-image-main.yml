@@ -78,7 +78,7 @@ jobs:
           output-file: 'sbom.cyclonedx.json'
 
       - name: Upload SBOM artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: sbom-main-${{ github.sha }}
           path: sbom.cyclonedx.json

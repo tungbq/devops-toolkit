@@ -61,6 +61,7 @@ if __name__ == "__main__":
         {"name": "githubcli", "version_arg": "GH_VERSION"},
         {"name": "awscli", "version_arg": "AWSCLI_VERSION"},
         {"name": "azurecli", "version_arg": "AZURECLI_VERSION"},
+        {"name": "gcloudcli", "version_arg": "GCLOUD_VERSION"},
         {"name": "pwsh", "version_arg": "PS_VERSION"}
     ]
 

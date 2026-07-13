@@ -34,6 +34,10 @@ This guide us how to use the `devops-toolkit` with serveral usecases
 
 - Check [**azurecli_usage**](./azurecli_usage.md)
 
+## GCloudCLI
+
+- Check [**gcloudcli_usage**](./gcloudcli_usage.md)
+
 ## PowerShell
 
 - Check [**powershell_usage**](./powershell_usage.md)

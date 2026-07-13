@@ -12,6 +12,7 @@ helm_version=$(cat "$toolkit_info_path" | jq -r '.helm')
 githubcli_version=$(cat "$toolkit_info_path" | jq -r '.githubcli')
 awscli_version=$(cat "$toolkit_info_path" | jq -r '.awscli')
 azurecli_version=$(cat "$toolkit_info_path" | jq -r '.azurecli')
+gcloudcli_version=$(cat "$toolkit_info_path" | jq -r '.gcloudcli')
 pwsh_version=$(cat "$toolkit_info_path" | jq -r '.pwsh')
 
 # Print the versions
@@ -24,6 +25,7 @@ echo "helm_version=$helm_version"
 echo "githubcli_version=$githubcli_version"
 echo "awscli_version=$awscli_version"
 echo "azurecli_version=$azurecli_version"
+echo "gcloudcli_version=$gcloudcli_version"
 echo "pwsh_version=$pwsh_version"
 
 # Define the tools and their expected versions
@@ -36,6 +38,7 @@ declare -A tools=(
   [gh]="$githubcli_version"
   [aws]="$awscli_version"
   [az]="$azurecli_version"
+  [gcloud]="$gcloudcli_version"
   [pwsh]="$pwsh_version"
   # Add more tools as needed
 )

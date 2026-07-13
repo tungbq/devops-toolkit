@@ -51,3 +51,9 @@ helm search repo bitnami | grep jenkins
 console_log "Running GitHub CLI sample: check version"
 gh --version
 
+###########
+# Google Cloud CLI
+###########
+console_log "Running Google Cloud CLI sample: check version"
+gcloud --version
+

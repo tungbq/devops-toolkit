@@ -24,6 +24,8 @@
 
 ## Getting Started
 
+> The commands below are written for a Bash host shell. Running from a Windows PowerShell host? See [**windows_usage**](./docs/usage/windows_usage.md) for the PowerShell-syntax equivalents.
+
 ### 1. Quick Start
 
 ```bash

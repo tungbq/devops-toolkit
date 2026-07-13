@@ -42,6 +42,10 @@ This guide us how to use the `devops-toolkit` with serveral usecases
 
 - Check [**powershell_usage**](./powershell_usage.md)
 
+## Windows (PowerShell host)
+
+- Running the toolkit from a Windows PowerShell host? Check [**windows_usage**](./windows_usage.md)
+
 ## Troubleshooting
 
 - For any issues, check [this document](../troubleshooting/TROUBLESHOOTING.md)

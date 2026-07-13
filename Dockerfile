@@ -135,8 +135,13 @@ RUN mkdir -p /tmp/gcloud_env/ && \
     # gcloud vendors its own bundled Python under platform/bundledpythonunix
     # with its own pinned deps, separate from the system pip environment -
     # patch its cryptography too (same issue as azure-cli's /opt/az venv).
+    # --no-deps: gcloud's bundled Python is a tightly pinned snapshot: a
+    # plain --upgrade let pip cascade-upgrade other packages (e.g. cffi) to
+    # satisfy cryptography's declared constraints, which broke the
+    # interpreter gcloud itself runs on. Installing cryptography alone,
+    # with no dependency resolution, avoids touching anything else.
     BUNDLED_PY=$(find /opt/google-cloud-sdk/platform/bundledpythonunix -maxdepth 2 -type f -name "python3*" ! -name "*-config" | head -1) && \
-    "$BUNDLED_PY" -m pip install --no-cache-dir --break-system-packages --upgrade "cryptography==${CRYPTOGRAPHY_VERSION}" && \
+    "$BUNDLED_PY" -m pip install --no-cache-dir --break-system-packages --force-reinstall --no-deps "cryptography==${CRYPTOGRAPHY_VERSION}" && \
     # gsutil vendors urllib3's entire source tree, including urllib3's own
     # test-only dummy TLS server fixtures (dead weight here, and their
     # checked-in dummy private keys trip vulnerability scanners as if they

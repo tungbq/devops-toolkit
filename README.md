@@ -21,6 +21,7 @@
 - **Comprehensive Toolset**: Pre-installed with tools like Git, Python, Ansible, Terraform, kubectl, Helm, GitHub CLI, AWS CLI, Azure CLI, Google Cloud CLI, and more.
 - **Easy Integration**: Use it directly or customize it with your preferred versions.
 - **Efficient Updates**: Tool versions are checked automatically and verified against the real installed binaries before every release, so published images track current, patched versions rather than drifting silently.
+- **Security-First**: Every image is scanned for `CRITICAL`/`HIGH` vulnerabilities before merge and before publish, builds with fixable findings are blocked, and a CycloneDX SBOM is generated for every build — see [Security 🔒](#security-) below.
 - **Configuration Reusability**: Mounts host config folders for seamless reuse across sessions.
 
 ## Getting Started

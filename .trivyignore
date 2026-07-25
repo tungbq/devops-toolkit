@@ -15,3 +15,8 @@ CVE-2026-39822
 # terraform v1.15.8 - stdlib
 CVE-2026-27145
 CVE-2026-42504
+
+# gh v2.96.0 and terraform v1.15.8 - vendored google.golang.org/grpc
+# Fixed in grpc-go v1.82.1, but neither upstream has cut a release with the
+# bump yet. Re-evaluate whenever GH_VERSION or TERRAFORM_VERSION changes.
+GHSA-hrxh-6v49-42gf

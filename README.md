@@ -10,7 +10,6 @@
   <a href="https://github.com/tungbq/devops-toolkit/commits/main"><img alt="last commit" src="https://img.shields.io/github/last-commit/tungbq/devops-toolkit/main" /></a>
   <a href="https://github.com/tungbq/devops-toolkit/releases"><img alt="devops-toolkit release" src="https://img.shields.io/github/release/tungbq/devops-toolkit.svg" /></a>
   <a href="https://github.com/tungbq/devops-toolkit/actions/workflows/deploy-docker-image-release.yml"><img alt="Docker release" src="https://github.com/tungbq/devops-toolkit/actions/workflows/deploy-docker-image-release.yml/badge.svg"/></a>
-  <a href="https://github.com/tungbq/devops-toolkit/actions/workflows/vulnerability-scanner.yaml"><img alt="Vulnerability scan" src="https://github.com/tungbq/devops-toolkit/actions/workflows/vulnerability-scanner.yaml/badge.svg"/></a>
   <a href="https://hub.docker.com/r/tungbq/devops-toolkit"><img alt="tungbq/devops-toolkit" src="https://img.shields.io/docker/pulls/tungbq/devops-toolkit"/></a>
   <a href="https://github.com/tungbq/devops-toolkit/stargazers"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/tungbq/devops-toolkit"/></a>
   <a href="./LICENSE"><img alt="License" src="https://img.shields.io/github/license/tungbq/devops-toolkit"/></a>

@@ -18,7 +18,7 @@ At this point, your container already started with `demo/provistion-azure-vm` co
 ## Login to Azure
 
 ```bash
-# In devops-toolkit contaienr env
+# In devops-toolkit container env
 az account show
 az login --use-device-code
 # Follow the cmd output to login
@@ -27,21 +27,21 @@ az login --use-device-code
 ## Initialize Terraform
 
 ```bash
-# In devops-toolkit contaienr env
+# In devops-toolkit container env
 terraform init
 ```
 
 ## Plan Terraform
 
 ```bash
-# In devops-toolkit contaienr env
+# In devops-toolkit container env
 terraform plan
 ```
 
 ## Apply Terraform
 
 ```bash
-# In devops-toolkit contaienr env
+# In devops-toolkit container env
 terraform apply
 ```
 
@@ -57,7 +57,7 @@ Enter 'yes' to confirm
 Destroy the resources with terraform if they are not used anymore:
 
 ```bash
-# In devops-toolkit contaienr env
+# In devops-toolkit container env
 terraform destroy
 ```
 
